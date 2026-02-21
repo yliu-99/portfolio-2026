@@ -84,8 +84,8 @@ Gutter - 16px
 
 #### Page Margins (desktop, tablet, mobile)
 Desktop - 24px
-Mobile/Tablet - 16px
-
+Tablet - 20px
+Mobile - 16px
 #### Section Padding / Vertical Rhythm
 Desktop - 56px
 Tablet - 40px
@@ -95,7 +95,9 @@ Mobile - 32px
 ### 1.5 Breakpoints & Responsive Rules
 
 #### Breakpoint Values (mobile, tablet, desktop, wide)
-
+Large: min-width 1080px
+Medium: min-width 834px
+Small: min-width 568px
 #### Layout Shifts per Breakpoint (columns, stacking order, visibility)
 
 #### Font Size Adjustments per Breakpoint
@@ -163,7 +165,7 @@ Mobile - 32px
 ### 2.1 Navigation
 
 #### Header / Navbar (layout, logo placement, link style, mobile behaviour)
-
+Desktop/
 #### Footer (layout, columns, link groups)
 
 #### Mobile Menu (type, animation, overlay)
