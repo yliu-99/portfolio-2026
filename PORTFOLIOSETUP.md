@@ -133,6 +133,7 @@ Small: min-width 568px
 ---
 
 ### 1.9 Imagery & Media
+#### Image Optimization
 
 #### Image Aspect Ratios Used
 
@@ -165,11 +166,14 @@ Small: min-width 568px
 ### 2.1 Navigation
 
 #### Header / Navbar (layout, logo placement, link style, mobile behaviour)
-Desktop/
+Header sticky to show animated logo during scroll
 #### Footer (layout, columns, link groups)
-
+Top Border - 2px black
+Large/Medium Padding - 24px 48px 
+Small Padding - 16px 24px
 #### Mobile Menu (type, animation, overlay)
-
+Hamburger Menu, Logo and Hamburger Icon
+Overlay - 
 ---
 
 ### 2.2 Buttons
@@ -187,7 +191,11 @@ Desktop/
 ### 2.3 Cards
 
 #### Variants (project card, content card, feature card, etc.)
-
+Project Card
+Suggested Card
+Polaroids
+Polaroid Pop-up
+Value Card
 #### Structure (image, title, description, tags, CTA)
 
 #### Hover Behaviour
@@ -350,10 +358,11 @@ Tailwind, Framer Motion, GSAP
 
 ### 4.2 Naming Conventions
 
-#### CSS Class Naming
-lowercase with dash for spaces
-#### Component File Naming
-CamelCase
+#### All Naming Rules
+- kebab-case: folders, media (images/video), css classes
+- PascalCase: components, component files, css modules, props
+- camelCase: css module classes, variables & functions, Booleans, hooks
+
 #### Colour / Token Variable Naming
 
 ---
