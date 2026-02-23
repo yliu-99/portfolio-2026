@@ -30,7 +30,7 @@ N/A for now
 ### 1.2 Typography
 
 #### Font Families (headings, body, monospace/code)
-Headings - Anton Regular
+Headings - Anton Regular, Uppercase
 Body - Source Sans 3
 
 #### Font Weights Used
@@ -95,9 +95,11 @@ Mobile - 32px
 ### 1.5 Breakpoints & Responsive Rules
 
 #### Breakpoint Values (mobile, tablet, desktop, wide)
-Large: min-width 1080px
-Medium: min-width 834px
-Small: min-width 568px
+sm: min-width 640px
+md: min-width 768px
+lg: min-width 1024px
+xl: min-width 1280px
+2xl: min-width 1536px
 #### Layout Shifts per Breakpoint (columns, stacking order, visibility)
 
 #### Font Size Adjustments per Breakpoint

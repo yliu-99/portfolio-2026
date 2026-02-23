@@ -1,0 +1,33 @@
+// import fonts
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+:root {
+    --blue: #3639FB;
+    --red: #E91A14;
+    --beige: #E5E5DE;
+    --black:#25242F;
+    --title: "Anton SC", sans-serif;
+    --body: "Source Sans 3", sans-serif;
+
+    /* Type scale */
+    --font-size-h1: 4.209rem;
+    --font-size-h2: 3.157rem;
+    --font-size-h3: 2.369rem;
+    --font-size-h4: 1.777rem;
+    --font-size-h5: 1.333rem;
+    --font-size-h6: 1rem;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--title);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+main {
+    flex-grow: 1;
+}
+body {
+    background-color: var(--beige);
+}
