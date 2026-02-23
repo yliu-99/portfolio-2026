@@ -9,7 +9,7 @@ import './Footer.scss';
 
 function Footer() {
   return (
-    <footer className="footer col-span-ful bottom-0 bg-red text-beige  p-4 border-t-black border-t-3">
+    <footer className="footer col-span-full bottom-0 bg-red text-beige p-4 border-t-black border-t-3">
     <div className="footer-container grid grid-cols-2 md:grid-cols-3 ">
       <div className="name text-h5 font-title uppercase flex justify-center items-center">
         <a href="/">Yuhan Liu.</a>

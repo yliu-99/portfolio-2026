@@ -63,8 +63,8 @@ function App() {
   return (
     <Router>
       <div className="app flex flex-col min-h-screen">
-        <div className="md:hidden"><HamburgerMenu /></div>
-        <div className="hidden md:block"><Header /></div>
+        <div className="lg:hidden"><HamburgerMenu /></div>
+        <div className="hidden lg:block"><Header /></div>
         <main className='main-content grid grid-cols-12 gap-4 px-4 md:px-5 lg:px-6 pt-16'>
           <Content/>
         </main>
