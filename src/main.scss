@@ -35,10 +35,6 @@ html {
     background: var(--beige); 
 }
 
-body {
-    background-color: transparent;
-}
-
 body::before {
   content: "";
   position: fixed;

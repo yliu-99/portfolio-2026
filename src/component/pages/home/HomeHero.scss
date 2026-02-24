@@ -1,12 +1,70 @@
+// ── Hero graphic ─────────────────────────────────────────────────────────────
 .hero-graphic {
     position: relative;
-    display: inline-block;
 }
 
 .animated-text {
+    // blue circle: cx=357.748/715=50%, cy=215.33/523=41.2%, r=170/715=47.6% of width
     position: absolute;
     width: 75%;
     left: 50%;
     top: 41.2%;
     transform: translate(-50%, -50%);
+}
+
+// ── Side numbers ──────────────────────────────────────────────────────────────
+// writing-mode keeps layout dimensions correct (no transform overflow issues)
+.animated-numbers {
+    writing-mode: vertical-rl;
+    display: flex;
+    justify-content: center;
+    font-size: 0.8rem;
+    overflow: hidden;
+
+    &.left {
+        align-items: flex-end;
+    }
+    span {
+        display: block;
+        overflow: hidden;
+    }
+
+}
+
+// ── Side labels ───────────────────────────────────────────────────────────────
+.left-label {
+    writing-mode: vertical-rl;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5rem;
+    opacity: 0.7;
+    span{
+        display: block;
+    }
+}
+
+.right-label {
+    writing-mode: vertical-rl; // reads top-to-bottom
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5rem;
+    opacity: 0.7;
+
+    div{
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+
+
+    .triangle {
+        writing-mode: horizontal-tb; // restore normal orientation so ▼ points down
+        display:inline;
+        color: var(--red);
+        font-size: 1.5rem;
+        align-self: center;
+    }
 }

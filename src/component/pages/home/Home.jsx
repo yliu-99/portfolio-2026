@@ -6,7 +6,7 @@ import FeaturedProjects from './FeaturedProjects';
 
 function Home () {
   return (
-    <div className="home col-span-full">
+    <div className="home col-span-12">
       <HomeHero />
       <FeaturedProjects />
     </div>
