@@ -1,7 +1,7 @@
 // import dependencies
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import LogoFull from '../../assets/global-assets/logo-full.png';
+import LogoFull from '../../assets/global-assets/logo-main.png';
 
 // import styles
 import './Header.scss';

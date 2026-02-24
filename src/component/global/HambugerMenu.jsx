@@ -9,7 +9,7 @@ import {
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
 
-import LogoFull from "../../assets/global-assets/logo-full.png";
+import LogoFull from "../../assets/global-assets/logo-main.png";
 
 function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +20,7 @@ function HamburgerMenu() {
       <div className="mobile-menu-container p-6 grid grid-cols-12 items-center border-b-3 border-black">
         <div className="logo col-start-1 flex justify-start">
           <a href="/">
-            <img src={LogoFull} alt="Logo" className="logo-img max-w-8" />
+            <img src={LogoFull} alt="Logo" className="logo-img max-w-8 -h-auto" />
           </a>
         </div>
         <button
