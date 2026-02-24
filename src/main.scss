@@ -28,8 +28,20 @@ h1, h2, h3, h4, h5, h6,
 
 main {
     flex-grow: 1;
-    background-image: url(./assets/global-assets/grid.svg);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
 
+.grid-bg {
+    position: absolute;
+    inset: -40px; // one extra cell so the shifted layer never exposes a gap
+    z-index: -1;
+    pointer-events: none;
+    will-change: transform;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='0' x2='40' y2='0' stroke='%23b3b3b3' stroke-width='2' stroke-opacity='0.7'/%3E%3Cline x1='0' y1='0' x2='0' y2='40' stroke='%23b3b3b3' stroke-width='2' stroke-opacity='0.7'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 40px 40px;
 }
 html {
     background: var(--beige); 

@@ -16,12 +16,27 @@ import "./HomeHero.scss";
 function HomeHero() {
 
   // ── Animated numbers state ───────────────────────────────────────────────
+  const rand = () => Math.floor(Math.random() * 10);
+  const isMd = () => window.matchMedia("(min-width: 768px)").matches;
+
   const [leftNumbers, setLeftNumbers] = useState(
-    Array(20).fill(0).map(() => Math.floor(Math.random() * 10))
+    () => Array(isMd() ? 24 : 16).fill(0).map(rand)
   );
   const [rightNumbers, setRightNumbers] = useState(
-    Array(20).fill(0).map(() => Math.floor(Math.random() * 10))
+    () => Array(isMd() ? 24 : 16).fill(0).map(rand)
   );
+
+  // adjust count on breakpoint change
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const handler = (e) => {
+      const count = e.matches ? 24 : 16;
+      setLeftNumbers(Array(count).fill(0).map(rand));
+      setRightNumbers(Array(count).fill(0).map(rand));
+    };
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   // number flicker interval
   useEffect(() => {
@@ -69,26 +84,27 @@ function HomeHero() {
       });
 
       // ── Circle text stepped rotation (6 words × 60°) ─────────────────────
-      gsap.set(circleRef.current, { transformOrigin: "50% 50%" });
+      gsap.set(circleRef.current, { yPercent: -50, transformOrigin: "50% 50%" });
       const STEP     = 60;   // 360° / 6 words
       const ROT_DUR  = 2.50; // main rotation per step
       const BUMP_DUR = 0.25; // overshoot
       const BACK_DUR = 0.25; // settle
-      const tl = gsap.timeline({ repeat: -1, delay: 2.0 });
+      const tl = gsap.timeline({ repeat: -1, delay: 1.2 });
       for (let i = 1; i <= 6; i++) {
         const deg = STEP * i;
         tl.to(circleRef.current, { rotation: deg,     duration: ROT_DUR,  ease: "power1.in" })
-          .to(circleRef.current, { rotation: deg + 2, duration: BUMP_DUR, ease: "power1.inOut"   })
-          .to(circleRef.current, { rotation: deg,     duration: BACK_DUR, ease: "power1.inOut"    });
+          .to(circleRef.current, { rotation: deg + 2, duration: BUMP_DUR, ease: "power1.inOut" })
+          .to(circleRef.current, { rotation: deg,     duration: BACK_DUR, ease: "power1.inOut" });
       }
     }, heroRef);
+
     return () => ctx.revert();
   }, []);
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
-    <div ref={heroRef} className="container col-span-12">
-      <div className="hero-elements grid grid-cols-12 items-center min-h-[70vh]">
+    <div ref={heroRef} className="col-span-12">
+      <div className="hero-elements grid grid-cols-12 items-center min-h-[calc(100dvh-4rem)] md:min-h-[70vh]">
 
         {/* Col 1 — left numbers */}
         <div ref={leftNumRef}
@@ -105,7 +121,7 @@ function HomeHero() {
 
         {/* Cols 5–8 — hero graphic */}
         <div ref={graphicRef}
-          className="hero-graphic col-start-4 col-end-10 relative">
+          className="hero-graphic justify-center align-middle md:pt-75 col-start-2 col-end-12 sm:col-start-3 sm:col-end-11 md:col-start-4 md:col-end-10">
           <div className="moth">
             <img
               src={mothHero}
@@ -113,7 +129,7 @@ function HomeHero() {
               className="w-full"
             />
           </div>
-          <div ref={circleRef} className="animated-text absolute">
+          <div ref={circleRef} className="animated-text">
             <img
               src={circleText}
               alt="Rotating circular text animation"
