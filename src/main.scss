@@ -1,6 +1,7 @@
 // import fonts
 @import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 
+
 :root {
     --blue: #3639FB;
     --red: #E91A14;
@@ -27,7 +28,22 @@ h1, h2, h3, h4, h5, h6,
 
 main {
     flex-grow: 1;
+    background-image: url(./assets/global-assets/grid.svg);
+
 }
+html {
+    background: var(--beige); 
+}
+
 body {
-    background-color: var(--beige);
+    background-color: transparent;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url(./assets/global-assets/noise.png);
 }
