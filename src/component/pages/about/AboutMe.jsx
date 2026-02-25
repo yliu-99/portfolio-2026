@@ -6,6 +6,7 @@ import gsap from "gsap";
 import SingingImg from "../../../assets/page-assets/about/singing.JPEG";
 import TeapotHillImg from "../../../assets/page-assets/about/teapot-hill.JPEG";
 
+import './AboutMe.scss'
 
 const HERO_IMG = "https://i.postimg.cc/2SjhR5nF/about-me.jpg";
 const TOTAL_STAGES = 3;
@@ -155,14 +156,14 @@ function AboutMe() {
   const { image, Content, objectPos } = stages[stage];
 
   return (
-    <section className="about-me-container -mx-4 md:-mx-5 lg:-mx-6 col-span-12">
+    <section className="about-me-container -mx-4 md:-mx-5 lg:-mx-6 col-span-12 border-3 border-black">
 
       {/* ── lg+: sticky scroll-driven panel ────────────────────────────── */}
       <div ref={wrapperRef} className="hidden lg:block h-[300vh]">
         <div className="sticky top-18 h-[calc(100vh-4.5rem)] grid grid-cols-12">
 
           {/* image */}
-          <div className="col-span-6 relative overflow-hidden">
+          <div className="col-span-6 relative overflow-hidden border-r-3 border-black">
             <img
               key={stage}
               src={image}
