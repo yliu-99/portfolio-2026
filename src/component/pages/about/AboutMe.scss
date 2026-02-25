@@ -1,4 +1,15 @@
 
+.highlight-primary {
+    position: relative;
+    display: inline;
+    color: var(--white);
+    font-weight: bold;
+    padding: 0.05em 0.35em;
+    background: linear-gradient(to right, var(--blue) 10%, var(--red) 10%);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
 .highlight-blue {
     font-weight: bold;
     color: var(--blue);

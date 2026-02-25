@@ -5,6 +5,7 @@ import gsap from "gsap";
 
 import SingingImg from "../../../assets/page-assets/about/singing.JPEG";
 import TeapotHillImg from "../../../assets/page-assets/about/teapot-hill.JPEG";
+import BumbleBeeImg from "../../../assets/page-assets/about/bumble-bee-red.png"
 
 import './AboutMe.scss'
 
@@ -14,18 +15,35 @@ const TOTAL_STAGES = 3;
 // ── static content blocks ──────────────────────────────────────────────────
 
 const TitleOverlay = () => (
-  <div className="section-title-box font-title text-h2 flex items-start absolute bottom-0 right-0 p-6 text-white">
-    <h2>ABOUT ME</h2>
+  <div className="section-title-box font-title text-h2 flex items-center justify-center gap-3 absolute bottom-0 right-0 translate-x-10 pl-6 pr-6 text-white bg-blue z-10">
+    <h2 className="mt-2 ml-4">ABOUT ME</h2>
     <span className="triangle">
       <FontAwesomeIcon icon={faCaretRight} />
     </span>
   </div>
 );
 
-const Paragraph1 = () => (
+function Paragraph1() {
+  const greetingRef = useRef(null);
+
+  useEffect(() => {
+    if (!greetingRef.current) return;
+    const tl = gsap.timeline({ repeat: -1, repeatDelay: 3, delay: 1 });
+    tl.to(greetingRef.current, { rotation: 4,   duration: 0.12, ease: "power1.inOut" })
+      .to(greetingRef.current, { rotation: -2,  duration: 0.12, ease: "power1.inOut" })
+      .to(greetingRef.current, { rotation: 4,   duration: 0.12, ease: "power1.inOut" })
+      .to(greetingRef.current, { rotation: -2,  duration: 0.12, ease: "power1.inOut" })
+      .to(greetingRef.current, { rotation: 4,   duration: 0.12, ease: "power1.inOut" })
+      .to(greetingRef.current, { rotation: 0,   duration: 0.2,  ease: "power1.out"  });
+    return () => tl.kill();
+  }, []);
+
+  return (
   <div className="paragraph-1">
-    <p className="font-body font-bold text-h2 mt-4">Hi, I'm Yuhan!</p>
-    <p className="font-body text-h5 leading-loose mt-4 ">
+    <p className="font-body font-bold text-h2 mt-4">
+      <span ref={greetingRef} className="inline-block" style={{ transformOrigin: "bottom left" }}>Hi,</span> I'm Yuhan!
+    </p>
+    <p className="font-body text-h6 sm:text-h5 leading-loose mt-4">
       I am a{" "}
       <span className="highlight-primary">multidisciplinary designer</span>,
       and creativity is my way of connecting with the world. As a New Media Design and Web Development student at BCIT, I feel
@@ -38,21 +56,22 @@ const Paragraph1 = () => (
       vulnerable and beautiful, in people.
     </p>
   </div>
-);
+  );
+}
 
 const Paragraph2 = () => (
-  <div className="paragraph-2 font-body text-h5 leading-loose">
+  <div className="paragraph-2 font-body text-h6 sm:text-h5 leading-loose">
     <p>
       Before shifting into tech and design, I earned a {" "}
       <span className="highlight-blue">Bachelor's Degree in Music Performance</span> as a classical soprano and also
       spent two years working as a{" "}
-      <span className="highlight-blue">private voice teacher</span>. During this time, I learned both as a student and teacher the ways communication, empathy, and creativity connects people, and how effective storytelling makes an impact on people's lives. These became valuable lessons that I carry into all my creative projects today.
+      <span className="highlight-red">private voice teacher</span>. During this time, I learned both as a student and teacher the ways communication, empathy, and creativity connects people, and how effective storytelling makes an impact on people's lives. These became valuable lessons that I carry into all my creative projects today.
     </p>
   </div>
 );
 
 const Paragraph3 = () => (
-  <div className="paragraph-3 font-body text-h5 leading-loose">
+  <div className="paragraph-3 font-body text-h6 sm:text-h5 leading-loose">
     <p className="mb-4">
         Though I may seem shy at first, I really love connecting with people and hearing their stories. These connections inspire and motivate me, and I really cherish opportunities to learn <span className="highlight-red">new perspectives</span> and ways of thinking.
     </p>
@@ -163,13 +182,15 @@ function AboutMe() {
         <div className="sticky top-18 h-[calc(100vh-4.5rem)] grid grid-cols-12">
 
           {/* image */}
-          <div className="col-span-6 relative overflow-hidden border-r-3 border-black">
-            <img
-              key={stage}
-              src={image}
-              alt="About me"
-              className={`w-full h-full object-cover ${objectPos} fade-in`}
-            />
+          <div className="col-span-6 relative border-r-3 border-black">
+            <div className="absolute inset-0 overflow-hidden">
+              <img
+                key={stage}
+                src={image}
+                alt="About me"
+                className={`w-full h-full object-cover ${objectPos} fade-in`}
+              />
+            </div>
             {stage === 0 && <TitleOverlay />}
           </div>
 
@@ -192,13 +213,13 @@ function AboutMe() {
           <Paragraph1 />
         </div>
         <div className="col-span-12">
-          <img src={SingingImg} alt="Singing" className="w-full object-right" />
+          <img src={SingingImg} alt="Yuhan singing on stage with a planist" className="w-full object-right " />
         </div>
         <div className="col-span-12 p-8 bg-white">
           <Paragraph2 />
         </div>
         <div className="col-span-12">
-          <img src={TeapotHillImg} alt="Teapot Hill" className="w-full" />
+          <img src={TeapotHillImg} alt="Yuhan posing in frony of teapots at Teapot Hill" className="w-full" />
         </div>
         <div className="col-span-12 p-8 bg-white">
           <Paragraph3 />
