@@ -103,7 +103,7 @@ function HomeHero() {
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
-    <div ref={heroRef} className="col-span-12">
+    <section ref={heroRef} className="col-span-12">
       <div className="hero-elements grid grid-cols-12 items-center min-h-[calc(100dvh-4rem)] md:min-h-[70vh]">
 
         {/* Col 1 — left numbers */}
@@ -121,7 +121,7 @@ function HomeHero() {
 
         {/* Cols 5–8 — hero graphic */}
         <div ref={graphicRef}
-          className="hero-graphic justify-center align-middle md:pt-75 col-start-2 col-end-12 sm:col-start-3 sm:col-end-11 md:col-start-4 md:col-end-10">
+          className="hero-graphic justify-center align-middle md:pt-60 col-start-2 col-end-12 sm:col-start-3 sm:col-end-11 md:col-start-4 md:col-end-10">
           <div className="moth">
             <img
               src={mothHero}
@@ -156,7 +156,7 @@ function HomeHero() {
         </div>
 
       </div>
-    </div>
+    </section>
   );
 }
 
