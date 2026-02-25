@@ -6,6 +6,7 @@
     --blue: #3639FB;
     --red: #E91A14;
     --beige: #E5E5DE;
+    --white: #FFFFFF;
     --black:#25242F;
     --title: "Anton SC", sans-serif;
     --body: "Source Sans 3", sans-serif;
@@ -29,7 +30,7 @@ h1, h2, h3, h4, h5, h6,
 main {
     flex-grow: 1;
     position: relative;
-    overflow: hidden;
+    overflow: clip; // clip (not hidden) so position:sticky works in descendants
     isolation: isolate;
 }
 
@@ -60,3 +61,61 @@ section {
     margin-top: 4rem;
 }
 
+.btn {
+  position: relative;
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  font-family: var(--title); // Preserved
+  font-size: 1rem;  
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  color: var(--white); // Preserved
+  transition: all 0.5s ease-in-out;
+  z-index: 1; // Ensure text is above the background
+
+  // red overlay (starts covering 80%, slides to 20% on hover)
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 90%;
+    height: 100%;
+    background-color: var(--red); // Preserved
+    transition: all 0.4s ease;
+    z-index: -1; // Behind the text
+  }
+
+  // blue left stripe (small strip behind everything)
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--blue); // Same red, just reinforcing the "left strip"
+    z-index: -2; // Under everything
+  }
+
+  // Text content
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  &:hover {
+
+    &::before {
+      transform: translate(90%, 0); // Slides to the left
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}

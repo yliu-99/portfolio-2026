@@ -1,7 +1,11 @@
+import "./About.scss";
+
+import AboutMe from "./AboutMe";
+
 function About() {
   return (
-    <div className="about">
-      <h1>About Me</h1>
+    <div className="about col-span-12">
+      <AboutMe />
     </div>
   );
 }

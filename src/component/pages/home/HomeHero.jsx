@@ -115,8 +115,8 @@ function HomeHero() {
         {/* Col 3 — left label */}
         <div ref={leftLblRef}
           className="left-label col-start-3 col-end-4 font-title tracking-primary">
-          <span className="text-black/70 text-h5">PORTFOLIO</span>
-          <span className="text-red text-h6">2026</span>
+          <span className="text-black/70 text-h4">PORTFOLIO</span>
+          <span className="text-red text-h5">2026</span>
         </div>
 
         {/* Cols 5–8 — hero graphic */}
@@ -141,9 +141,9 @@ function HomeHero() {
         {/* Col 10 — right label */}
         <div ref={rightLblRef}
           className="right-label col-start-10 col-end-11 font-title tracking-primary">
-          <span className="text-black/70 text-h6">CHECKOUT</span>
+          <span className="text-black/70 text-h5">CHECKOUT</span>
           <div className="explore-text">
-        <span className="text-red text-h5">MY WORK</span>
+        <span className="text-red text-h4">MY WORK</span>
           <span ref={triangleRef} className="triangle"><FontAwesomeIcon icon={faCaretDown} /></span>
           </div>
           
