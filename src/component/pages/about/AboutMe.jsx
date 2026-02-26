@@ -41,7 +41,7 @@ function Paragraph1() {
   return (
   <div className="paragraph-1">
     <p className="font-body font-bold text-h2 mt-4">
-      <span ref={greetingRef} className="inline-block" style={{ transformOrigin: "bottom left" }}>Hi,</span> I'm Yuhan!
+      <span ref={greetingRef} className="inline-block" style={{ transformOrigin: "bottom left" }}>Hi,</span> <span> I'm Yuhan!</span>
     </p>
     <p className="font-body text-h6 sm:text-h5 leading-loose mt-4">
       I am a{" "}

@@ -8,7 +8,7 @@ import { toolIcons } from '../../../data/icons';
 
 function MyTools() {
     return (
-        <section>
+        <section className='my-tools col-span-12'>
             <div className='section introduction'></div>
             <div className='tools'>
                 {toolIcons.map((group) => (
@@ -18,6 +18,7 @@ function MyTools() {
                             {group.tools.map((tool) => (
                                 <div key={tool.name} className='tool-item'>
                                     <Icon icon={tool.icon} />
+                                    {/* !! to keep track of woring icons delete later */}
                                     <span>{tool.name}</span>
                                 </div>
                             ))}

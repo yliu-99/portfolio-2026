@@ -32,6 +32,7 @@ export {
 // To add a tool: append an entry to the relevant group array.
 
 export const toolIcons = [
+  // missing icons: lightroom, dimension fresco,garageband, chatgpt
   {
     category: "Adobe",
     tools: [
