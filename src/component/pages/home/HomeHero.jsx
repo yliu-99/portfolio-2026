@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown } from "../../../data/icons";
 
 // import images
 import mothHero from "../../../assets/page-assets/home/moth-hero.svg";

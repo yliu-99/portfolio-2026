@@ -1,13 +1,7 @@
 // import dependencies
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import {
-  faLinkedin,
-  faInstagram,
-  faYoutube,
-  faGithub,
-} from "@fortawesome/free-brands-svg-icons";
+import { faBars, faXmark, faEnvelope, faLinkedin, faInstagram, faYoutube, faGithub } from "../../data/icons";
 
 import LogoFull from "../../assets/global-assets/logo-main.png";
 

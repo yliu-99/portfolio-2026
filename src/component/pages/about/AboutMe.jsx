@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretRight, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faCaretRight, faCaretDown } from "../../../data/icons";
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 

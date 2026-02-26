@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus } from '../../../data/icons';
 
 function FlaotingMenu () {
     const [isOpen, setIsOpen] = useState(false);
