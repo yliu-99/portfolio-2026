@@ -6,33 +6,37 @@
 
 // Navigation & UI
 export {
-  faBars,        // HamburgerMenu — mobile nav open
-  faXmark,       // HamburgerMenu — mobile nav close
-  faCaretDown,   // HomeHero, AboutMe — scroll hint / directional indicator
-  faCaretRight,  // AboutMe — section title indicator
-  faPlus,        // FloatingMenu — expand
-  faMinus,       // FloatingMenu — collapse
+  faBars, // HamburgerMenu — mobile nav open
+  faXmark, // HamburgerMenu — mobile nav close
+  faCaretDown, // HomeHero, AboutMe — scroll hint / directional indicator
+  faCaretRight, // AboutMe — section title indicator
+  faPlus, // FloatingMenu — expand
+  faMinus, // FloatingMenu — collapse
 } from "@fortawesome/free-solid-svg-icons";
 
 // Social & Contact
 export {
-  faEnvelope,   // Footer, HamburgerMenu — email link
+  faEnvelope, // Footer, HamburgerMenu — email link
 } from "@fortawesome/free-solid-svg-icons";
 
 export {
-  faLinkedin,   // Footer, HamburgerMenu — LinkedIn
-  faInstagram,  // HamburgerMenu — Instagram
-  faYoutube,    // Footer, HamburgerMenu — YouTube
-  faGithub,     // Footer, HamburgerMenu — GitHub
+  faLinkedin, // Footer, HamburgerMenu — LinkedIn
+  faInstagram, // HamburgerMenu — Instagram
+  faYoutube, // Footer, HamburgerMenu — YouTube
+  faGithub, // Footer, HamburgerMenu — GitHub
 } from "@fortawesome/free-brands-svg-icons";
-
 
 // ── Tool Icons (Iconify) ──────────────────────────────────────────────────
 // Used in MyTools. Icon IDs are strings passed to <Icon icon="..." />.
+// For tools without an Iconify icon, use imgSrc with an imported asset instead.
 // To add a tool: append an entry to the relevant group array.
 
+
+// for theses, make sure sizing and colors aligns with other icons
+import chatgptSvg    from "../assets/icons/chatgpt.svg";
+import garageBandImg from "../assets/icons/garage-band.webp";
+
 export const toolIcons = [
-  // missing icons: lightroom, dimension fresco,garageband, chatgpt
   {
     category: "Adobe",
     tools: [
@@ -42,31 +46,30 @@ export const toolIcons = [
       { name: "Premiere Pro", icon: "simple-icons:adobepremierepro" },
       { name: "Audition",     icon: "simple-icons:adobeaudition"    },
       { name: "After Effects",icon: "simple-icons:adobeaftereffects"},
-      { name: "Lightroom",    icon: "simple-icons:adobelightroom"   },
-      { name: "Dimension",    icon: "simple-icons:adobedimension"   },
-      { name: "Fresco",       icon: "simple-icons:adobefresco"      },
+      { name: "Lightroom",    icon: "logos:adobe-lightroom"         },
     ],
   },
   {
     category: "Design & Dev",
     tools: [
-      { name: "Figma",        icon: "simple-icons:figma"              },
-      { name: "Canva",        icon: "simple-icons:canva"              },
-      { name: "VS Code",      icon: "simple-icons:visualstudiocode"   },
+      { name: "Figma",   icon: "simple-icons:figma"            },
+      { name: "Canva",   icon: "simple-icons:canva"            },
+      { name: "VS Code", icon: "simple-icons:visualstudiocode" },
     ],
   },
   {
     category: "Audio",
     tools: [
-      { name: "GarageBand",   icon: "simple-icons:garageband"  },
-      { name: "BandLab",      icon: "simple-icons:bandlab"     },
+      // update icon for garageband into svg if possible
+      // { name: "GarageBand", imgSrc: garageBandImg },
+      { name: "BandLab",    icon: "simple-icons:bandlab" },
     ],
   },
   {
     category: "AI",
     tools: [
-      { name: "Claude",       icon: "simple-icons:claude"   },
-      { name: "ChatGPT",      icon: "simple-icons:chatgpt"  },
+      { name: "Claude",  icon:   "simple-icons:claude" },
+      { name: "ChatGPT", imgSrc: chatgptSvg            },
     ],
   },
 ];

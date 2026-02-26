@@ -17,7 +17,10 @@ function MyTools() {
                         <div className='tool-list'>
                             {group.tools.map((tool) => (
                                 <div key={tool.name} className='tool-item'>
-                                    <Icon icon={tool.icon} />
+                                    {tool.imgSrc
+                                        ? <img src={tool.imgSrc} alt={tool.name} className='rounded-md' />
+                                        : <Icon icon={tool.icon} />
+                                    }
                                     {/* !! to keep track of woring icons delete later */}
                                     <span>{tool.name}</span>
                                 </div>
