@@ -1,12 +1,15 @@
 // import dependencies
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark, faEnvelope, faLinkedin, faInstagram, faYoutube, faGithub } from "../../data/icons";
+import { useLogoRotation } from "../../hooks/useLogoRotation";
 
 import LogoFull from "../../assets/global-assets/logo-main.png";
 
 function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const logoImgRef = useRef(null);
+  useLogoRotation(logoImgRef);
 
   return (
     <div className="hamburger-menu">
@@ -14,7 +17,7 @@ function HamburgerMenu() {
       <div className="mobile-menu-container p-6 grid grid-cols-12 items-center border-b-3 border-black">
         <div className="logo col-start-1 flex justify-start">
           <a href="/">
-            <img src={LogoFull} alt="Logo" className="logo-img max-w-8 -h-auto" />
+            <img ref={logoImgRef} src={LogoFull} alt="Logo" className="logo-img max-w-8 -h-auto" />
           </a>
         </div>
         <button

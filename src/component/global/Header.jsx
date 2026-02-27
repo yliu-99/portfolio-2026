@@ -2,16 +2,20 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import LogoFull from '../../assets/global-assets/logo-main.png';
+import { useLogoRotation } from '../../hooks/useLogoRotation';
 
 // import styles
 import './Header.scss';
 
 function Header() {
-  const logoRef = useRef(null);
+  const logoRef    = useRef(null);
+  const logoImgRef = useRef(null);
 
   useEffect(() => {
     gsap.set(logoRef.current, { y: '2rem' });
   }, []);
+
+  useLogoRotation(logoImgRef);
 
   return (
     <header className="header ">
@@ -25,7 +29,7 @@ function Header() {
                     </ul>
                 </li>
                 <li ref={logoRef} className='home-logo flex justify-center px-10'>
-                    <a href="/"><img src={LogoFull} alt="Logo" className="logo-img max-w-16"/></a>
+                    <a href="/"><img ref={logoImgRef} src={LogoFull} alt="Logo" className="logo-img max-w-16"/></a>
                 </li>
                 <li>
                     <ul className='grid grid-cols-2'>
