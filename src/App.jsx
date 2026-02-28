@@ -8,12 +8,13 @@ import gsap from 'gsap';
 import Header from './component/global/Header';
 import Footer from './component/global/Footer';
 import HamburgerMenu from './component/global/HambugerMenu';
+import ContactModal from './component/global/ContactModal';
+import { ContactModalProvider } from './context/ContactModalContext';
 
 // importing page components
 import Home from './component/pages/home/Home';
 import About from './component/pages/about/About';
 import Projects from './component/pages/projects/Projects';
-import Contact from './component/pages/contact/Contact';
 import Playground from './component/pages/playground/Playground';
 
 // importing styles
@@ -31,7 +32,6 @@ function Content() {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/projects" element={<Projects />} />
-      <Route path="/contact" element={<Contact />} />
       <Route path="/playground" element={<Playground />} />
     </Routes>
   );
@@ -51,17 +51,21 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <div className="app flex flex-col min-h-screen">
-        <div className="lg:hidden sticky top-0 z-40 bg-beige"><HamburgerMenu /></div>
-        <div className="hidden lg:block sticky top-0 z-40 bg-beige"><Header /></div>
-        <main className='main-content grid grid-cols-12 gap-4 px-4 md:px-5 lg:px-6 pt-16'>
-          <div ref={gridRef} className="grid-bg" />
-          <Content/>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <ContactModalProvider>
+      <Router>
+        <div className="app flex flex-col min-h-screen">
+          <div className="lg:hidden sticky top-0 z-40 bg-beige"><HamburgerMenu /></div>
+          <div className="hidden lg:block sticky top-0 z-40 bg-beige"><Header /></div>
+          <main className='main-content grid grid-cols-12 gap-4 px-4 md:px-5 lg:px-6 pt-16'>
+            <div ref={gridRef} className="grid-bg" />
+            <Content/>
+          </main>
+          <Footer />
+          {/* Global contact modal — outside <main> so it escapes its stacking context */}
+          <ContactModal />
+        </div>
+      </Router>
+    </ContactModalProvider>
   );
 }
 

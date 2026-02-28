@@ -48,17 +48,32 @@ html {
     background: var(--beige); 
 }
 
-body::before {
+// Noise overlay lives inside main's stacking context (z-index: 2) so that
+// individual elements can pop above it by using z-index: 3+.
+main::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 2;
   pointer-events: none;
-  background-image: url(./assets/global-assets/noise.png);
+  background-image: url(./assets/global-assets/noise-3.png);
+  filter: url(./assets/global-assets/noise.svg#noise-filter) opacity(0.5) grayscale(100%);
 }
 
 section {
     margin-top: 4rem;
+}
+
+// Resets a <button> to look like a plain text link — used for Contact nav triggers
+.contact-nav-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
 }
 
 .btn {
