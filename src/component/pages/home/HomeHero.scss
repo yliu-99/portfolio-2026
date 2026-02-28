@@ -41,6 +41,7 @@
     font-size: 0.8rem;
     overflow: hidden;
     align-self: stretch;
+    gap: 3em;              // replaces the spacing that letter-spacing was adding to each span's height
 
     &.left {
         align-items: flex-end;
@@ -48,6 +49,7 @@
     span {
         display: block;
         overflow: hidden;
+        height: 1em;      // fix physical height so narrow/wide digits don't shift the column
     }
 
 }

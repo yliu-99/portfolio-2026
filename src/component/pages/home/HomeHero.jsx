@@ -18,24 +18,31 @@ function HomeHero() {
   // ── Animated numbers state ───────────────────────────────────────────────
   const rand = () => Math.floor(Math.random() * 10);
   const isMd = () => window.matchMedia("(min-width: 768px)").matches;
+  const isLg = () => window.matchMedia("(min-width: 1024px)").matches;
+  const getCount = () => isLg() ? 22 : isMd() ? 24 : 16;
 
   const [leftNumbers, setLeftNumbers] = useState(
-    () => Array(isMd() ? 24 : 16).fill(0).map(rand)
+    () => Array(getCount()).fill(0).map(rand)
   );
   const [rightNumbers, setRightNumbers] = useState(
-    () => Array(isMd() ? 24 : 16).fill(0).map(rand)
+    () => Array(getCount()).fill(0).map(rand)
   );
 
   // adjust count on breakpoint change
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)");
-    const handler = (e) => {
-      const count = e.matches ? 24 : 16;
+    const mqMd = window.matchMedia("(min-width: 768px)");
+    const mqLg = window.matchMedia("(min-width: 1024px)");
+    const handler = () => {
+      const count = getCount();
       setLeftNumbers(Array(count).fill(0).map(rand));
       setRightNumbers(Array(count).fill(0).map(rand));
     };
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    mqMd.addEventListener("change", handler);
+    mqLg.addEventListener("change", handler);
+    return () => {
+      mqMd.removeEventListener("change", handler);
+      mqLg.removeEventListener("change", handler);
+    };
   }, []);
 
   // number flicker interval
@@ -103,7 +110,7 @@ function HomeHero() {
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
-    <section ref={heroRef} className="col-span-12">
+    <section ref={heroRef} className="col-span-12 mt-0!">
       <div className="hero-elements grid grid-cols-12 items-center min-h-[calc(100dvh-4rem)] md:min-h-[70vh]">
 
         {/* Col 1 — left numbers */}
@@ -121,7 +128,7 @@ function HomeHero() {
 
         {/* Cols 5–8 — hero graphic */}
         <div ref={graphicRef}
-          className="hero-graphic justify-center align-middle md:pt-60 col-start-2 col-end-12 sm:col-start-3 sm:col-end-11 md:col-start-4 md:col-end-10">
+          className="hero-graphic justify-center align-middle col-start-2 col-end-12 sm:col-start-3 sm:col-end-11 md:col-start-4 md:col-end-10">
           <div className="moth">
             <img
               src={mothHero}
