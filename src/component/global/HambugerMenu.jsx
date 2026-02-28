@@ -3,12 +3,14 @@ import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark, faEnvelope, faLinkedin, faInstagram, faYoutube, faGithub } from "../../data/icons";
 import { useLogoRotation } from "../../hooks/useLogoRotation";
+import { useContactModal } from "../../context/ContactModalContext";
 
 import LogoFull from "../../assets/global-assets/logo-main.png";
 
 function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const logoImgRef = useRef(null);
+  const { openContact } = useContactModal();
   useLogoRotation(logoImgRef);
 
   return (
@@ -55,9 +57,9 @@ function HamburgerMenu() {
             <a href="/playground" onClick={() => setIsOpen(false)}>
               Playground
             </a>
-            <a href="/contact" onClick={() => setIsOpen(false)}>
+            <button onClick={() => { setIsOpen(false); openContact(); }} className="contact-nav-btn">
               Contact
-            </a>
+            </button>
           </nav>
 
           {/* Social links */}

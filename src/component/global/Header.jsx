@@ -3,6 +3,7 @@ import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import LogoFull from '../../assets/global-assets/logo-main.png';
 import { useLogoRotation } from '../../hooks/useLogoRotation';
+import { useContactModal } from '../../context/ContactModalContext';
 
 // import styles
 import './Header.scss';
@@ -10,6 +11,7 @@ import './Header.scss';
 function Header() {
   const logoRef    = useRef(null);
   const logoImgRef = useRef(null);
+  const { openContact } = useContactModal();
 
   useEffect(() => {
     gsap.set(logoRef.current, { y: '2rem' });
@@ -34,7 +36,7 @@ function Header() {
                 <li>
                     <ul className='grid grid-cols-2'>
                         <li className='flex justify-center'><a href="/playground">Playground</a></li>
-                        <li className='flex justify-center'><a href="/contact">Contact</a></li>
+                        <li className='flex justify-center'><button onClick={openContact} className="contact-nav-btn">Contact</button></li>
                     </ul>
                 </li>
             </ul>

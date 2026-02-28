@@ -1,0 +1,51 @@
+// ── Projects page ──────────────────────────────────────────────────────────
+.projects-container {
+    padding: 4rem 0;
+
+    @media (min-width: 1280px) {
+        padding: 4rem calc(100% / 12);
+    }
+}
+
+// ── Filter bar — slash-separated like MyTools category nav ─────────────────
+.filter-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 3rem;
+}
+
+.filter-btn {
+    font-family: var(--body);
+    font-size: var(--font-size-h6);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--black);
+    opacity: 0.45;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.25s ease, opacity 0.25s ease;
+
+    &:not(:first-child)::before {
+        content: '/';
+        margin: 0 1.25rem;
+        font-weight: 300;
+        opacity: 0.35;
+        color: var(--black);
+        pointer-events: none;
+    }
+
+    &.active {
+        color: var(--red);
+        opacity: 1;
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
