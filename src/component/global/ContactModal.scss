@@ -1,27 +1,58 @@
-// ── Contact page — centered popup card ─────────────────────────────────────
-.contact-page {
+// ── Contact modal overlay ───────────────────────────────────────────────────
+// Rendered outside <main> so it sits above all stacking contexts.
+.contact-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
+  padding: 1rem;
+
+  // Dim + blur the page behind the card
+  background: rgba(37, 36, 47, 0.55); // --black at 55% opacity
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
+// ── Card ────────────────────────────────────────────────────────────────────
 .contact-card {
   width: 100%;
   max-width: 480px;
   background: var(--white);
   border: 2px solid var(--black);
   overflow: hidden;
+  // Ensure card is never blurred (solid bg blocks the backdrop filter)
+  position: relative;
 }
 
-// ── Title box — matches site section heading style ──────────────────────────
+// ── Title bar ───────────────────────────────────────────────────────────────
 .contact-title-box {
   font-size: var(--font-size-h3);
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
 
-// ── Body — name, email, socials ─────────────────────────────────────────────
+.contact-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.2rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.18);
+  }
+}
+
+// ── Body ────────────────────────────────────────────────────────────────────
 .contact-body {
   padding: 1.75rem 1.75rem 1.5rem;
 }
@@ -49,7 +80,6 @@
   word-break: break-all;
 }
 
-// Shared style for copy + mailto icon buttons
 .contact-icon-btn {
   display: flex;
   align-items: center;
@@ -69,9 +99,8 @@
     background: var(--red);
   }
 
-  // Green tint while "copied" feedback is showing
   &.copied {
-    background: #2a9d5c;
+    background: #2a9d5c; // green confirmation
   }
 }
 
