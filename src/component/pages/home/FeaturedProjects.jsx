@@ -7,6 +7,30 @@ import './FeaturedProjects.scss';
 
 const featuredProjects = projectsData.filter(p => p.id && p.featured);
 
+function ProjectMedia({ project }) {
+  if (project.type === 'vid' && project.media) {
+    return (
+      <iframe
+        src={project.media}
+        title={project.title}
+        className="featured-media-video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    );
+  }
+  if (project.media) {
+    return (
+      <img
+        src={project.media}
+        alt={project.title}
+        className="object-cover w-full h-full featured-media-img"
+      />
+    );
+  }
+  return null;
+}
+
 function FeaturedProjects() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredProject, setHoveredProject] = useState(null);
@@ -60,25 +84,9 @@ function FeaturedProjects() {
 
       {/* media — full width on md, 8 cols on lg, 7 cols on xl */}
       <div className="media-container col-span-12 lg:col-span-8 xl:col-span-7 h-full overflow-hidden relative">
-        {displayedProject.type === 'vid' && displayedProject.media ? (
-          <iframe
-            key={displayedProject.id}
-            src={displayedProject.media}
-            title={displayedProject.title}
-            className="featured-media-video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        ) : displayedProject.media ? (
-          <img
-            key={displayedProject.id}
-            src={displayedProject.media}
-            alt={displayedProject.title}
-            className="object-cover w-full h-full featured-media-img"
-          />
-        ) : null}
+        <ProjectMedia key={displayedProject.id} project={displayedProject} />
         {Array.isArray(displayedProject.chips) && displayedProject.chips.length > 0 && (
-          <div className="featured-chips-overlay" key={displayedProject.id}>
+          <div className="featured-chips-overlay">
             {displayedProject.chips.map(chip => (
               <span key={chip} className="featured-chip">{chip}</span>
             ))}
