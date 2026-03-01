@@ -1,0 +1,86 @@
+// ── Featured project list buttons ───────────────────────────────────────────
+// Typography (font-family, font-size, letter-spacing, text-transform) is
+// inherited from the .project-item container — only reset browser button
+// defaults and add interactive states here.
+.featured-project-btn {
+  background: none;
+  border: none;
+  // Extend into container's padding so the background highlight spans full width
+  padding: 0.75rem 2rem;
+  margin: 0 -2rem;
+  cursor: pointer;
+  color: var(--black);
+  opacity: 0.3;
+  // Flex so title and caret sit at opposite ends
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    opacity: 0.65;
+  }
+
+  &.active {
+    opacity: 1;
+    background-color: rgba(37, 36, 47, 0.05);
+  }
+}
+
+// Caret icon — hidden by default, revealed on active.
+// Uses visibility (not opacity) so it isn't affected by the button's own opacity value.
+.featured-caret {
+  visibility: hidden;
+  color: var(--blue);
+  flex-shrink: 0;
+
+  // Only show alongside the media panel (lg+)
+  @media (min-width: 1024px) {
+    .featured-project-btn.active & {
+      visibility: visible;
+    }
+  }
+}
+
+// ── Chips overlay — bottom-left corner of the media area ─────────────────────
+.featured-chips-overlay {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  animation: featured-fade-in 0.35s ease;
+}
+
+.featured-chip {
+  font-family: var(--body);
+  font-size: 0.8rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: var(--white);
+  line-height: 1.4;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+// ── Media image — fade in when key changes ───────────────────────────────────
+.featured-media-img {
+  animation: featured-fade-in 0.35s ease;
+}
+
+// ── Media video iframe ────────────────────────────────────────────────────────
+.featured-media-video {
+  border: none;
+  width: 100%;
+  height: 100%;
+  display: block;
+  animation: featured-fade-in 0.35s ease;
+}
+
+@keyframes featured-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
