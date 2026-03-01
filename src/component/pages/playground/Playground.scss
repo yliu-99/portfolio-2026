@@ -1,0 +1,15 @@
+// ── Playground page ─────────────────────────────────────────────────────────
+.playground-container {
+  padding: 4rem 0;
+
+  @media (min-width: 1280px) {
+    padding: 4rem calc(100% / 12);
+  }
+}
+
+.playground-message {
+  font-size: var(--font-size-h5);
+  color: var(--black);
+  opacity: 1;
+  line-height: 1.5;
+}
