@@ -3,7 +3,7 @@ import SectionNav from './SectionNav';
 
 function ProjectSections({ sections = [] }) {
     return (
-        <div className="col-span-12 w-full flex items-start">
+        <div className="col-span-12 w-full flex">
 
             {/* Sticky section nav — desktop only */}
             <div className="hidden lg:block w-52 shrink-0">
