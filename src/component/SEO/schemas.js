@@ -34,7 +34,7 @@ export const personSchema = {
     "User Interface Design"
   ],
   "email": "yuhancreates@gmail.com",
-  "image": `${defaultSEO.siteUrl}/og-image.png`
+  "image": defaultSEO.defaultImage
 };
 
 // Portfolio Website Schema
@@ -86,7 +86,7 @@ export const organizationSchema = {
   "@type": "Organization",
   "name": "Yuhan Liu Design",
   "url": defaultSEO.siteUrl,
-  "logo": `${defaultSEO.siteUrl}/logo.png`,
+  "logo": defaultSEO.defaultImage,
   "founder": personSchema,
   "location": {
     "@type": "Place",

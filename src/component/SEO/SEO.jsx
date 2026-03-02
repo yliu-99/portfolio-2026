@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 export const defaultSEO = {
   siteName:           "Yuhan Liu Portfolio",
   siteUrl:            "https://yuhanliu.ca",
+  defaultImage:       "https://yuhanliu.ca/logo-main.png",
   twitterHandle:      "@yuhan_liu_",
   defaultTitle:       "Yuhan Liu Portfolio | Vancouver Multidisciplinary Designer",
   defaultDescription: "Vancouver-based multidisciplinary designer Yuhan Liu showcases creative projects in branding, web design, and visual storytelling. BCIT New Media graduate specializing in innovative design solutions.",
@@ -75,7 +76,7 @@ function SEO({
   const canonical   = canonicalUrl
     ? `${defaultSEO.siteUrl}${canonicalUrl}`
     : defaultSEO.siteUrl;
-  const ogImageUrl  = ogImage || `${defaultSEO.siteUrl}/og-image.png`;
+  const ogImageUrl  = ogImage || defaultSEO.defaultImage;
 
   useEffect(() => {
     // ── Title ────────────────────────────────────────────────────────────────
