@@ -21,6 +21,7 @@ export const projectsData = [
         chips: ['motion graphics', 'storytelling', 'sound design'],
         category:'motion',
         tools: ['after effects', 'photoshop', 'audition', 'illustrator'],
+        role: ['concept development', 'scriptwriter', 'motion design', 'sound design'],
         featured: true
     },
     {
@@ -36,6 +37,7 @@ export const projectsData = [
         chips:['video production','storytelling','sound design'],
         category:'video',
         tools: ['premier','audition','after effects'],
+        role: ['concept development', 'actor', 'director', 'editor', 'sound design'],
         featured: true
     },
     {
@@ -51,6 +53,7 @@ export const projectsData = [
         chips:['video production','storytelling','sound design','music production'],
         category:'video',
         tools: ['premier','audition','garageband'],
+        role: ['brand development', 'scriptwriter','director', 'music production', 'sound design'],
         featured: true
     },
     {
@@ -66,6 +69,7 @@ export const projectsData = [
         chips: ['graphic design', 'brand design', 'photoshop'],
         category:'graphic design',
         tools: ['photoshop', 'aftereffects','canva'],
+        role: ['brand development', 'graphic design', 'illustration'],
         featured: false
     },
     {
@@ -81,6 +85,7 @@ export const projectsData = [
         chips:['graphic design', 'redesign', 'branding'],
         category:'graphic design',
         tools: ['photoshop', 'illustrator','indesign'],
+        role: ['graphic design', 'web design', 'brand development'],
         featured: true
     },
     {
@@ -96,6 +101,7 @@ export const projectsData = [
         chips:['graphic design', 'branding', 'illustrator'],
         category:'graphic design',
         tools: ['illustrator', 'photoshop', 'canva'],
+        role: ['brand development', 'graphic design', 'packaging design'],
         featured: false
     },
     {

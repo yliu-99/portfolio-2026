@@ -7,37 +7,38 @@ import { projectToolIconMap } from '../../../data/icons';
 // import styles
 import './ProjectHero.scss';
 
-function ProjectHero({ project, detail }) {
-    // Split role string into individual lines, e.g. "Director, Editor" → ['Director', 'Editor']
-    const roles = detail?.role
-        ? detail.role.split(',').map(r => r.trim()).filter(Boolean)
-        : [];
+function ProjectHero({ project }) {
+    const roles = project.role ?? [];
 
     return (
-        <div className="project-hero">
+        <div className="w-full border border-black">
 
             {/* ── Title Bar ───────────────────────────────────────────── */}
-            <div className="hero-title-bar">
+            <div className="bg-blue px-8 py-5 border-b-2 border-black">
                 <h1 className="hero-title">{project.title}</h1>
             </div>
 
             {/* ── Body ────────────────────────────────────────────────── */}
-            <div className="hero-body">
+            <div className="grid grid-cols-[28%_1fr] max-md:grid-cols-1">
 
                 {/* Sidebar */}
-                <aside className="hero-sidebar">
+                <aside className="bg-white border-r border-black flex flex-col justify-center gap-10 px-8 py-10 max-md:border-r-0 max-md:border-t max-md:border-black max-md:order-2 max-md:gap-7 max-md:p-6">
 
                     {/* Tools */}
-                    <div className="hero-sidebar-section">
-                        <span className="hero-sidebar-label">Tools:</span>
-                        <div className="hero-tool-icons">
+                    <div className="flex flex-col gap-[0.65rem]">
+                        <span className="font-body font-bold text-h6 tracking-[0.15em] uppercase text-black">Tools:</span>
+                        <div className="flex flex-wrap gap-2">
                             {project.tools?.map(tool => {
                                 const toolData = projectToolIconMap[tool.toLowerCase()];
                                 if (!toolData) return null;
                                 return (
-                                    <div className="hero-tool-icon" key={tool} title={tool}>
+                                    <div
+                                        key={tool}
+                                        title={tool}
+                                        className="w-11 h-11 bg-black rounded-lg flex items-center justify-center text-white text-[1.45rem] shrink-0"
+                                    >
                                         {toolData.imgSrc
-                                            ? <img src={toolData.imgSrc} alt={tool} />
+                                            ? <img src={toolData.imgSrc} alt={tool} className="w-[62%] h-[62%] object-contain brightness-0 invert" />
                                             : <Icon icon={toolData.icon} />
                                         }
                                     </div>
@@ -48,35 +49,42 @@ function ProjectHero({ project, detail }) {
 
                     {/* Role */}
                     {roles.length > 0 && (
-                        <div className="hero-sidebar-section">
-                            <span className="hero-sidebar-label">Role:</span>
-                            <div className="hero-roles">
+                        <div className="flex flex-col gap-[0.65rem]">
+                            <span className="font-body font-bold text-h6 tracking-[0.15em] uppercase text-black">Role:</span>
+                            <div className="flex flex-col gap-[0.1rem]">
                                 {roles.map(role => (
-                                    <span key={role}>{role}</span>
+                                    <span key={role} className="font-body text-h6 text-black leading-normal capitalize">
+                                        {role}
+                                    </span>
                                 ))}
                             </div>
                         </div>
                     )}
 
                     {/* Timeline */}
-                    <div className="hero-sidebar-section">
-                        <span className="hero-sidebar-label">Timeline:</span>
-                        <p className="hero-timeline">{project.timeline}</p>
+                    <div className="flex flex-col gap-[0.65rem]">
+                        <span className="font-body font-bold text-h6 tracking-[0.15em] uppercase text-black">Timeline:</span>
+                        <p className="font-body text-h6 text-black m-0 leading-normal">{project.timeline}</p>
                     </div>
 
                 </aside>
 
                 {/* Media */}
-                <div className="hero-media">
+                <div className="bg-black aspect-video overflow-hidden relative max-md:order-1 max-md:w-full">
                     {project.type === 'vid' ? (
                         <iframe
                             src={project.media}
                             title={project.title}
+                            className="absolute inset-0 w-full h-full border-0 block"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
                         />
                     ) : (
-                        <img src={project.media} alt={project.title} />
+                        <img
+                            src={project.media}
+                            alt={project.title}
+                            className="absolute inset-0 w-full h-full object-cover block"
+                        />
                     )}
                 </div>
 

@@ -15,6 +15,7 @@ import { ContactModalProvider } from './context/ContactModalContext';
 import Home from './component/pages/home/Home';
 import About from './component/pages/about/About';
 import Projects from './component/pages/projects/Projects';
+import ProjectDetails from './component/pages/project-details/ProjectDetails';
 import Playground from './component/pages/playground/Playground';
 
 // importing styles
@@ -32,6 +33,7 @@ function Content() {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/projects" element={<Projects />} />
+      <Route path="/projects/:slug" element={<ProjectDetails />} />
       <Route path="/playground" element={<Playground />} />
     </Routes>
   );
