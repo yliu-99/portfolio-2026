@@ -11,7 +11,7 @@ function ProjectSections({ sections = [] }) {
             </div>
 
             {/* Main content */}
-            <div className="flex-1 min-w-0 max-w-[900px]">
+            <div className="flex-1 min-w-0 max-w-225">
                 <SectionMap sections={sections} />
             </div>
 
