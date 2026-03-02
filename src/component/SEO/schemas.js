@@ -69,7 +69,7 @@ export const createProjectSchema = (project) => ({
   "name": project.title,
   "description": project.description || `${project.title} - A creative design project by Yuhan Liu showcasing expertise in ${project.chips?.join(', ') || 'graphic design'}.`,
   "creator": personSchema,
-  "dateCreated": project.year || "2024",
+  "dateCreated": project.year || "2026",
   "genre": project.category || "Graphic Design",
   "keywords": project.chips?.join(', ') || "graphic design, creative, portfolio",
   "url": `${defaultSEO.siteUrl}/projects/${project.slug}`,
