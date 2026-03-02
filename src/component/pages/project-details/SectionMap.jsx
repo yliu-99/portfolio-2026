@@ -353,9 +353,9 @@ function PdfEmbed({ src, title }) {
 function ComingSoon() {
     return (
         <div className="border-2 border-black bg-white flex flex-col items-center justify-center py-24 gap-4">
-            <span className="font-title text-h3 text-blue tracking-[0.06em]">Coming Soon</span>
-            <p className="font-body text-[0.9rem] text-black opacity-55 m-0 tracking-[0.04em]">
-                This case study is still being written.
+            <h3 className="font-title text-h3 text-blue tracking-[0.06em]">Coming Soon</h3>
+            <p className="font-body text-h6 text-black m-0 tracking-[0.04em]">
+                This section is still under construction. In the meantime, check out my other projects!
             </p>
         </div>
     );
