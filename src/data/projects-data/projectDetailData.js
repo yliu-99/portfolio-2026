@@ -13,6 +13,7 @@ import { apexMountainBikesDetail } from './individual-project-data/apexMountainB
 import { fableFragrancesDetail }   from './individual-project-data/fableFragrances';
 import { vhsFilmFestivalDetail }   from './individual-project-data/vhsFilmFestival';
 import { thrashHairColorDetail }   from './individual-project-data/thrashHairColor';
+// import { sectionMapDemoDetail }    from './individual-project-data/sectionMapDemo'; // local dev only — gitignored
 
 export const projectDetailData = [
     mythbustersDetail,
@@ -21,4 +22,5 @@ export const projectDetailData = [
     fableFragrancesDetail,
     vhsFilmFestivalDetail,
     thrashHairColorDetail,
+    // sectionMapDemoDetail,
 ];

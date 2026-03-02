@@ -51,7 +51,7 @@ function SectionNav({ sections }) {
     return (
         <nav className="sticky top-24 flex flex-col pt-20 pr-6">
 
-            <span className="font-body font-bold text-[0.75rem] tracking-[0.2em] uppercase text-black opacity-35 mb-3 pl-4">
+            <span className="font-body font-bold text-[0.75rem] tracking-primary uppercase text-black opacity-35 mb-3 pl-4">
                 Contents
             </span>
 
@@ -64,7 +64,7 @@ function SectionNav({ sections }) {
                         className={[
                             'text-left font-body text-[0.92rem] leading-snug py-[0.4rem] pl-4',
                             'bg-transparent cursor-pointer',
-                            'border-0 border-l-[2px] border-solid',
+                            'border-0 border-l-2 border-solid',
                             'transition-[color,opacity,border-color] duration-200',
                             isActive
                                 ? 'border-blue text-blue opacity-100'

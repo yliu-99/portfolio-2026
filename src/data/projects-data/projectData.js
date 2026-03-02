@@ -117,4 +117,24 @@ export const projectsData = [
         category:'',
         featured: true
     },
+
+    // ── Section style-guide (local dev only — sectionMapDemo.js is gitignored) ──
+    // Uncomment to enable /projects/section-map locally:
+    // {
+    //     id: 'section-map',
+    //     slug: 'section-map',
+    //     hidden: true,
+    //     featured: false,
+    //     title: 'Section Style Guide',
+    //     type: 'img',
+    //     media: 'https://picsum.photos/seed/styleguide/1600/900',
+    //     year: '2025',
+    //     timeline: 'Ongoing',
+    //     description: 'Internal style-guide page showing every SectionMap component.',
+    //     shortDescription: 'Internal section style guide.',
+    //     chips: ['style guide', 'dev'],
+    //     category: 'dev',
+    //     tools: ['vscode'],
+    //     role: ['developer'],
+    // },
 ]

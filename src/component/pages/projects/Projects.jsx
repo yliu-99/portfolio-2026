@@ -17,7 +17,7 @@ function Projects() {
   const [activeFilter, setActiveFilter] = useState(null);
 
   const filtered = projectsData.filter(p => {
-    if (!p.id) return false;
+    if (!p.id || p.hidden) return false;
     if (!activeFilter) return true;
     return p.category === activeFilter;
   });
