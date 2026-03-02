@@ -1,8 +1,21 @@
-function PorjectDetails() {
+// import dependencies
+
+
+// import components
+import ProjectHero from './ProjectHero';
+import SuggestedProjects from './SuggestedProjects';
+import ProjectSections from './ProjectSections';
+
+// import styles
+import './ProjectDetails.scss';
+
+function ProjectDetails() {
   return (
     <div className="project-details">
-      <h1>Project Details</h1>
+      <ProjectHero />
+      <ProjectSections />
+      <SuggestedProjects />
     </div>
   );
 }
-export default PorjectDetails;
+export default ProjectDetails;

@@ -1,0 +1,162 @@
+// ── Project Hero ───────────────────────────────────────────────────────────────
+
+.project-hero {
+    width: 100%;
+    border: 1px solid var(--black);
+}
+
+// ── Title Bar ─────────────────────────────────────────────────────────────────
+// Blue band across the full width with the project title in the display font.
+
+.hero-title-bar {
+    background: var(--blue);
+    padding: 1.25rem 2rem;
+    border-bottom: 2px solid var(--black);
+
+    .hero-title {
+        font-family: var(--font-title);
+        font-size: clamp(1.6rem, 3vw, var(--text-h3));
+        color: var(--white);
+        letter-spacing: var(--tracking-primary);
+        text-transform: uppercase;
+        line-height: 1;
+        margin: 0;
+    }
+}
+
+// ── Body ──────────────────────────────────────────────────────────────────────
+// Two-column grid: sidebar left, media right.
+// The media's aspect-ratio drives the row height; sidebar stretches to match.
+
+.hero-body {
+    display: grid;
+    grid-template-columns: 28% 1fr;
+
+    @media (max-width: 767px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+// ── Sidebar ───────────────────────────────────────────────────────────────────
+
+.hero-sidebar {
+    background: var(--white);
+    border-right: 1px solid var(--black);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 2.5rem 2rem;
+
+    @media (max-width: 767px) {
+        border-right: none;
+        border-top: 1px solid var(--black);
+        order: 2;            // stack below media on mobile
+        gap: 1.75rem;
+        padding: 1.5rem;
+    }
+}
+
+.hero-sidebar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+// "TOOLS:" / "ROLE:" / "TIMELINE:" labels
+.hero-sidebar-label {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--black);
+}
+
+// ── Tool Icon Chips ───────────────────────────────────────────────────────────
+
+.hero-tool-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.hero-tool-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--black);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 1.45rem;
+    flex-shrink: 0;
+
+    // Image-based icons (e.g. GarageBand webp)
+    img {
+        width: 62%;
+        height: 62%;
+        object-fit: contain;
+        filter: brightness(0) invert(1); // force white tint to match svg icons
+    }
+}
+
+// ── Roles ─────────────────────────────────────────────────────────────────────
+
+.hero-roles {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+
+    span {
+        font-family: var(--font-body);
+        font-size: 0.95rem;
+        color: var(--black);
+        line-height: 1.5;
+    }
+}
+
+// ── Timeline ─────────────────────────────────────────────────────────────────
+
+.hero-timeline {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--black);
+    margin: 0;
+    line-height: 1.5;
+}
+
+// ── Media ─────────────────────────────────────────────────────────────────────
+// Fills the right column. The aspect-ratio on the wrapper sets the row height
+// for both columns so the sidebar always matches the media height.
+
+.hero-media {
+    background: var(--black);
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    position: relative;
+
+    @media (max-width: 767px) {
+        order: 1;            // media appears above sidebar on mobile
+        width: 100%;
+    }
+
+    iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+    }
+
+    img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+}

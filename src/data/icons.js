@@ -38,6 +38,26 @@ export {
 import chatgptSvg from "../assets/icons/chatgpt.svg";
 import garageBandImg from "../assets/icons/garage-band.webp";
 
+// ── Project Tool Icon Map ─────────────────────────────────────────────────────
+// Maps the lowercase tool key strings used in projectData.js → icon data.
+// Used by ProjectHero to render tool icons without direct component imports.
+export const projectToolIconMap = {
+  'photoshop':     { icon: 'simple-icons:adobephotoshop' },
+  'illustrator':   { icon: 'simple-icons:adobeillustrator' },
+  'indesign':      { icon: 'simple-icons:adobeindesign' },
+  'figma':         { icon: 'simple-icons:figma' },
+  'canva':         { icon: 'simple-icons:canva' },
+  'premier':       { icon: 'simple-icons:adobepremierepro' },
+  'after effects': { icon: 'simple-icons:adobeaftereffects' },
+  'aftereffects':  { icon: 'simple-icons:adobeaftereffects' },
+  'audition':      { icon: 'simple-icons:adobeaudition' },
+  'garageband':    { imgSrc: garageBandImg },
+  'bandlab':       { icon: 'simple-icons:bandlab' },
+  'vscode':        { icon: 'simple-icons:visualstudiocode' },
+  'claude':        { icon: 'simple-icons:claude' },
+  'chatgpt':       { imgSrc: chatgptSvg },
+};
+
 export const toolIcons = [
   {
     category: "Design & Dev",
