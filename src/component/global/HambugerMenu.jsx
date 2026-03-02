@@ -1,5 +1,6 @@
 // import dependencies
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark, faEnvelope, faLinkedin, faInstagram, faYoutube, faGithub } from "../../data/icons";
 import { useLogoRotation } from "../../hooks/useLogoRotation";
@@ -18,9 +19,9 @@ function HamburgerMenu() {
       {/* Hamburger Menu */}
       <div className="mobile-menu-container p-6 grid grid-cols-12 items-center border-b-3 border-black">
         <div className="logo col-start-1 flex justify-start">
-          <a href="/">
+          <Link to="/">
             <img ref={logoImgRef} src={LogoFull} alt="Logo" className="logo-img max-w-8 -h-auto" />
-          </a>
+          </Link>
         </div>
         <button
           className="hamburger-btn text-blue col-start-11 col-end-13 flex justify-end text-h4"
@@ -45,18 +46,18 @@ function HamburgerMenu() {
 
           {/* Nav links */}
           <nav className="flex flex-col gap-6 font-title text-h3 text-blue uppercase mb-auto text-center">
-            <a href="/" onClick={() => setIsOpen(false)}>
+            <Link to="/" onClick={() => setIsOpen(false)}>
               Home
-            </a>
-            <a href="/about" onClick={() => setIsOpen(false)}>
+            </Link>
+            <Link to="/about" onClick={() => setIsOpen(false)}>
               About Me
-            </a>
-            <a href="/projects" onClick={() => setIsOpen(false)}>
+            </Link>
+            <Link to="/projects" onClick={() => setIsOpen(false)}>
               Projects
-            </a>
-            <a href="/playground" onClick={() => setIsOpen(false)}>
+            </Link>
+            <Link to="/playground" onClick={() => setIsOpen(false)}>
               Playground
-            </a>
+            </Link>
             <button onClick={() => { setIsOpen(false); openContact(); }} className="contact-nav-btn">
               Contact
             </button>
