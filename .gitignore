@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Local dev-only files (not deployed)
+src/data/projects-data/individual-project-data/sectionMapDemo.js
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
