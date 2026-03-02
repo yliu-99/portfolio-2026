@@ -420,7 +420,11 @@ function SectionMap({ sections = [] }) {
             {sections.map((section, i) => {
                 const Component = SECTION_COMPONENTS[section.type];
                 if (!Component) return null;
-                return <Component key={i} {...section} />;
+                return (
+                    <div key={i} id={`section-${i}`}>
+                        <Component {...section} />
+                    </div>
+                );
             })}
         </div>
     );

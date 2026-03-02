@@ -68,7 +68,7 @@ export const projectsData = [
         shortDescription: 'Branding and packaging for an enchanting niche fragrance line.',
         chips: ['graphic design', 'brand design', 'photoshop'],
         category:'graphic design',
-        tools: ['photoshop', 'aftereffects','canva'],
+        tools: ['photoshop', 'after effects', 'canva'],
         role: ['brand development', 'graphic design', 'illustration'],
         featured: false
     },
