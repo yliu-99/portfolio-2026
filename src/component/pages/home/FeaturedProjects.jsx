@@ -63,14 +63,14 @@ function FeaturedProjects() {
         <h2 className="font-title text-h3 text-red whitespace-nowrap xl:-rotate-90">FEATURED PROJECTS</h2>
       </div>
 
-      {/* project list — full width on md, 4 cols on lg, 4 cols on xl */}
-      <div className="project-list col-span-12 lg:col-span-4 xl:col-span-4 p-8 border-b-3 border-black lg:border-b-0 lg:border-r-3 flex flex-col justify-between">
+      {/* project list — full width on md, 3 cols on lg, 3 cols on xl */}
+      <div className="project-list col-span-12 lg:col-span-3 xl:col-span-3 p-8 border-b-3 border-black lg:border-b-0 lg:border-r-3 flex flex-col justify-between">
         <div className="project-item flex flex-col font-title text-h5 tracking-primary">
           {featuredProjects.map((project, i) => (
             <button
               key={project.id}
-              onClick={() => { setActiveIndex(i); startCycle(); }}
-              onMouseEnter={() => { stopCycle(); setHoveredProject(project); }}
+              onClick={() => navigate(`/projects/${project.slug}`)}
+              onMouseEnter={() => { stopCycle(); setActiveIndex(i); setHoveredProject(project); }}
               onMouseLeave={() => { setHoveredProject(null); startCycle(); }}
               className={`featured-project-btn${displayedProject.id === project.id ? ' active' : ''}`}
             >
@@ -82,8 +82,8 @@ function FeaturedProjects() {
         <button className="btn" onClick={() => navigate('/projects')}>All Projects</button>
       </div>
 
-      {/* media — full width on md, 8 cols on lg, 7 cols on xl */}
-      <div className="media-container col-span-12 lg:col-span-8 xl:col-span-7 h-full overflow-hidden relative">
+      {/* media — full width on md, 9 cols on lg, 8 cols on xl */}
+      <div className="media-container col-span-12 lg:col-span-9 xl:col-span-8 h-full overflow-hidden relative">
         <ProjectMedia key={displayedProject.id} project={displayedProject} />
         {Array.isArray(displayedProject.chips) && displayedProject.chips.length > 0 && (
           <div className="featured-chips-overlay">
