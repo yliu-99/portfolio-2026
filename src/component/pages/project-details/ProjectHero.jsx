@@ -35,11 +35,11 @@ function ProjectHero({ project }) {
                                     <div
                                         key={tool}
                                         title={tool}
-                                        className="w-11 h-11 bg-black rounded-lg flex items-center justify-center text-white text-[1.45rem] shrink-0"
+                                        className="w-10 h-10 flex items-center justify-center shrink-0"
                                     >
                                         {toolData.imgSrc
-                                            ? <img src={toolData.imgSrc} alt={tool} className="w-[62%] h-[62%] object-contain brightness-0 invert" />
-                                            : <Icon icon={toolData.icon} />
+                                            ? <img src={toolData.imgSrc} alt={tool} className="w-full h-full object-contain" />
+                                            : <Icon icon={toolData.icon} width={40} height={40} />
                                         }
                                     </div>
                                 );

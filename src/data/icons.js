@@ -30,62 +30,82 @@ export {
 } from "@fortawesome/free-brands-svg-icons";
 
 // ── Tool Icons (Iconify) ──────────────────────────────────────────────────
-// Used in MyTools. Icon IDs are strings passed to <Icon icon="..." />.
-// For tools without an Iconify icon, use imgSrc with an imported asset instead.
-// To add a tool: append an entry to the relevant group array.
+// Preferred: logos: set (full-color branded SVGs — icon-sets.iconify.design/logos)
+// Fallback:  simple-icons: set for tools not yet in the logos set
+// imgSrc:    local asset for tools with no Iconify entry at all
 
-// for theses, make sure sizing and colors aligns with other icons
-import chatgptSvg from "../assets/icons/chatgpt.svg";
-import garageBandImg from "../assets/icons/garage-band.webp";
+import garageBandImg  from "../assets/icons/garage-band.webp";
+import auditionImg    from "../assets/icons/adobe-audition.png";
+import bandlabImg     from "../assets/icons/bandlab.png";
+import chatgptImg     from "../assets/icons/chatgpt.svg";
+import claudeImg      from "../assets/icons/claude.png";
 
 // ── Project Tool Icon Map ─────────────────────────────────────────────────────
 // Maps the lowercase tool key strings used in projectData.js → icon data.
-// Used by ProjectHero to render tool icons without direct component imports.
+// Used by ProjectHero to render tool icons.
 export const projectToolIconMap = {
-  'photoshop':     { icon: 'simple-icons:adobephotoshop' },
-  'illustrator':   { icon: 'simple-icons:adobeillustrator' },
-  'indesign':      { icon: 'simple-icons:adobeindesign' },
-  'figma':         { icon: 'simple-icons:figma' },
+  // Adobe — all confirmed in logos: set
+  'photoshop':     { icon: 'logos:adobe-photoshop' },
+  'illustrator':   { icon: 'logos:adobe-illustrator' },
+  'indesign':      { icon: 'logos:adobe-indesign' },
+  'premier':       { icon: 'logos:adobe-premiere' },
+  'after effects': { icon: 'logos:adobe-after-effects' },
+  'aftereffects':  { icon: 'logos:adobe-after-effects' },
+  'audition':      { imgSrc: auditionImg },
+
+  // Design
+  'figma':         { icon: 'logos:figma' },
   'canva':         { icon: 'simple-icons:canva' },
-  'premier':       { icon: 'simple-icons:adobepremierepro' },
-  'after effects': { icon: 'simple-icons:adobeaftereffects' },
-  'aftereffects':  { icon: 'simple-icons:adobeaftereffects' },
-  'audition':      { icon: 'simple-icons:adobeaudition' },
+
+  // Audio
   'garageband':    { imgSrc: garageBandImg },
-  'bandlab':       { icon: 'simple-icons:bandlab' },
-  'vscode':        { icon: 'simple-icons:visualstudiocode' },
-  'claude':        { icon: 'simple-icons:claude' },
-  'chatgpt':       { imgSrc: chatgptSvg },
+  'bandlab':       { imgSrc: bandlabImg },
+
+  // Dev
+  'vscode':        { icon: 'logos:visual-studio-code' },
+
+  // AI
+  'claude':        { imgSrc: claudeImg },
+  'chatgpt':       { imgSrc: chatgptImg },
 };
 
 export const toolIcons = [
   {
-    category: "Design & Dev",
+    category: "Design",
     tools: [
-      { name: "Photoshop", icon: "simple-icons:adobephotoshop" },
-      { name: "Illustrator", icon: "simple-icons:adobeillustrator" },
-      { name: "InDesign", icon: "simple-icons:adobeindesign" },
-      { name: "Figma", icon: "simple-icons:figma" },
-      { name: "VS Code", icon: "simple-icons:visualstudiocode" },
-      { name: "Canva", icon: "simple-icons:canva" },
+      { name: "Photoshop",   icon: "logos:adobe-photoshop" },
+      { name: "Illustrator", icon: "logos:adobe-illustrator" },
+      { name: "InDesign",    icon: "logos:adobe-indesign" },
+      { name: "Figma",       icon: "logos:figma" },
+      { name: "Canva",       icon: "simple-icons:canva" },
+    ],
+  },
+  {
+    category: "Dev",
+    tools: [
+      { name: "HTML",    icon: "logos:html-5" },
+      { name: "CSS",     icon: "logos:css-3" },
+      { name: "JS",      icon: "logos:javascript" },
+      { name: "React",   icon: "logos:react" },
+      { name: "Node",    icon: "logos:nodejs-icon" },
+      { name: "VS Code", icon: "logos:visual-studio-code" },
     ],
   },
   {
     category: "Audio & Video",
     tools: [
-      { name: "Premiere Pro", icon: "simple-icons:adobepremierepro" },
-      { name: "After Effects", icon: "simple-icons:adobeaftereffects" },
-      { name: "Audition", icon: "simple-icons:adobeaudition" },
-      // update icon for garageband into svg if possible
-      // { name: "GarageBand", imgSrc: garageBandImg },
-      { name: "BandLab", icon: "simple-icons:bandlab" },
+      { name: "Premiere Pro",  icon: "logos:adobe-premiere" },
+      { name: "After Effects", icon: "logos:adobe-after-effects" },
+      { name: "Audition",      imgSrc: auditionImg },
+      { name: "GarageBand",    imgSrc: garageBandImg },
+      { name: "BandLab",       imgSrc: bandlabImg },
     ],
   },
   {
     category: "AI",
     tools: [
-      { name: "Claude", icon: "simple-icons:claude" },
-      { name: "ChatGPT", imgSrc: chatgptSvg },
+      { name: "Claude",  imgSrc: claudeImg },
+      { name: "ChatGPT", imgSrc: chatgptImg },
     ],
   },
 ];
