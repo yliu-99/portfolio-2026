@@ -33,6 +33,7 @@ export function useLogoRotation(logoRef) {
     const trigger = ScrollTrigger.create({
       start: 0,
       end: 'max',
+      invalidateOnRefresh: true,
       onUpdate: (self) => {
         quickToRef.current(self.progress * 360);
       },
