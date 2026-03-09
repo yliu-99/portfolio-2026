@@ -33,14 +33,14 @@ function PolaroidCard({ photo, variant, onClick }) {
       <div className="w-2.5 h-2.5 bg-white rounded-full border-2 border-white shadow-[0_1px_4px_rgba(0,0,0,0.3)] relative z-2 shrink-0" aria-hidden="true" />
 
       {/* Frame */}
-      <div className="polaroid-frame bg-white p-[0.65rem] pb-[2.4rem]  w-42.5 border-2 border-black">
-        <div className="w-full aspect-square overflow-hidden bg-[#e0e0e0] ">
+      <div className="polaroid-frame bg-white p-[0.65rem] pb-[2.4rem] xl:p-[0.78rem] xl:pb-[2.88rem] w-42.5 xl:w-51 border-2 border-black">
+        <div className="w-full aspect-square overflow-hidden bg-[#e0e0e0]">
           {photo.src
             ? <img src={photo.src} alt={photo.caption} loading="lazy" className="w-full h-full object-cover object-center block pointer-events-none" />
             : <div className="w-full h-full bg-linear-to-br from-[#e8e8e8] to-[#d0d0d0]" />
           }
         </div>
-        <p className="font-body text-[0.62rem] text-center text-[#555] mt-[0.55rem] tracking-[0.05em] truncate">{photo.caption}</p>
+        <p className="font-body text-[0.62rem] xl:text-[0.74rem] text-center text-[#555] mt-[0.55rem] tracking-[0.05em] truncate">{photo.caption}</p>
       </div>
     </div>
   );
@@ -137,7 +137,7 @@ function Polaroids() {
       <div className="flex flex-col items-center mb-6">
         <h2 className="font-title text-white uppercase tracking-[0.15em] text-h3 text-center">Polaroid Wall</h2>
         <div className="border-b-3 border-white w-24 mt-1"></div>
-        <p className="font-body text-white/55 text-sm tracking-widest mt-3">photos from my life</p>
+        <p className="font-body text-white text-h6 tracking-secondary mt-3">photos from my life</p>
       </div>
 
       {/* Stage */}

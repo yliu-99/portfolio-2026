@@ -38,7 +38,7 @@ function ProjectsCard({ project }) {
 
       <div className="card-content">
         <div className="card-header">
-          <h4 className="card-title">{project.title}</h4>
+          <h4 className="card-title tracking-secondary">{project.title}</h4>
           <span className="card-year">{project.year}</span>
         </div>
         <p className="card-description">

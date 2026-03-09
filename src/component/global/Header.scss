@@ -1,0 +1,20 @@
+// Separate grain overlay on the header — real element so GSAP can animate it.
+.header {
+    position: relative;
+}
+
+.header-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    clip-path: inset(0);
+    background-image: url('../../assets/global-assets/noise-3.png');
+    filter: url('../../assets/global-assets/noise.svg#noise-filter') opacity(0.5) grayscale(100%);
+}
+
+// Lift the logo above the grain overlay so it stays clean
+.home-logo {
+    position: relative;
+    z-index: 2;
+}

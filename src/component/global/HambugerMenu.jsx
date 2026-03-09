@@ -7,6 +7,7 @@ import { useLogoRotation } from "../../hooks/useLogoRotation";
 import { useContactModal } from "../../context/ContactModalContext";
 
 import LogoFull from "../../assets/global-assets/logo-main.png";
+import "./HamburgerMenu.scss";
 
 function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,8 +18,9 @@ function HamburgerMenu() {
   return (
     <div className="hamburger-menu">
       {/* Hamburger Menu */}
-      <div className="mobile-menu-container p-6 grid grid-cols-12 items-center border-b-3 border-black">
-        <div className="logo col-start-1 flex justify-start">
+      <div className="mobile-menu-container relative p-6 grid grid-cols-12 items-center border-b-3 border-black">
+        <div className="hm-grain" aria-hidden="true" />
+        <div className="logo col-start-1 flex justify-start relative z-2">
           <Link to="/">
             <img ref={logoImgRef} src={LogoFull} alt="Logo" className="logo-img max-w-8 -h-auto" />
           </Link>
@@ -35,6 +37,7 @@ function HamburgerMenu() {
       {/* Overlay */}
       {isOpen && (
         <div className="mobile-menu-overlay fixed inset-0 z-50 bg-beige flex flex-col p-6">
+          <div className="hm-grain" aria-hidden="true" />
           {/* X close button */}
           <button
             className="self-end text-blue text-h4 mb-10"

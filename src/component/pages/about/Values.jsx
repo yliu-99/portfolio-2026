@@ -97,7 +97,7 @@ function Values() {
               >
                 {/* Front */}
                 <div className="absolute inset-0 bg-white p-10 flex flex-col gap-5 border-3 border-black backface-hidden">
-                  <h3 className={`${card.titleBg} font-title text-h4 text-center text-white`}>{card.title}</h3>
+                  <h3 className={`${card.titleBg} font-title text-h4 tracking-secondary text-center text-white`}>{card.title}</h3>
                   <p className="font-body text-center text-[1.3rem] leading-[1.7] text-black">{card.content}</p>
                   <span className={`mt-auto text-center font-body text-[0.8rem] tracking-[0.08em] uppercase text-black transition-opacity duration-300 ${flippedCards[i] ? "opacity-0" : "opacity-35"}`}>
                     tap to flip
