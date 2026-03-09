@@ -40,7 +40,7 @@ function PolaroidCard({ photo, variant, onClick }) {
             : <div className="w-full h-full bg-linear-to-br from-[#e8e8e8] to-[#d0d0d0]" />
           }
         </div>
-        <p className="font-body text-[0.62rem] xl:text-[0.74rem] text-center text-[#555] mt-[0.55rem] tracking-[0.05em] truncate">{photo.caption}</p>
+        <p className="font-body text-[0.62rem] xl:text-[0.74rem] text-center text-[#555] mt-[0.55rem] tracking-[0.05em] line-clamp-2 leading-snug h-7 xl:h-[2.1rem] overflow-hidden">{photo.caption}</p>
       </div>
     </div>
   );
@@ -118,7 +118,7 @@ function Polaroids() {
       const totalWidth = track.scrollWidth / 2;
       tweenRef.current = gsap.to(track, {
         x: -totalWidth,
-        duration: 30,
+        duration: 120,
         ease: 'none',
         repeat: -1,
       });
