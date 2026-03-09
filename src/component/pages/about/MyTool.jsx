@@ -106,7 +106,7 @@ function MyTools() {
         <section className='my-tools col-span-12'>
 
             <div className="title flex flex-col items-center mb-12">
-                <h2 className="text-h3 tracking-primary">MY TOOLS</h2>
+                <h2 className="text-h3 tracking-primary text-center">MY TOOLS</h2>
                 <div className="border-b-3 border-blue w-24"></div>
             </div>
 

@@ -1,5 +1,6 @@
 // import dependencies
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useLocation } from 'react-router-dom';
 import { faLinkedin, faYoutube, faGithub, faEnvelope } from "../../data/icons";
 
 // import styles
@@ -7,8 +8,12 @@ import './Footer.scss';
 
 
 function Footer() {
+  const { pathname } = useLocation();
+  const bluePages = ['/about', '/projects'];
+  const bgColor = bluePages.includes(pathname) ? 'bg-blue' : 'bg-red';
+
   return (
-    <footer className="footer col-span-full bottom-0 bg-red text-beige p-4">
+    <footer className={`footer col-span-full bottom-0 ${bgColor} text-beige p-4`}>
     <div className="footer-container grid grid-cols-2 md:grid-cols-3 ">
       <div className="name text-h5 font-title uppercase flex justify-center items-center">
         <a href="/">Yuhan Liu.</a>

@@ -10,8 +10,14 @@ import { useContactModal } from '../../context/ContactModalContext';
 import './Header.scss';
 
 function Header() {
-  const logoRef    = useRef(null);
-  const logoImgRef = useRef(null);
+  const logoRef     = useRef(null);
+  const logoImgRef  = useRef(null);
+  const navLinksRef = useRef(null);
+  const headerRef   = useRef(null);
+  const navBarRef   = useRef(null);
+  const grainRef    = useRef(null);
+  const lastScrollY = useRef(0);
+  const isHidden    = useRef(false);
   const { openContact } = useContactModal();
 
   useEffect(() => {
@@ -20,29 +26,52 @@ function Header() {
 
   useLogoRotation(logoImgRef);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollingDown  = currentScrollY > lastScrollY.current;
+
+      if (scrollingDown && currentScrollY > 50 && !isHidden.current) {
+        isHidden.current = true;
+        gsap.to(navLinksRef.current, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
+        gsap.to(grainRef.current,    { opacity: 0, duration: 0.3, ease: 'power2.out' });
+        gsap.to(navBarRef.current,   { borderBottomColor: 'transparent', duration: 0.3, ease: 'power2.out' });
+        gsap.to(headerRef.current,   { backgroundColor: 'transparent',   duration: 0.3, ease: 'power2.out' });
+        gsap.to(logoRef.current,     { scale: 0.7, transformOrigin: 'left center', duration: 0.4, ease: 'power2.out' });
+      } else if (!scrollingDown && isHidden.current) {
+        isHidden.current = false;
+        gsap.to(navLinksRef.current, { opacity: 1, pointerEvents: 'auto', duration: 0.3, ease: 'power2.out' });
+        gsap.to(grainRef.current,    { opacity: 1, duration: 0.3, ease: 'power2.out' });
+        gsap.to(navBarRef.current,   { borderBottomColor: '',  duration: 0.3, ease: 'power2.out' });
+        gsap.to(headerRef.current,   { backgroundColor: '',    duration: 0.3, ease: 'power2.out' });
+        gsap.to(logoRef.current,     { scale: 1, transformOrigin: 'left center', duration: 0.4, ease: 'power2.out' });
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="header ">
+    <header ref={headerRef} className="header bg-beige">
+      <div ref={grainRef} className="header-grain" aria-hidden="true" />
       <div className="header-content">
         <div className="nav-items">
-            <ul className='font-title text-blue uppercase text-h4 h-18 pl-12 pr-12 grid grid-cols-[1fr_auto_1fr] items-center border-b-3 border-red'>
-                <li>
-                    <ul className='grid grid-cols-2'>
-                        <li className='flex justify-center'><Link to="/about">About Me</Link></li>
-                        <li className='flex justify-center'><Link to="/projects">Projects</Link></li>
-                    </ul>
-                </li>
-                <li ref={logoRef} className='home-logo flex justify-center px-10'>
-                    <Link to="/"><img ref={logoImgRef} src={LogoFull} alt="Logo" className="logo-img max-w-16"/></Link>
-                </li>
-                <li>
-                    <ul className='grid grid-cols-2'>
-                        <li className='flex justify-center'><Link to="/playground">Playground</Link></li>
-                        <li className='flex justify-center'><button onClick={openContact} className="contact-nav-btn">Contact</button></li>
-                    </ul>
-                </li>
-            </ul>
+          <ul ref={navBarRef} className='font-title text-blue uppercase text-h4 h-18 pl-16 pr-16 flex items-center border-b-3 border-black'>
+            <li ref={logoRef} className='home-logo flex items-center'>
+              <a href="/"><img ref={logoImgRef} src={LogoFull} alt="Logo" className="logo-img max-w-16"/></a>
+            </li>
+            <li ref={navLinksRef} className='flex gap-20 ml-auto items-center'>
+              <a href="/"           className='flex justify-center'>Home</a>
+              <a href="/about"      className='flex justify-center'>About Me</a>
+              <a href="/projects"   className='flex justify-center'>Projects</a>
+              <a href="/playground" className='flex justify-center'>Playground</a>
+              <button onClick={openContact} className="contact-nav-btn">Contact</button>
+            </li>
+          </ul>
         </div>
-
       </div>
     </header>
   );

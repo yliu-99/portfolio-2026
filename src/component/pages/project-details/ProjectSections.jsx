@@ -10,8 +10,8 @@ function ProjectSections({ sections = [] }) {
                 <SectionNav sections={sections} />
             </div>
 
-            {/* Main content */}
-            <div className="flex-1 min-w-0 max-w-225">
+            {/* Main content — centered in available space */}
+            <div className="min-w-0 w-full max-w-225 mx-auto">
                 <SectionMap sections={sections} />
             </div>
 
