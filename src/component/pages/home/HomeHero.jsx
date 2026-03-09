@@ -9,6 +9,7 @@ import mothHero from "../../../assets/page-assets/home/moth-hero.svg";
 import circleText from "../../../assets/page-assets/home/circle-text.svg";
 
 // import components
+import FloatingMenu from './FloatingMenu';
 
 // import styles
 import "./HomeHero.scss";
@@ -110,7 +111,8 @@ function HomeHero() {
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
-    <section ref={heroRef} className="col-span-12 mt-0!">
+    <section ref={heroRef} className="col-span-12 mt-0! relative">
+      <FloatingMenu />
       <div className="hero-elements grid grid-cols-12 items-center min-h-[calc(100dvh-4rem)] md:min-h-[70vh]">
 
         {/* Col 1 — left numbers */}

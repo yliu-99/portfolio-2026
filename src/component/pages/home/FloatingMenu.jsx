@@ -1,22 +1,17 @@
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus } from '../../../data/icons';
+import Energy from './home-menu-components/Energy';
+import Status from './home-menu-components/Status';
+import Boost from './home-menu-components/Boost';
+import Obsessions from './home-menu-components/Obsessions';
 
-function FlaotingMenu () {
-    const [isOpen, setIsOpen] = useState(false);
-
-    return(
-        <div className="menu-container">
-            <div className="menu-nav" onClick={() => setIsOpen(prev => !prev)}>
-                <div className="title">{title}</div>
-                <div className="toggle">
-                    <FontAwesomeIcon icon={isOpen ? faMinus : faPlus} style={{ color: 'blue' }} />
-                </div>
-            </div>
-            {isOpen && (
-                <div className="menu-content">
-                </div>
-            )}
+function FloatingMenu() {
+    return (
+        <div className="absolute top-0 left-0 right-0 z-1 hidden md:flex items-start justify-center gap-[clamp(1rem,4vw,4rem)] max-[950px]:gap-[clamp(0px,1.5vw,1rem)]">
+            <Energy />
+            <Status />
+            <Obsessions />
+            <Boost />
         </div>
     );
 }
+
+export default FloatingMenu;
