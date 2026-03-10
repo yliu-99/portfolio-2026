@@ -110,7 +110,7 @@ function Obsessions() {
                 <div ref={contentRef} className="flex flex-col items-center gap-3 w-full">
                     {/* Clickable title */}
                     <button
-                        className="font-title text-red text-h5 leading-tight tracking-secondary text-center cursor-pointer hover:opacity-70 transition-opacity duration-150 min-h-[3.35rem] flex items-center justify-center gap-2"
+                        className="font-title uppercase text-red text-h5 leading-tight tracking-secondary text-center cursor-pointer hover:opacity-70 transition-opacity duration-150 min-h-[3.35rem] flex items-center justify-center gap-2"
                         onClick={() => setActive(item)}
                         aria-label={`Learn more about ${item.title}`}
                     >
