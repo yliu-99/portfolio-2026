@@ -30,7 +30,7 @@ function MenuTemplate({ title, children, defaultOpen = false, headerAction }) {
     }, [isOpen]);
 
     return (
-        <div className="w-64 border-2 border-black bg-white font-title uppercase select-none">
+        <div className={`w-64 border-2 border-black bg-white font-title uppercase select-none transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`}>
             <div
                 className="flex justify-between items-center px-3 py-2 cursor-pointer border-b-2 border-black gap-2"
                 onClick={() => setIsOpen(p => !p)}

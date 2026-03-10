@@ -122,7 +122,7 @@ function Obsessions() {
                     </button>
 
                     {/* Category */}
-                    <p className="text-[0.72rem] tracking-[0.12em] opacity-50">{item.category}</p>
+                    <p className="text-[0.85rem] tracking-[0.12em] opacity-50">{item.category}</p>
 
                     {/* Image */}
                     <div className="w-full aspect-video bg-[#e8e8e8] overflow-hidden">

@@ -12,7 +12,6 @@
 .hero-graphic {
     position: relative;
     display: grid; // grid overlap: children share cell → no height-percentage dependency
-    
     .moth {
         grid-row: 1;
         grid-column: 1;
