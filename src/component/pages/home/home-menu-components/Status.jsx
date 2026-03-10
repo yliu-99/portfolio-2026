@@ -1,33 +1,47 @@
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
 import MenuTemplate from './MenuTemplate';
-
-const data = {
-    availability: 'OPEN',
-    mode: 'DEEP WORK',
-    location: 'REMOTE',
-    response: '< 24H',
-};
-
-const Row = ({ label, value, highlight }) => (
-    <div className="flex justify-between items-center w-full gap-2">
-        <span className="text-[0.8rem] tracking-[0.1em] opacity-50 shrink-0">{label}</span>
-        <span className={`tracking-[0.05em] text-right ${highlight ? 'text-base text-blue' : 'text-[0.85rem]'}`}>
-            {value}
-        </span>
-    </div>
-);
-
-const Divider = () => <div className="w-full h-px bg-black/15" />;
+import { useContactModal } from '../../../../context/ContactModalContext';
 
 function Status() {
+    const { openContact } = useContactModal();
+    const dotRef = useRef(null);
+
+    useEffect(() => {
+        const tween = gsap.to(dotRef.current, {
+            opacity: 0.2,
+            duration: 0.9,
+            ease: 'power1.inOut',
+            repeat: -1,
+            yoyo: true,
+        });
+        return () => tween.kill();
+    }, []);
+
     return (
         <MenuTemplate title="Current Status">
-            <Row label="AVAIL" value={data.availability} highlight />
-            <Divider />
-            <Row label="MODE"  value={data.mode} />
-            <Divider />
-            <Row label="LOC"   value={data.location} />
-            <Divider />
-            <Row label="REPLY" value={data.response} />
+            <div className="flex flex-col items-center gap-5 w-full">
+                <div className="flex items-start gap-2">
+                    <span
+                        ref={dotRef}
+                        className="font-title text-red text-[2.5rem] leading-none mt-[0.6rem]"
+                        aria-hidden="true"
+                    >●</span>
+                    <p className="font-title text-red text-[2rem] leading-tight tracking-[0.05em] text-center">
+                        LOOKING<br />FOR WORK
+                    </p>
+                </div>
+                <div className="text-center">
+                    <p className="text-[0.85rem] tracking-[0.12em] opacity-50">TYPE:</p>
+                    <p className="text-[0.85rem] tracking-[0.08em]">DESIGN INTERNSHIP</p>
+                </div>
+                <button
+                    className="text-[0.85rem] tracking-[0.12em] opacity-50 underline underline-offset-2 cursor-pointer hover:opacity-100 transition-opacity duration-150"
+                    onClick={openContact}
+                >
+                    CONTACT ME
+                </button>
+            </div>
         </MenuTemplate>
     );
 }

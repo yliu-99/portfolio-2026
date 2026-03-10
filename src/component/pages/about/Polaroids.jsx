@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 
 import { POLAROID_PHOTOS as PHOTOS } from '../../../data/component-data/polaroidsData';
@@ -69,7 +70,7 @@ function PolaroidModal({ photo, onClose }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [handleClose]);
 
-  return (
+  return createPortal(
     <div
       ref={overlayRef}
       className="fixed inset-0 bg-black/82 z-1000 flex items-center justify-center cursor-pointer"
@@ -79,7 +80,7 @@ function PolaroidModal({ photo, onClose }) {
     >
       <button
         className="absolute top-6 right-6 w-10 h-10 bg-white border-0 rounded-full text-[0.9rem] cursor-pointer flex items-center justify-center z-1001 transition-colors duration-150 hover:bg-[#eee]"
-        onClick={handleClose}
+        onClick={e => { e.stopPropagation(); handleClose(); }}
         aria-label="Close"
       >✕</button>
 
@@ -96,7 +97,8 @@ function PolaroidModal({ photo, onClose }) {
         </div>
         <p className="font-body text-[0.85rem] text-center text-[#555] mt-[0.85rem] tracking-[0.06em]">{photo.caption}</p>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
@@ -134,10 +136,10 @@ function Polaroids() {
     <section className="relative bg-blue pt-14 pb-20 overflow-hidden select-none -mx-4 md:-mx-5 lg:-mx-6 min-h-screen flex flex-col justify-center border-b-3 border-white">
 
       {/* Header */}
-      <div className="flex flex-col items-center mb-6">
+      <div className="flex flex-col items-center mb-14">
         <h2 className="font-title text-white uppercase tracking-[0.15em] text-h3 text-center">Polaroid Wall</h2>
         <div className="border-b-3 border-white w-24 mt-1"></div>
-        <p className="font-body text-white text-h6 tracking-secondary mt-3">photos from my life</p>
+        <p className="font-body text-white text-h6 tracking-secondary mt-6">people, places, and things that keep me motivated and inspired</p>
       </div>
 
       {/* Stage */}

@@ -10,11 +10,12 @@ import circleText from "../../../assets/page-assets/home/circle-text.svg";
 
 // import components
 import FloatingMenu from './FloatingMenu';
+import { MenuOpenProvider, useMenuOpen } from '../../../context/MenuOpenContext';
 
 // import styles
 import "./HomeHero.scss";
 
-function HomeHero() {
+function HeroContent() {
 
   // ── Animated numbers state ───────────────────────────────────────────────
   const rand = () => Math.floor(Math.random() * 10);
@@ -67,6 +68,7 @@ function HomeHero() {
 
   // ── GSAP refs ────────────────────────────────────────────────────────────
   const heroRef      = useRef(null);
+  const elementsRef  = useRef(null);
   const graphicRef   = useRef(null);
   const circleRef    = useRef(null);
   const leftNumRef   = useRef(null);
@@ -109,11 +111,21 @@ function HomeHero() {
     return () => ctx.revert();
   }, []);
 
+  // ── Greyscale when any menu is open ──────────────────────────────────────
+  const { anyOpen } = useMenuOpen();
+  useEffect(() => {
+    gsap.to(elementsRef.current, {
+      filter: anyOpen ? 'grayscale(1)' : 'grayscale(0)',
+      duration: 0.4,
+      ease: 'power2.inOut',
+    });
+  }, [anyOpen]);
+
   // ── Render ────────────────────────────────────────────────────────────────
   return (
     <section ref={heroRef} className="col-span-12 mt-0! relative">
       <FloatingMenu />
-      <div className="hero-elements grid grid-cols-12 items-center min-h-[calc(100dvh-4rem)] md:min-h-[70vh]">
+<div ref={elementsRef} className="hero-elements grid grid-cols-12 items-center min-h-[calc(100dvh-4rem)] md:min-h-[70vh]">
 
         {/* Col 1 — left numbers */}
         <div ref={leftNumRef}
@@ -123,14 +135,14 @@ function HomeHero() {
 
         {/* Col 3 — left label */}
         <div ref={leftLblRef}
-          className="left-label col-start-3 col-end-4 font-title tracking-primary">
+          className="left-label col-start-3 col-end-4 font-title tracking-primary translate-y-4/5">
           <span className="text-black/70 text-h4">PORTFOLIO</span>
           <span className="text-red text-h5">2026</span>
         </div>
 
         {/* Cols 5–8 — hero graphic */}
         <div ref={graphicRef}
-          className="hero-graphic justify-center align-middle col-start-2 col-end-12 sm:col-start-3 sm:col-end-11 md:col-start-4 md:col-end-10">
+          className="hero-graphic justify-center align-middle col-start-2 col-end-12 sm:col-start-3 sm:col-end-11 md:col-start-4 md:col-end-10 xl:mt-20">
           <div className="moth">
             <img
               src={mothHero}
@@ -149,13 +161,13 @@ function HomeHero() {
 
         {/* Col 10 — right label */}
         <div ref={rightLblRef}
-          className="right-label col-start-10 col-end-11 font-title tracking-primary">
+          className="right-label col-start-10 col-end-11 font-title tracking-primary translate-y-4/5">
           <span className="text-black/70 text-h5">CHECKOUT</span>
           <div className="explore-text">
         <span className="text-red text-h4">MY WORK</span>
           <span ref={triangleRef} className="triangle"><FontAwesomeIcon icon={faCaretDown} /></span>
           </div>
-          
+
         </div>
 
         {/* Col 12 — right numbers */}
@@ -166,6 +178,14 @@ function HomeHero() {
 
       </div>
     </section>
+  );
+}
+
+function HomeHero() {
+  return (
+    <MenuOpenProvider>
+      <HeroContent />
+    </MenuOpenProvider>
   );
 }
 
