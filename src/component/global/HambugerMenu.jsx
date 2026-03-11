@@ -30,13 +30,15 @@ function HamburgerMenu() {
 
       if (scrollingDown && currentScrollY > 50 && !isHidden.current) {
         isHidden.current = true;
-        gsap.to(hamburgerRef.current, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
+        containerRef.current.classList.add('is-hidden');
+        gsap.to(hamburgerRef.current, { opacity: 0, duration: 0.3, ease: 'power2.out' });
         gsap.to(grainRef.current,     { opacity: 0, duration: 0.3, ease: 'power2.out' });
         gsap.to(containerRef.current, { borderBottomColor: 'transparent', backgroundColor: 'transparent', duration: 0.3, ease: 'power2.out' });
         gsap.to(logoRef.current,      { scale: 0.7, transformOrigin: 'left center', duration: 0.4, ease: 'power2.out' });
       } else if (!scrollingDown && isHidden.current) {
         isHidden.current = false;
-        gsap.to(hamburgerRef.current, { opacity: 1, pointerEvents: 'auto', duration: 0.3, ease: 'power2.out' });
+        containerRef.current.classList.remove('is-hidden');
+        gsap.to(hamburgerRef.current, { opacity: 1, duration: 0.3, ease: 'power2.out' });
         gsap.to(grainRef.current,     { opacity: 1, duration: 0.3, ease: 'power2.out' });
         gsap.to(containerRef.current, { borderBottomColor: '', backgroundColor: '', duration: 0.3, ease: 'power2.out' });
         gsap.to(logoRef.current,      { scale: 1, transformOrigin: 'left center', duration: 0.4, ease: 'power2.out' });

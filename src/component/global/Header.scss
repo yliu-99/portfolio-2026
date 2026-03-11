@@ -3,6 +3,12 @@
     position: relative;
 }
 
+// When hidden on scroll, prevent the transparent header from blocking clicks
+.header.is-hidden,
+.header.is-hidden * {
+    pointer-events: none !important;
+}
+
 .header-grain {
     position: absolute;
     inset: 0;

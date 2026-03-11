@@ -1,3 +1,9 @@
+// When hidden on scroll, prevent the transparent bar from blocking clicks
+.mobile-menu-container.is-hidden,
+.mobile-menu-container.is-hidden * {
+    pointer-events: none !important;
+}
+
 // Grain overlay — shared by both the top bar and the full overlay
 .hm-grain {
     position: absolute;
