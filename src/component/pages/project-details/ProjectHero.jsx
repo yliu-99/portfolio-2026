@@ -19,10 +19,10 @@ function ProjectHero({ project }) {
             </div>
 
             {/* ── Body ────────────────────────────────────────────────── */}
-            <div className="grid grid-cols-[28%_1fr] max-md:grid-cols-1">
+            <div className="grid grid-cols-[28%_1fr] max-[1080px]:grid-cols-1">
 
                 {/* Sidebar */}
-                <aside className="bg-white border-r border-black flex flex-col justify-center gap-10 px-8 py-10 max-md:border-r-0 max-md:border-t max-md:border-black max-md:order-2 max-md:gap-7 max-md:p-6">
+                <aside className="bg-white border-r border-black flex flex-col justify-center gap-10 px-8 py-10 max-[1080px]:border-r-0 max-[1080px]:border-t max-[1080px]:border-black max-[1080px]:order-2 max-[1080px]:gap-7 max-[1080px]:p-6">
 
                     {/* Tools */}
                     <div className="flex flex-col gap-[0.65rem]">
@@ -51,13 +51,9 @@ function ProjectHero({ project }) {
                     {roles.length > 0 && (
                         <div className="flex flex-col gap-[0.65rem]">
                             <span className="font-body font-bold text-h6 tracking-[0.15em] uppercase text-black">Role:</span>
-                            <div className="flex flex-col gap-[0.1rem]">
-                                {roles.map(role => (
-                                    <span key={role} className="font-body text-h6 text-black leading-normal capitalize">
-                                        {role}
-                                    </span>
-                                ))}
-                            </div>
+                            <span className="font-body text-h6 text-black leading-normal capitalize">
+                                {roles.join(' / ')}
+                            </span>
                         </div>
                     )}
 
@@ -70,7 +66,7 @@ function ProjectHero({ project }) {
                 </aside>
 
                 {/* Media */}
-                <div className="bg-black aspect-video overflow-hidden relative max-md:order-1 max-md:w-full">
+                <div className="bg-black aspect-video overflow-hidden relative max-[1080px]:order-1 max-[1080px]:w-full">
                     {project.type === 'vid' ? (
                         <iframe
                             src={project.media}

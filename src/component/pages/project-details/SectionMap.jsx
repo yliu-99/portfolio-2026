@@ -20,7 +20,7 @@ function TextBlock({ heading, body }) {
     return (
         <div className="max-w-185">
             {heading && <h2 className="sm-heading">{heading}</h2>}
-            <p className="font-body text-[1.05rem] leading-[1.75] text-black m-0">{body}</p>
+            <p className="font-body text-[1.18rem] leading-[1.75] text-black m-0">{body}</p>
         </div>
     );
 }
@@ -58,7 +58,7 @@ function SplitSection({ layout = 'imageRight', heading, body, image }) {
         <div className={`sm-split sm-split--${layout}`}>
             <div className="split-text">
                 {heading && <h2 className="sm-heading">{heading}</h2>}
-                <p className="font-body text-[1.05rem] leading-[1.75] text-black m-0">{body}</p>
+                <p className="font-body text-[1.18rem] leading-[1.75] text-black m-0">{body}</p>
             </div>
             <div className="split-image" onMouseEnter={onImgEnter} onMouseLeave={onImgLeave}>
                 {image && <img ref={imgRef} src={image} alt={heading || ''} />}
@@ -310,7 +310,7 @@ function Goals({ body }) {
                 Project Overview
             </span>
             <p
-                className="font-body text-[1.05rem] leading-[1.75] text-black m-0"
+                className="font-body text-[1.18rem] leading-[1.75] text-black m-0"
                 dangerouslySetInnerHTML={{ __html: body }}
             />
         </div>

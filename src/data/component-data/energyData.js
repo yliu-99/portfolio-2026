@@ -1,4 +1,4 @@
-const energyLines = {
+export const energyLines = {
   0: ["One more episode", "Midnight magic", "Idea factory open"],
   1: ["Night owl prime time", "Creativity at max", "Late night productivity"],
   2: ["Pure zombie mode", "Running on dreams", "Too many tabs open (in my brain)"],

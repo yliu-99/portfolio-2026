@@ -11,6 +11,7 @@
   /* Fonts */
   --font-title: "Anton SC", sans-serif;
   --font-body: "Source Sans 3", sans-serif;
+  --font-cjk: "Noto Sans SC", sans-serif;
 
   /* Type scale */
   --text-h1: 4.209rem;
@@ -26,4 +27,17 @@
   --tracking-major: 0em;        /* h3–h6 */
   --tracking-numbers:3em;     /* animated numbers */
 }
+
+/* Pass clicks through sticky header wrappers only when the header is hidden */
+.sticky:has(.header.is-hidden),
+.sticky:has(.mobile-menu-container.is-hidden) {
+  pointer-events: none;
+}
+
+html {
+  scrollbar-gutter: stable;
+  scrollbar-width: none; /* Firefox */
+}
+
+::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 

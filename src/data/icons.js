@@ -10,8 +10,11 @@ export {
   faXmark, // HamburgerMenu — mobile nav close
   faCaretDown, // HomeHero, AboutMe — scroll hint / directional indicator
   faCaretRight, // AboutMe — section title indicator
-  faPlus, // FloatingMenu — expand
-  faMinus, // FloatingMenu — collapse
+  faSquarePlus,  // FloatingMenu — expand
+  faSquareMinus, // FloatingMenu — collapse
+  faShuffle, // Boost — shuffle advice
+  faUpRightFromSquare, // Obsessions — open detail popup
+  faEye, // Values — view image description
 } from "@fortawesome/free-solid-svg-icons";
 
 // Social & Contact

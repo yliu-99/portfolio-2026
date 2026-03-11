@@ -145,10 +145,25 @@ const stages = [
 
 function AboutMe() {
   const [stage, setStage] = useState(0);
-  const wrapperRef = useRef(null);
+  const wrapperRef     = useRef(null);
+  const stickyPanelRef = useRef(null);
+  const headerHiddenRef = useRef(false);
 
   useEffect(() => {
+    const updatePanel = (hidden) => {
+      if (!stickyPanelRef.current) return;
+      stickyPanelRef.current.style.top    = hidden ? '0px'   : '4.5rem';
+      stickyPanelRef.current.style.height = hidden ? '100vh' : 'calc(100vh - 4.5rem)';
+    };
+
     const handleScroll = () => {
+      // Adjust panel when header shows/hides (same 50px threshold as Header.jsx)
+      const hidden = window.scrollY > 50;
+      if (hidden !== headerHiddenRef.current) {
+        headerHiddenRef.current = hidden;
+        updatePanel(hidden);
+      }
+
       if (!wrapperRef.current || window.innerWidth < 1024) return;
       const rect = wrapperRef.current.getBoundingClientRect();
       const scrolled = -rect.top;
@@ -159,6 +174,9 @@ function AboutMe() {
       else if (progress < 2 / 3) setStage(1);
       else                        setStage(2);
     };
+
+    // Set initial state in case page loads scrolled
+    updatePanel(window.scrollY > 50);
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -179,7 +197,11 @@ function AboutMe() {
 
       {/* ── lg+: sticky scroll-driven panel ────────────────────────────── */}
       <div ref={wrapperRef} className="hidden lg:block h-[300vh]">
-        <div className="sticky top-18 h-[calc(100vh-4.5rem)] grid grid-cols-12">
+        <div
+          ref={stickyPanelRef}
+          className="sticky grid grid-cols-12"
+          style={{ top: '4.5rem', height: 'calc(100vh - 4.5rem)', transition: 'top 0.3s ease, height 0.3s ease' }}
+        >
 
           {/* image */}
           <div className="col-span-6 relative border-r-3 border-black">
