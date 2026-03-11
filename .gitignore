@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Claude Code memory
+memory/
+
 # Local dev-only files (not deployed)
 src/data/projects-data/individual-project-data/sectionMapDemo.js
 

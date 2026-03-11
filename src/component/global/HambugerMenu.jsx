@@ -1,6 +1,7 @@
 // import dependencies
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark, faEnvelope, faLinkedin, faInstagram, faYoutube, faGithub } from "../../data/icons";
 import { useLogoRotation } from "../../hooks/useLogoRotation";
@@ -11,21 +12,57 @@ import "./HamburgerMenu.scss";
 
 function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const logoImgRef = useRef(null);
+  const logoImgRef     = useRef(null);
+  const logoRef        = useRef(null);
+  const containerRef   = useRef(null);
+  const hamburgerRef   = useRef(null);
+  const grainRef       = useRef(null);
+  const lastScrollY    = useRef(0);
+  const isHidden       = useRef(false);
   const { openContact } = useContactModal();
+
   useLogoRotation(logoImgRef);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollingDown  = currentScrollY > lastScrollY.current;
+
+      if (scrollingDown && currentScrollY > 50 && !isHidden.current) {
+        isHidden.current = true;
+        containerRef.current.classList.add('is-hidden');
+        gsap.to(hamburgerRef.current, { opacity: 0, duration: 0.3, ease: 'power2.out' });
+        gsap.to(grainRef.current,     { opacity: 0, duration: 0.3, ease: 'power2.out' });
+        gsap.to(containerRef.current, { borderBottomColor: 'transparent', backgroundColor: 'transparent', duration: 0.3, ease: 'power2.out' });
+        gsap.to(logoRef.current,      { scale: 0.7, transformOrigin: 'left center', duration: 0.4, ease: 'power2.out' });
+      } else if (!scrollingDown && isHidden.current) {
+        isHidden.current = false;
+        containerRef.current.classList.remove('is-hidden');
+        gsap.to(hamburgerRef.current, { opacity: 1, duration: 0.3, ease: 'power2.out' });
+        gsap.to(grainRef.current,     { opacity: 1, duration: 0.3, ease: 'power2.out' });
+        gsap.to(containerRef.current, { borderBottomColor: '', backgroundColor: '', duration: 0.3, ease: 'power2.out' });
+        gsap.to(logoRef.current,      { scale: 1, transformOrigin: 'left center', duration: 0.4, ease: 'power2.out' });
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="hamburger-menu">
-      {/* Hamburger Menu */}
-      <div className="mobile-menu-container relative p-6 grid grid-cols-12 items-center border-b-3 border-black">
-        <div className="hm-grain" aria-hidden="true" />
-        <div className="logo col-start-1 flex justify-start relative z-2">
+      {/* Top bar */}
+      <div ref={containerRef} className="mobile-menu-container relative p-6 grid grid-cols-12 items-center border-b-3 border-black bg-beige">
+        <div ref={grainRef} className="hm-grain" aria-hidden="true" />
+        <div ref={logoRef} className="logo col-start-1 flex justify-start relative z-2">
           <Link to="/">
             <img ref={logoImgRef} src={LogoFull} alt="Logo" className="logo-img max-w-8 -h-auto" />
           </Link>
         </div>
         <button
+          ref={hamburgerRef}
           className="hamburger-btn text-blue col-start-11 col-end-13 flex justify-end text-h4"
           onClick={() => setIsOpen(true)}
           aria-label="Open menu"

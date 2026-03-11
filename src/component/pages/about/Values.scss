@@ -15,6 +15,49 @@
     }
 }
 
+// ── card back description overlay ────────────────────────────────────────────
+
+.card-desc-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.45) 55%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.25rem;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+
+    &.visible { opacity: 1; }
+
+    p {
+        color: #fff;
+        font-size: 1rem;
+        line-height: 1.65;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    }
+}
+
+.card-desc-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    z-index: 1;
+
+    &:hover { background: rgba(0,0,0,0.7); }
+}
+
 // ── carousel dots ────────────────────────────────────────────────────────────
 
 .carousel-dots {

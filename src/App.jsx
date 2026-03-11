@@ -56,7 +56,7 @@ function App() {
     <ContactModalProvider>
       <Router>
         <div className="app flex flex-col min-h-screen">
-          <div className="lg:hidden sticky top-0 z-40 bg-beige"><HamburgerMenu /></div>
+          <div className="lg:hidden sticky top-0 z-40"><HamburgerMenu /></div>
           <div className="hidden lg:block sticky top-0 z-40"><Header /></div>
           <main className='main-content grid grid-cols-12 gap-4 px-4 md:px-5 lg:px-6 pt-16'>
             <div ref={gridRef} className="grid-bg" />

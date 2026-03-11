@@ -1,57 +1,61 @@
-// ── Featured project list buttons ───────────────────────────────────────────
-// Typography (font-family, font-size, letter-spacing, text-transform) is
-// inherited from the .project-item container — only reset browser button
-// defaults and add interactive states here.
-.featured-project-btn {
-  background: none;
+// ── Preview thumbnails — simple rectangles ────────────────────────────────────
+.filmstrip-thumb {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
   border: none;
-  // Extend into container's padding so the background highlight spans full width
-  padding: 0.75rem 2rem;
-  margin: 0 -2rem;
   cursor: pointer;
-  color: var(--black);
-  opacity: 0.3;
-  // Flex so title and caret sit at opposite ends
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 0px var(--blue);
+  transition: box-shadow 0.25s ease;
 
-  &:hover {
-    opacity: 0.65;
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.55) saturate(0.65); // matches main media dim
+    transition: filter 0.25s ease;
   }
 
   &.active {
-    opacity: 1;
-    background-color: rgba(37, 36, 47, 0.05);
+    box-shadow: inset 0 0 0 3px var(--blue);
+
+    img { filter: none; }
+  }
+
+  &:hover:not(.active) img {
+    filter: brightness(0.75) saturate(0.8);
   }
 }
 
-// Caret icon — hidden by default, revealed on active.
-// Uses visibility (not opacity) so it isn't affected by the button's own opacity value.
-.featured-caret {
-  visibility: hidden;
-  color: var(--blue);
-  flex-shrink: 0;
+// ── Main media image — dim applied only to this element ───────────────────────
+.featured-main-img {
+  filter: brightness(0.55) saturate(0.65);
+  transition: filter 0.45s ease;
+  animation: featured-fade-in 0.35s ease;
 
-  // Only show alongside the media panel (lg+)
-  @media (min-width: 1024px) {
-    .featured-project-btn.active & {
-      visibility: visible;
-    }
+  &.revealed {
+    filter: none;
   }
 }
 
-// ── Chips overlay — bottom-left corner of the media area ─────────────────────
+// ── Title ─────────────────────────────────────────────────────────────────────
+.featured-title {
+  font-size: 2rem; // sm and below
+
+  @media (min-width: 768px) {
+    font-size: clamp(2.5rem, 4.5vw, 4.209rem);
+  }
+}
+
+// ── Chips — centered below title ─────────────────────────────────────────────
 .featured-chips-overlay {
-  position: absolute;
-  bottom: 1.25rem;
-  left: 1.25rem;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.4rem;
-  animation: featured-fade-in 0.35s ease;
+  pointer-events: none;
 }
 
 .featured-chip {
@@ -64,20 +68,16 @@
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
-}
 
-// ── Media image — fade in when key changes ───────────────────────────────────
-.featured-media-img {
-  animation: featured-fade-in 0.35s ease;
-}
+  @media (min-width: 1024px) {
+    font-size: 1rem;
+    padding: 0.3rem 0.8rem;
+  }
 
-// ── Media video iframe ────────────────────────────────────────────────────────
-.featured-media-video {
-  border: none;
-  width: 100%;
-  height: 100%;
-  display: block;
-  animation: featured-fade-in 0.35s ease;
+  @media (min-width: 1280px) {
+    font-size: 1.1rem;
+    padding: 0.4rem 1rem;
+  }
 }
 
 @keyframes featured-fade-in {

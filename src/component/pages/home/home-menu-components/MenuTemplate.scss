@@ -1,0 +1,41 @@
+.menu-card {
+    width: 200px;
+    border: 2px solid var(--black);
+    background: var(--white);
+    font-family: var(--title);
+    text-transform: uppercase;
+    user-select: none;
+
+    .menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        cursor: pointer;
+        border-bottom: 2px solid var(--black);
+        gap: 0.5rem;
+
+        .menu-title {
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            line-height: 1.2;
+        }
+
+        .menu-toggle-icon {
+            color: var(--blue);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+    }
+
+    .menu-body {
+        height: 350px;
+        padding: 1.25rem 0.75rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        overflow: hidden;
+    }
+}
