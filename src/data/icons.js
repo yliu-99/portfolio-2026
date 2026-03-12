@@ -9,12 +9,14 @@ export {
   faBars, // HamburgerMenu — mobile nav open
   faXmark, // HamburgerMenu — mobile nav close
   faCaretDown, // HomeHero, AboutMe — scroll hint / directional indicator
-  faCaretRight, // AboutMe — section title indicator
+  faCaretLeft,  // AboutMenu — prev page
+  faCaretRight, // AboutMe — section title indicator; AboutMenu — next page
   faSquarePlus,  // FloatingMenu — expand
   faSquareMinus, // FloatingMenu — collapse
   faShuffle, // Boost — shuffle advice
   faUpRightFromSquare, // Obsessions — open detail popup
   faEye, // Values — view image description
+  faLocationDot, // AboutMenu — location indicator
 } from "@fortawesome/free-solid-svg-icons";
 
 // Social & Contact
