@@ -32,7 +32,7 @@ function Status() {
                     </p>
                 </div>
                 <div className="text-center">
-                    <p className="text-[0.85rem] tracking-[0.12em] opacity-50">TYPE:</p>
+                    <p className="text-[0.85rem] tracking-[0.12em] ">TYPE:</p>
                     <p className="text-[0.85rem] tracking-[0.08em]">DESIGN INTERNSHIP</p>
                 </div>
                 <button
