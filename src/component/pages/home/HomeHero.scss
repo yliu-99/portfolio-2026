@@ -15,6 +15,8 @@
     .moth {
         grid-row: 1;
         grid-column: 1;
+        z-index: 2;
+        img { mix-blend-mode: multiply; }
     }
 }
 
@@ -28,7 +30,54 @@
     justify-self: center;                  // 50% horizontal
     align-self: start;
     margin-top: calc(523 / 715 * 41.2%);   // 30.1% of width → circle centre
+    z-index: 1;                            // sits behind .moth (z-index: 2)
+    img { mix-blend-mode: multiply; }
     // GSAP sets yPercent: -50 to vertically centre the element at this point
+}
+
+// ── Moth redesign concept (temporary) ─────────────────────────────────────────
+.moth-redesign {
+    grid-row: 1;
+    grid-column: 1;
+    position: relative;
+
+    img {
+        display: block;
+        width: 100%;
+        mix-blend-mode: multiply;
+    }
+
+    &__overlay {
+        position: absolute;
+        top: 35%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        line-height: 1;
+    }
+
+    &__cycle,
+    &__static {
+        font-family: var(--font-title);
+        text-transform: uppercase;
+        font-size: clamp(2rem, 11vw, 6.5rem);
+        letter-spacing: var(--tracking-primary);
+        mix-blend-mode: multiply;
+    }
+
+    &__cycle {
+        color: var(--color-blue);
+        display: block;
+        overflow: hidden;
+    }
+
+    &__static {
+        color: var(--color-red);
+        margin-top: -0.4em;
+    }
 }
 
 // ── Side numbers ──────────────────────────────────────────────────────────────

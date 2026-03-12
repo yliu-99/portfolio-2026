@@ -1,0 +1,17 @@
+@keyframes bounce-x {
+    0%, 100% { transform: translateX(0); }
+    50%       { transform: translateX(3px); }
+}
+
+@keyframes bounce-x-reverse {
+    0%, 100% { transform: translateX(0); }
+    50%       { transform: translateX(-3px); }
+}
+
+.bounce-x {
+    animation: bounce-x 0.9s ease-in-out infinite;
+}
+
+.bounce-x-reverse {
+    animation: bounce-x-reverse 0.9s ease-in-out infinite;
+}

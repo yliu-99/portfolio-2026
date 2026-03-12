@@ -2,7 +2,7 @@
 import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
-import LogoFull from '../../assets/global-assets/logo-main.png';
+import LogoFull from '../../assets/global-assets/logo-main-texture.svg';
 import { useLogoRotation } from '../../hooks/useLogoRotation';
 import { useContactModal } from '../../context/ContactModalContext';
 

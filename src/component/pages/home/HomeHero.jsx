@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "../../../data/icons";
 
 // import images
-import mothHero from "../../../assets/page-assets/home/moth-hero.svg";
+import mothHero from "../../../assets/page-assets/home/centre-element.png";
 import circleText from "../../../assets/page-assets/home/circle-text.svg";
 
 // import components
@@ -76,6 +76,8 @@ function HeroContent() {
   const leftLblRef   = useRef(null);
   const rightLblRef  = useRef(null);
   const triangleRef  = useRef(null);
+  // redesign refs (restore when redesign concept is re-enabled):
+  // const cycleWordRef, mothImgRef, staticWordRef, overlayRef
 
   // entry animation
   useEffect(() => {
@@ -144,19 +146,20 @@ function HeroContent() {
         <div ref={graphicRef}
           className="hero-graphic justify-center align-middle col-start-2 col-end-12 sm:col-start-3 sm:col-end-11 md:col-start-4 md:col-end-10 xl:mt-20">
           <div className="moth">
-            <img
-              src={mothHero}
-              alt="Luna moth decorative illustration with the word 'design' in the center"
-              className="w-full"
-            />
+            <img src={mothHero} alt="Luna moth decorative illustration with the word 'design' in the center" className="w-full" />
           </div>
           <div ref={circleRef} className="animated-text">
-            <img
-              src={circleText}
-              alt="Rotating circular text animation"
-              className="w-full"
-            />
+            <img src={circleText} alt="Rotating circular text animation" className="w-full" />
           </div>
+
+          {/* ── Redesign concept (hidden) ── */}
+          {/* <div className="moth-redesign">
+            <img ref={mothImgRef} src={lunaMothRed} alt="Luna moth illustration" className="w-full" />
+            <div ref={overlayRef} className="moth-redesign__overlay">
+              <span ref={cycleWordRef} className="moth-redesign__cycle">GRAPHIC</span>
+              <span ref={staticWordRef} className="moth-redesign__static">DESIGN</span>
+            </div>
+          </div> */}
         </div>
 
         {/* Col 10 — right label */}

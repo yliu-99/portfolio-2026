@@ -87,7 +87,7 @@ function Energy() {
         ))}
       </div>
       <div className="flex flex-col items-center w-full text-[0.85rem] tracking-[0.1em] leading-relaxed opacity-80 text-center shrink overflow-hidden">
-        <span>MOOD:</span>
+        <span>MY MOOD:</span>
         <span>{energyLine}</span>
       </div>
     </MenuTemplate>
