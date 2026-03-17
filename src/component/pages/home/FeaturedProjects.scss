@@ -6,7 +6,6 @@
   border: none;
   cursor: pointer;
   overflow: hidden;
-  box-shadow: inset 0 0 0 0px var(--blue);
   transition: box-shadow 0.25s ease;
 
   img {
@@ -14,13 +13,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.55) saturate(0.65); // matches main media dim
+    filter: brightness(0.75) saturate(0.65);
     transition: filter 0.25s ease;
   }
 
   &.active {
-    box-shadow: inset 0 0 0 3px var(--blue);
-
     img { filter: none; }
   }
 
@@ -29,15 +26,9 @@
   }
 }
 
-// ── Main media image — dim applied only to this element ───────────────────────
+// ── Main media image ──────────────────────────────────────────────────────────
 .featured-main-img {
-  filter: brightness(0.55) saturate(0.65);
-  transition: filter 0.45s ease;
   animation: featured-fade-in 0.35s ease;
-
-  &.revealed {
-    filter: none;
-  }
 }
 
 // ── Title ─────────────────────────────────────────────────────────────────────
@@ -77,6 +68,25 @@
   @media (min-width: 1280px) {
     font-size: 1.1rem;
     padding: 0.4rem 1rem;
+  }
+}
+
+// ── Muted video preview on hover ──────────────────────────────────────────────
+.featured-video-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  animation: featured-fade-in 0.35s ease;
+
+  iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 177.78vh);
+    height: max(100%, 56.25vw);
+    transform: translate(-50%, -50%);
+    border: none;
   }
 }
 

@@ -74,6 +74,8 @@ section {
   color: inherit;
   text-transform: inherit;
   letter-spacing: inherit;
+
+  &:hover { color: var(--red); }
 }
 
 .btn {

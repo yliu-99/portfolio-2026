@@ -31,7 +31,7 @@ function ProjectsCard({ project }) {
         </div>
 
         {/* VIEW PROJECT — top right, hover only */}
-        <div className="card-view-project">
+        <div className="card-view-project mix-blend-multiply">
           VIEW PROJECT <FontAwesomeIcon icon={faCaretRight} />
         </div>
       </div>
