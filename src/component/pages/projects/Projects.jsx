@@ -26,7 +26,7 @@ function Projects() {
     <div className="projects-container col-span-12">
 
       {/* Page title — styled like the About Me section heading */}
-      <div className="projects-title-box font-title text-h2 flex items-center gap-3 bg-blue text-white pl-6 pr-6 mb-12">
+      <div className="projects-title-box font-title text-h2 flex items-center gap-3 bg-blue text-white mix-blend-multiply pl-6 pr-6 mb-12">
         <h1 className="mt-2">MY PROJECTS</h1>
         <span><FontAwesomeIcon icon={faCaretRight} /></span>
       </div>

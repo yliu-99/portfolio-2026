@@ -14,6 +14,7 @@ function Footer() {
 
   return (
     <footer className={`footer col-span-full bottom-0 ${bgColor} text-beige p-4`}>
+    <div className="footer-grain" />
     <div className="footer-container grid grid-cols-2 md:grid-cols-3 ">
       <div className="name text-h5 font-title uppercase flex justify-center items-center">
         <a href="/">Yuhan Liu.</a>
@@ -28,7 +29,7 @@ function Footer() {
           href="https://www.linkedin.com/in/yuhan-liu-1a571524b/"
           target="_blank"
           rel="noopener noreferrer"
-          className="social-link"
+          className="social-link hover:scale-110 transition-transform duration-200"
         >
           <FontAwesomeIcon icon={faLinkedin} />
         </a>
@@ -36,7 +37,7 @@ function Footer() {
           href="https://www.youtube.com/@Yuhan_Liu"
           target="_blank"
           rel="noopener noreferrer"
-          className="social-link"
+          className="social-link hover:scale-110 transition-transform duration-200"
         >
           <FontAwesomeIcon icon={faYoutube} />
         </a>
@@ -44,13 +45,13 @@ function Footer() {
           href="https://github.com/yliu-99"
           target="_blank"
           rel="noopener noreferrer"
-          className="social-link"
+          className="social-link hover:scale-110 transition-transform duration-200"
         >
           <FontAwesomeIcon icon={faGithub} />
         </a>
         <a
           href="mailto:yuhancreates@gmail.com"
-          className="social-link"
+          className="social-link hover:scale-110 transition-transform duration-200"
         >
           <FontAwesomeIcon icon={faEnvelope} />
         </a>

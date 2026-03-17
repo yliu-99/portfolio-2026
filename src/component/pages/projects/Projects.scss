@@ -18,7 +18,7 @@
 
 .filter-btn {
     font-family: var(--body);
-    font-size: var(--font-size-h6);
+    
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -29,6 +29,10 @@
     cursor: pointer;
     padding: 0;
     transition: color 0.25s ease, opacity 0.25s ease;
+
+    @media (min-width:1024px) {
+        font-size: var(--font-size-h6);
+    }
 
     &:not(:first-child)::before {
         content: '/';

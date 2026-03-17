@@ -61,15 +61,15 @@ function Header() {
       <div ref={grainRef} className="header-grain" aria-hidden="true" />
       <div className="header-content">
         <div className="nav-items">
-          <ul ref={navBarRef} className='font-title text-blue uppercase text-h5 h-18 pl-16 pr-16 flex items-center border-b-3 border-black'>
+          <ul ref={navBarRef} className='font-title text-black  uppercase text-h5 h-18 pl-16 pr-16 flex items-center border-b-2 border-black '>
             <li ref={logoRef} className='home-logo flex items-center'>
               <a href="/"><img ref={logoImgRef} src={LogoFull} alt="Logo" className="logo-img max-w-16"/></a>
             </li>
             <li ref={navLinksRef} className='flex gap-20 ml-auto items-center'>
-              <a href="/"           className='flex justify-center'>Home</a>
-              <a href="/about"      className='flex justify-center'>About Me</a>
-              <a href="/projects"   className='flex justify-center'>Projects</a>
-              <a href="/playground" className='flex justify-center'>Playground</a>
+              <a href="/"           className='flex justify-center hover:text-red'>Home</a>
+              <a href="/about"      className='flex justify-center hover:text-red'>About Me</a>
+              <a href="/projects"   className='flex justify-center hover:text-red'>Projects</a>
+              <a href="/playground" className='flex justify-center hover:text-red'>Playground</a>
               <button onClick={openContact} className="contact-nav-btn">Contact</button>
             </li>
           </ul>

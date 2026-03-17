@@ -13,9 +13,18 @@ function getThumbnail(project) {
   return project.media ?? null;
 }
 
+function getVideoId(project) {
+  if (project.type === 'vid' && project.media) {
+    const match = project.media.match(/embed\/([^?]+)/);
+    return match ? match[1] : null;
+  }
+  return null;
+}
+
 function FeaturedProjects() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [titleHovered, setTitleHovered] = useState(false);
+  const [mediaHovered, setMediaHovered] = useState(false);
   const intervalRef = useRef(null);
   const navigate = useNavigate();
 
@@ -73,8 +82,8 @@ function FeaturedProjects() {
           <div
             className="relative flex-1 overflow-hidden cursor-pointer"
             onClick={() => navigate(`/projects/${active.slug}`)}
-            onMouseEnter={stopCycle}
-            onMouseLeave={startCycle}
+            onMouseEnter={() => { stopCycle(); setMediaHovered(true); }}
+            onMouseLeave={() => { startCycle(); setMediaHovered(false); }}
           >
             {/* Image — dim filter applied only here */}
             {getThumbnail(active) && (
@@ -84,6 +93,18 @@ function FeaturedProjects() {
                 alt={active.title}
                 className={`featured-main-img w-full h-full object-cover block${titleHovered ? ' revealed' : ''}`}
               />
+            )}
+
+            {/* Muted video preview on hover */}
+            {mediaHovered && getVideoId(active) && (
+              <div key={`vid-${active.id}`} className="featured-video-wrapper">
+                <iframe
+                  src={`https://www.youtube.com/embed/${getVideoId(active)}?autoplay=1&mute=1&controls=0&loop=1&playlist=${getVideoId(active)}&modestbranding=1&playsinline=1&disablekb=1`}
+                  allow="autoplay"
+                  style={{ border: 'none' }}
+                  title={active.title}
+                />
+              </div>
             )}
 
             {/* Title + chips */}
