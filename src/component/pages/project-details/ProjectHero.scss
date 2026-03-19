@@ -1,13 +1,82 @@
 // ── Project Hero ───────────────────────────────────────────────────────────────
-// Only rules that cannot be expressed cleanly in Tailwind:
-//   • clamp() font-size on .hero-title (references a CSS custom property)
 
-.hero-title {
+// Red overlay — 30% opacity
+.hero-red-overlay {
+    opacity: 0.3;
+}
+
+// ── Title ─────────────────────────────────────────────────────────────────────
+
+.hero-title-line {
     font-family: var(--font-title);
-    font-size: clamp(1.6rem, 3vw, var(--text-h3));
-    color: var(--white);
+    font-size: clamp(3.5rem, 9vw, 9.5rem);
     letter-spacing: var(--tracking-primary);
     text-transform: uppercase;
-    line-height: 1;
-    margin: 0;
+    line-height: 0.88;
+    display: block;
+}
+
+// Line 2: blue blended over dark bg produces a near-black shadow effect
+// Negative margin = 20% of line-height (0.88 × 0.2 ≈ 0.176em) for overlap
+.hero-title-multiply {
+    mix-blend-mode: multiply;
+    margin-top: -0.2em;
+    font-size: clamp(2.8rem, 7.2vw, 7.6rem); // 80% of line-1 size
+    opacity: 0.7;
+    position: relative;
+    z-index: 1;
+}
+
+// YouTube iframe scaled up to cover the hero (16:9 → fills any aspect ratio)
+.hero-video-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 177.78vh;  // 100vh × (16/9)
+    min-width: 100%;
+    height: 56.25vw;  // 100vw × (9/16)
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    border: none;
+    pointer-events: none;
+}
+
+// ── Chips ─────────────────────────────────────────────────────────────────────
+
+.hero-chip {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    color: var(--color-white);
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+}
+
+// ── Specs Strip ───────────────────────────────────────────────────────────────
+
+.specs-strip {
+    padding-block: 0.6rem;
+}
+
+.specs-label {
+    font-family: var(--font-title);
+    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+    letter-spacing: 0.2em;
+    color: var(--color-black);
+}
+
+.specs-value {
+    font-family: var(--font-title);
+    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+    letter-spacing: 0.2em;
+    color: var(--color-red);
+}
+
+.specs-dragonfly {
+    width: 2.2rem;
+    height: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.85;
 }

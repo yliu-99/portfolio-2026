@@ -1,0 +1,150 @@
+// ── Project Overview ───────────────────────────────────────────────────────────
+
+.project-overview {
+    background: var(--color-white);
+    width: 100%;
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    min-height: 200px;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+// Shared cell base
+.overview-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 2.5rem 3rem;
+}
+
+// Left: bee + label
+.overview-left {
+    min-width: 180px;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        border-right: none;
+        border-bottom: 2px solid var(--color-black);
+        flex-direction: row;
+        min-width: unset;
+    }
+}
+
+// Bee + label overlap container
+.overview-bee-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overview-bee {
+    width: 182px;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.6;
+    display: block;
+}
+
+// Label centred over the bee
+.overview-label {
+    position: absolute;
+    font-size: clamp(1.8rem, 3.5vw, var(--text-h2));
+    letter-spacing: 0.15em;
+    line-height: 1;
+    text-align: center;
+    pointer-events: none;
+}
+
+// Middle: description
+.overview-middle {
+    align-items: flex-start;
+    padding: 2.5rem 3.5rem;
+
+    @media (max-width: 768px) {
+        border-right: none;
+        border-bottom: 2px solid var(--color-black);
+    }
+}
+
+.overview-description {
+    font-size: clamp(1rem, 1.3vw, var(--text-h5));
+    max-width: 100%;
+}
+
+// Right: date + team stacked
+.overview-right {
+    display: flex;
+    flex-direction: column;
+    min-width: 220px;
+    height: 100%;
+
+    .overview-cell {
+        flex: 1;
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: row;
+        min-width: unset;
+
+        .overview-cell {
+            flex: 1;
+            &:first-child {
+                border-bottom: none;
+                border-right: 2px solid var(--color-black);
+            }
+        }
+    }
+}
+
+.overview-date,
+.overview-team {
+    font-size: clamp(1.4rem, 2.5vw, var(--text-h3));
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
+// Reveal cells (date + type)
+.overview-reveal-cell {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-blue);
+    color: #ffffff;
+    align-items: center;
+    text-align: center;
+    transition: background 0.2s ease;
+}
+
+.overview-reveal-icon {
+    position: absolute;
+    font-size: 5rem;
+    color: #ffffff;
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.overview-reveal-label {
+    font-size: clamp(1.4rem, 2.5vw, var(--text-h3));
+    letter-spacing: 0.1em;
+    transition: opacity 0.2s ease;
+}
+
+.overview-reveal-value {
+    position: absolute;
+    color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.overview-reveal-cell:hover {
+    .overview-reveal-label { opacity: 0; }
+    .overview-reveal-value { opacity: 1; }
+}

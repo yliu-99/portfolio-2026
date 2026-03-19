@@ -1,0 +1,10 @@
+// ── Project Details ────────────────────────────────────────────────────────────
+// Reset the global `section { margin-top: 4rem }` from main.scss so all
+// sections in the project detail page sit flush against each other.
+
+.project-details-wrap {
+    section,
+    nav {
+        margin-top: 0;
+    }
+}
