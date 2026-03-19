@@ -50,7 +50,7 @@ function ProjectDetails() {
             <ProjectNav currentSlug={slug} />
 
             {/* 6 — Suggested related projects */}
-            <SuggestedProjects suggested={detail.suggested ?? []} />
+            <SuggestedProjects suggested={detail.suggested ?? []} category={project.category} />
         </div>
     );
 }

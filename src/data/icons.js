@@ -106,11 +106,4 @@ export const toolIcons = [
       { name: "BandLab",       imgSrc: bandlabImg },
     ],
   },
-  {
-    category: "AI",
-    tools: [
-      { name: "Claude",  imgSrc: claudeImg },
-      { name: "ChatGPT", imgSrc: chatgptImg },
-    ],
-  },
 ];

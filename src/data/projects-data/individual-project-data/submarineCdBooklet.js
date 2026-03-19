@@ -71,5 +71,5 @@ export const submarineCdBookletDetail = {
     ],
 
     // ── Suggested ─────────────────────────────────────────────────────────────
-    suggested: ['vhs-film-festival', 'fable-fragrances'],
+    suggested: ['vhs-film-festival'],
 };

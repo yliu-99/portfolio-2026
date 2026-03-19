@@ -1,0 +1,60 @@
+// ── AI & Design ────────────────────────────────────────────────────────────────
+
+.ai-and-design {
+    padding: 5rem 2rem;
+    background: var(--color-white);
+    margin-top: 0 !important;
+    margin-bottom: 0;
+}
+
+.ai-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    gap: 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+}
+
+// ── Icons ──────────────────────────────────────────────────────────────────────
+
+.ai-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.ai-icon-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: ai-float 3s ease-in-out infinite;
+
+    img, svg {
+        width: 8rem;
+        height: 8rem;
+        object-fit: contain;
+    }
+}
+
+@keyframes ai-float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-12px); }
+}
+
+// ── Paragraph ──────────────────────────────────────────────────────────────────
+
+.ai-body {
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    line-height: 1.85;
+    margin: 0;
+    background: var(--color-white);
+    padding: 2rem 2.5rem;
+}
