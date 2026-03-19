@@ -1,13 +1,31 @@
+import submarineImage from '../../assets/project-assets/submarine/pool-mockup-opt.jpg';
+
 // !! update image links
-const fableFragrancesImage = "https://i.postimg.cc/NjVMJGD0/fable-fragrances.png";
 const vancouverHorrorShowImage = "https://i.postimg.cc/VNCN3yZW/vancouver-horror-show.png";
-const thrashHairImage = "https://i.postimg.cc/X796SjnJ/Logo-Dark-OG.png";
 const apexMountainBikesVid = "https://www.youtube.com/embed/dO7TxaDxEjk?si=Z77HXMo1kgau1YqQ";
 const trueHorizonsVid = "https://www.youtube.com/embed/EbJEhks53lA?si=RYiRPDSJ0d7MVQMW";
 const mythbustersVid = "https://www.youtube.com/embed/ioG4kkKj6ZM?si=ymFZFlZC33jhShYV";
 
 
 export const projectsData = [
+    // 03/26
+    {
+        id:'submarine',
+        title:'SUBMARINE CD BOOKLET',
+        slug:'submarine-cd-booklet',
+        type:'img',
+        media:submarineImage,
+        year:'03/26',
+        timeline:'Feb 23 - Mar 16, 2026',
+        description:'CD booklet design for the "Submarine" album by the Marias, focusing on reinforcing the existing storytelling and aesthetic of the music through design and layout.',
+        shortDescription: 'CD booklet design for the "Submarine" album by the Marias.',
+        chips:['graphic design', 'print', 'indesign'],
+        category:'graphic design',
+        tools: ['figma', 'photoshop', 'indesign', 'illustrator'],
+        role: ['graphic design','layout design'],
+        featured: true
+    },
+    // 07/25
     {
         id:'mythbusters',
         title:'MYTHBUSTERS',
@@ -24,6 +42,7 @@ export const projectsData = [
         role: ['concept development', 'scriptwriter', 'motion design', 'sound design'],
         featured: true
     },
+    // 04/25
     {
         id:'horizons',
         title:'TRUE HORIZONS',
@@ -40,6 +59,7 @@ export const projectsData = [
         role: ['concept development', 'actor', 'director', 'editor', 'sound design'],
         featured: true
     },
+    // 02/25
     {
         id:'apex',
         title:'APEX MOUNTAIN BIKES',
@@ -56,22 +76,8 @@ export const projectsData = [
         role: ['brand development', 'scriptwriter','director', 'music production', 'sound design'],
         featured: true
     },
-    {
-        id:'fable',
-        title:'FABLE FRAGRANCES',
-        slug:'fable-fragrances',
-        type:'img',
-        media: fableFragrancesImage,
-        year:'12/24',
-        timeline:'Oct 11 - Dec 17, 2025',
-        description:'A complete branding and packaging design project for a niche fragrance line, focusing on mystical and enchanting visual storytelling.',
-        shortDescription: 'Branding and packaging for an enchanting niche fragrance line.',
-        chips: ['graphic design', 'brand design', 'photoshop'],
-        category:'graphic design',
-        tools: ['photoshop', 'after effects', 'canva'],
-        role: ['brand development', 'graphic design', 'illustration'],
-        featured: false
-    },
+    // 12/24
+    // { id:'fable', hidden: true },
     {
         id:'vhs',
         title:'VHS FILM FESTIVAL',
@@ -86,36 +92,7 @@ export const projectsData = [
         category:'graphic design',
         tools: ['photoshop', 'illustrator','indesign'],
         role: ['graphic design', 'web design', 'brand development'],
-        featured: true
-    },
-    {
-        id:'thrash',
-        title:'THRASH! HAIR COLOR',
-        slug:'thrash-hair-color',
-        type:'img',
-        media:thrashHairImage,
-        year:'04/25',
-        timeline:'Mar 24 - Jun 3, 2025',
-        description:'Brand design for a pink-inspired hair color company, featuring, logo, style guide, assets, packaging designs made in Illustrator.',
-        shortDescription: 'Logo, style guide, and packaging for a bold hair color brand.',
-        chips:['graphic design', 'branding', 'illustrator'],
-        category:'graphic design',
-        tools: ['illustrator', 'photoshop', 'canva'],
-        role: ['brand development', 'graphic design', 'packaging design'],
         featured: false
-    },
-    {
-        id:'',
-        title:'',
-        slug:'',
-        type:'',
-        media:'',
-        year:'',
-        timeline:'',
-        description:'',
-        chips:'',
-        category:'',
-        featured: true
     },
 
     // ── Section style-guide (local dev only — sectionMapDemo.js is gitignored) ──
