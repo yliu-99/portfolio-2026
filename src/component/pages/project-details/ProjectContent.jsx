@@ -56,11 +56,22 @@ function ProjectContent({ sections = [] }) {
 
                 {active.image && (
                     <div className="content-image">
-                        <img
-                            src={active.image}
-                            alt={active.title}
-                            className="content-img"
-                        />
+                        {/\.mp4$/i.test(active.image) ? (
+                            <video
+                                src={active.image}
+                                className="content-img"
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                            />
+                        ) : (
+                            <img
+                                src={active.image}
+                                alt={active.title}
+                                className="content-img"
+                            />
+                        )}
                     </div>
                 )}
 
