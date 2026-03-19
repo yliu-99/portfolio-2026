@@ -78,6 +78,20 @@
     display: block;
 }
 
+// ── Audio player ───────────────────────────────────────────────────────────────
+
+.content-audio-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 2rem;
+}
+
+.content-audio {
+    width: 100%;
+}
+
 // ── PDF preview ────────────────────────────────────────────────────────────────
 
 .content-pdf-preview {

@@ -37,6 +37,7 @@ function ProjectContent({ sections = [] }) {
     const active  = sections[activeIdx];
     const isPdf   = /\.pdf$/i.test(active.image ?? '');
     const isMp4   = /\.mp4$/i.test(active.image ?? '');
+    const isAudio = /\.(mp3|m4a|wav|ogg)$/i.test(active.image ?? '');
 
     const handleTabClick = (idx) => {
         if (idx === activeIdx) return;
@@ -80,7 +81,22 @@ function ProjectContent({ sections = [] }) {
 
                 {active.image && (
                     <div className="content-image">
-                        {isPdf ? (
+                        {isAudio ? (
+                            <div className="content-audio-wrap">
+                                <audio
+                                    controls
+                                    className="content-audio"
+                                    src={active.image}
+                                    onPlay={active.startTime ? (e) => {
+                                        const el = e.currentTarget;
+                                        if (!el.dataset.seeked) {
+                                            el.currentTime = active.startTime;
+                                            el.dataset.seeked = '1';
+                                        }
+                                    } : undefined}
+                                />
+                            </div>
+                        ) : isPdf ? (
                             <div className="content-pdf-preview" onClick={() => setPdfOpen(true)}>
                                 <iframe
                                     src={`${active.image}#toolbar=0&navpanes=0&scrollbar=0`}

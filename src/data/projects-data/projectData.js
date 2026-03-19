@@ -1,7 +1,6 @@
 import submarineImage from '../../assets/project-assets/submarine/pool-mockup-opt.jpg';
 
 // !! update image links
-const fableFragrancesImage = "https://i.postimg.cc/NjVMJGD0/fable-fragrances.png";
 const vancouverHorrorShowImage = "https://i.postimg.cc/VNCN3yZW/vancouver-horror-show.png";
 const apexMountainBikesVid = "https://www.youtube.com/embed/dO7TxaDxEjk?si=Z77HXMo1kgau1YqQ";
 const trueHorizonsVid = "https://www.youtube.com/embed/EbJEhks53lA?si=RYiRPDSJ0d7MVQMW";
@@ -78,22 +77,7 @@ export const projectsData = [
         featured: true
     },
     // 12/24
-    {
-        id:'fable',
-        title:'FABLE FRAGRANCES',
-        slug:'fable-fragrances',
-        type:'img',
-        media: fableFragrancesImage,
-        year:'12/24',
-        timeline:'Oct 11 - Dec 17, 2025',
-        description:'A complete branding and packaging design project for a niche fragrance line, focusing on mystical and enchanting visual storytelling.',
-        shortDescription: 'Branding and packaging for an enchanting niche fragrance line.',
-        chips: ['graphic design', 'brand design', 'photoshop'],
-        category:'graphic design',
-        tools: ['photoshop', 'after effects', 'canva'],
-        role: ['brand development', 'graphic design', 'illustration'],
-        featured: false
-    },
+    // { id:'fable', hidden: true },
     {
         id:'vhs',
         title:'VHS FILM FESTIVAL',
@@ -108,7 +92,7 @@ export const projectsData = [
         category:'graphic design',
         tools: ['photoshop', 'illustrator','indesign'],
         role: ['graphic design', 'web design', 'brand development'],
-        featured: true
+        featured: false
     },
 
     // ── Section style-guide (local dev only — sectionMapDemo.js is gitignored) ──
