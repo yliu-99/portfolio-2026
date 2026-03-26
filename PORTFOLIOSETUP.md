@@ -1,5 +1,4 @@
 # Website Design Rules
-I created this document for myself to ensure that while coding this website I am following the designs rules as closely as possible to simplify the coding process while also ensuring design/brand consistency. Including this file inside the code folder will also help AI reference the rules whenever necessary. My goal is to spend a lot more time in the initial planning stages hoping to eventually save me time, extra lines of code, and potential promps and troubleshooting with AI while trying to build my porfolio. 
 
 ---
 
