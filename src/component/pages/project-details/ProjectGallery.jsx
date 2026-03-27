@@ -46,17 +46,26 @@ function Lightbox({ gallery, activeIdx, onClose, onNavigate }) {
 
     const navigate = useCallback((nextIdx) => {
         const dir = nextIdx > lightboxIdx ? 1 : -1;
-        gsap.to(mediaRef.current, {
-            opacity: 0, x: -40 * dir, duration: 0.15, ease: 'power2.in',
-            onComplete: () => {
-                onNavigate(nextIdx);
-                gsap.fromTo(mediaRef.current,
-                    { opacity: 0, x: 40 * dir },
-                    { opacity: 1, x: 0, duration: 0.2, ease: 'power2.out' }
-                );
-            },
+        const nextItem = gallery[nextIdx];
+        const nextVideoId = nextItem.type === 'video' ? getYouTubeId(nextItem.src) : null;
+        const nextSrc = nextVideoId ? `https://img.youtube.com/vi/${nextVideoId}/maxresdefault.jpg` : nextItem.src;
+
+        const preload = nextSrc
+            ? new Promise(res => { const i = new Image(); i.onload = res; i.onerror = res; i.src = nextSrc; })
+            : Promise.resolve();
+
+        const anim = new Promise(res => {
+            gsap.to(mediaRef.current, { opacity: 0, x: -40 * dir, duration: 0.15, ease: 'power2.in', onComplete: res });
         });
-    }, [lightboxIdx, onNavigate]);
+
+        Promise.all([anim, preload]).then(() => {
+            onNavigate(nextIdx);
+            gsap.fromTo(mediaRef.current,
+                { opacity: 0, x: 40 * dir },
+                { opacity: 1, x: 0, duration: 0.2, ease: 'power2.out' }
+            );
+        });
+    }, [lightboxIdx, onNavigate, gallery]);
 
     const total = gallery.length;
     const item  = gallery[lightboxIdx];
@@ -125,15 +134,24 @@ function ProjectGallery({ gallery = [] }) {
     const navigate = (nextIdx) => {
         if (nextIdx === activeIdx) return;
         const dir = nextIdx > activeIdx ? 1 : -1;
-        gsap.to(mediaRef.current, {
-            opacity: 0, x: -40 * dir, duration: 0.18, ease: 'power2.in',
-            onComplete: () => {
-                setActiveIdx(nextIdx);
-                gsap.fromTo(mediaRef.current,
-                    { opacity: 0, x: 40 * dir },
-                    { opacity: 1, x: 0, duration: 0.25, ease: 'power2.out' }
-                );
-            },
+        const nextItem = gallery[nextIdx];
+        const nextVideoId = nextItem.type === 'video' ? getYouTubeId(nextItem.src) : null;
+        const nextSrc = nextVideoId ? `https://img.youtube.com/vi/${nextVideoId}/maxresdefault.jpg` : nextItem.src;
+
+        const preload = nextSrc
+            ? new Promise(res => { const i = new Image(); i.onload = res; i.onerror = res; i.src = nextSrc; })
+            : Promise.resolve();
+
+        const anim = new Promise(res => {
+            gsap.to(mediaRef.current, { opacity: 0, x: -40 * dir, duration: 0.18, ease: 'power2.in', onComplete: res });
+        });
+
+        Promise.all([anim, preload]).then(() => {
+            setActiveIdx(nextIdx);
+            gsap.fromTo(mediaRef.current,
+                { opacity: 0, x: 40 * dir },
+                { opacity: 1, x: 0, duration: 0.25, ease: 'power2.out' }
+            );
         });
     };
 

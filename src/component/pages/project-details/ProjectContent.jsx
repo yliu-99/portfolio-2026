@@ -42,15 +42,24 @@ function ProjectContent({ sections = [] }) {
     const handleTabClick = (idx) => {
         if (idx === activeIdx) return;
         setPdfOpen(false);
-        gsap.to(panelRef.current, {
-            opacity: 0, y: 8, duration: 0.12, ease: 'power2.in',
-            onComplete: () => {
-                setActiveIdx(idx);
-                gsap.fromTo(panelRef.current,
-                    { opacity: 0, y: 8 },
-                    { opacity: 1, y: 0, duration: 0.2, ease: 'power2.out' }
-                );
-            },
+
+        const nextImg = sections[idx].image ?? '';
+        const isNextImage = nextImg && !/\.(pdf|mp4|mp3|m4a|wav|ogg)$/i.test(nextImg);
+
+        const preload = isNextImage
+            ? new Promise(res => { const i = new Image(); i.onload = res; i.onerror = res; i.src = nextImg; })
+            : Promise.resolve();
+
+        const anim = new Promise(res => {
+            gsap.to(panelRef.current, { opacity: 0, y: 8, duration: 0.12, ease: 'power2.in', onComplete: res });
+        });
+
+        Promise.all([anim, preload]).then(() => {
+            setActiveIdx(idx);
+            gsap.fromTo(panelRef.current,
+                { opacity: 0, y: 8 },
+                { opacity: 1, y: 0, duration: 0.2, ease: 'power2.out' }
+            );
         });
     };
 
