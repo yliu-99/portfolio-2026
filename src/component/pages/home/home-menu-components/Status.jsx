@@ -5,37 +5,34 @@ import { useContactModal } from '../../../../context/ContactModalContext';
 
 function Status() {
     const { openContact } = useContactModal();
-    const dotRef = useRef(null);
+    const btnRef = useRef(null);
 
     useEffect(() => {
-        const tween = gsap.to(dotRef.current, {
-            opacity: 0.2,
-            duration: 0.9,
-            ease: 'power1.inOut',
-            repeat: -1,
-            yoyo: true,
-        });
-        return () => tween.kill();
+        const shake = () => gsap.timeline({ defaults: { ease: 'sine.inOut' } })
+            .to(btnRef.current, { x:  3, rotation:  2, duration: 0.12 })
+            .to(btnRef.current, { x: -3, rotation: -2, duration: 0.14 })
+            .to(btnRef.current, { x:  2, rotation:  1.5, duration: 0.13 })
+            .to(btnRef.current, { x: -2, rotation: -1.5, duration: 0.13 })
+            .to(btnRef.current, { x:  1, rotation:  0.5, duration: 0.11 })
+            .to(btnRef.current, { x:  0, rotation:  0, duration: 0.1, ease: 'power1.out' });
+
+        shake();
+        const id = setInterval(shake, 2500);
+        return () => clearInterval(id);
     }, []);
 
     return (
         <MenuTemplate title="Current Status">
             <div className="flex flex-col items-center gap-5 w-full">
-                <div className="flex items-start gap-2">
-                    <span
-                        ref={dotRef}
-                        className="font-title text-red text-[2.5rem] leading-none mt-[0.6rem]"
-                        aria-hidden="true"
-                    >●</span>
-                    <p className="font-title text-red text-[2rem] leading-tight tracking-[0.05em] text-center">
-                        LOOKING<br />FOR WORK
-                    </p>
-                </div>
+                <p className="font-title text-red text-[2rem] leading-tight tracking-[0.05em] text-center">
+                    LOOKING<br />FOR WORK
+                </p>
                 <div className="text-center">
                     <p className="text-[0.85rem] tracking-[0.12em] ">TYPE:</p>
                     <p className="text-[0.85rem] tracking-[0.08em]">DESIGN INTERNSHIP</p>
                 </div>
                 <button
+                    ref={btnRef}
                     className="text-[0.85rem] tracking-[0.12em] opacity-50 underline underline-offset-2 cursor-pointer hover:opacity-100 transition-opacity duration-150"
                     onClick={openContact}
                 >
