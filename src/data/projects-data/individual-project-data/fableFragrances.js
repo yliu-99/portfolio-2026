@@ -27,5 +27,5 @@ export const fableFragrancesDetail = {
         { title: 'Takeaway',   body: 'Content coming soon.' },
     ],
 
-    suggested: ['vhs-film-festival', 'thrash-hair-color'],
+    suggested: ['vhs-film-festival-branding', 'thrash-hair-color'],
 };

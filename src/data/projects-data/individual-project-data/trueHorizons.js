@@ -7,7 +7,7 @@ import story       from '../../../assets/project-assets/true-horizons/story.jpg'
 
 export const trueHorizonsDetail = {
     id:   'horizons',
-    slug: 'true-horizons',
+    slug: 'true-horizons-narrative-film',
 
     overview: {
         description: 'A narrative-driven commercial exploring the relationship of two long-distance friends, emphasizing the value of personal connection over external and online validation. This project was completed as a team along with my classmates Ella Jade and Alden Talavera.',
@@ -51,5 +51,5 @@ export const trueHorizonsDetail = {
         },
     ],
 
-    suggested: ['mythbusters', 'apex-mountain-bikes'],
+    suggested: ['mythbusters-motion-graphics', 'apex-mountain-bikes-brand-commercial'],
 };

@@ -7,7 +7,7 @@ import reflection  from '../../../assets/project-assets/apex/reflection.jpg';
 
 export const apexMountainBikesDetail = {
     id:   'apex',
-    slug: 'apex-mountain-bikes',
+    slug: 'apex-mountain-bikes-brand-commercial',
 
     overview: {
         description: 'A 2-minute talking head commercial for a fictional mountain bike company — combining original music production, 3-point lighting, and an interview format built around emotion over product specs.',
@@ -52,5 +52,5 @@ export const apexMountainBikesDetail = {
         },
     ],
 
-    suggested: ['true-horizons', 'mythbusters'],
+    suggested: ['true-horizons-narrative-film', 'mythbusters-motion-graphics'],
 };

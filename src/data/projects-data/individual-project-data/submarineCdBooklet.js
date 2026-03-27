@@ -16,7 +16,7 @@ import original from '../../../assets/project-assets/submarine/original-art.webp
 
 export const submarineCdBookletDetail = {
     id:   'submarine',
-    slug: 'submarine-cd-booklet',
+    slug: 'submarine-cd-booklet-print-design',
 
     // ── Overview ──────────────────────────────────────────────────────────────
     overview: {
@@ -71,5 +71,5 @@ export const submarineCdBookletDetail = {
     ],
 
     // ── Suggested ─────────────────────────────────────────────────────────────
-    suggested: ['vhs-film-festival'],
+    suggested: ['vhs-film-festival-branding'],
 };

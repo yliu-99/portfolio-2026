@@ -12,6 +12,18 @@ import ProjectGallery  from './ProjectGallery';
 import ProjectContent  from './ProjectContent';
 import ProjectNav      from './ProjectNav';
 import SuggestedProjects from './SuggestedProjects';
+import SEO from '../../SEO/SEO';
+
+function getOgImage(project) {
+    if (project.type === 'vid' && project.media) {
+        const match = project.media.match(/embed\/([^?]+)/);
+        if (match) return `https://img.youtube.com/vi/${match[1]}/maxresdefault.jpg`;
+    }
+    if (typeof project.media === 'string' && project.media.startsWith('http')) {
+        return project.media;
+    }
+    return null;
+}
 
 // import styles
 import './ProjectDetails.scss';
@@ -32,8 +44,44 @@ function ProjectDetails() {
         );
     }
 
+    const seoTitle = `${project.title} | Yuhan Liu — BCIT New Media Student, Vancouver`;
+    const seoDescription = `${project.description} A project by Yuhan Liu, BCIT New Media Design student in Vancouver, BC.`;
+    const seoKeywords = [
+        ...(project.chips ?? []),
+        ...(project.tools ?? []),
+        project.category,
+        'bcit', 'bcit new media', 'new media design', 'vancouver designer', 'yuhan liu',
+    ].filter(Boolean).join(', ');
+
     return (
         <div className="project-details-wrap col-span-12 flex flex-col gap-0 -mx-4 md:-mx-5 lg:-mx-6">
+            <SEO
+                title={seoTitle}
+                description={seoDescription}
+                keywords={seoKeywords}
+                canonicalUrl={`/projects/${slug}`}
+                ogImage={getOgImage(project)}
+                ogType="article"
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'CreativeWork',
+                    name: project.title,
+                    description: project.description,
+                    url: `https://yuhanliu.ca/projects/${slug}`,
+                    keywords: project.chips?.join(', '),
+                    dateCreated: project.year,
+                    author: {
+                        '@type': 'Person',
+                        name: 'Yuhan Liu',
+                        url: 'https://yuhanliu.ca',
+                        affiliation: {
+                            '@type': 'EducationalOrganization',
+                            name: 'British Columbia Institute of Technology (BCIT)',
+                        },
+                    },
+                }}
+            />
+
             {/* 1 — Full-viewport hero */}
             <ProjectHero project={project} />
 

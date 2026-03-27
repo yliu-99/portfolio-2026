@@ -61,6 +61,7 @@ function setJsonLd(data) {
 //   noIndex       – set true to block crawlers
 
 function SEO({
+  title,
   description,
   keywords,
   canonicalUrl,
@@ -69,6 +70,7 @@ function SEO({
   jsonLd,
   noIndex  = false,
 }) {
+  const pageTitle       = title || defaultSEO.defaultTitle;
   const metaDescription = description || defaultSEO.defaultDescription;
   const allKeywords     = keywords
     ? `${defaultSEO.defaultKeywords}, ${keywords}`
@@ -80,7 +82,7 @@ function SEO({
 
   useEffect(() => {
     // ── Title ────────────────────────────────────────────────────────────────
-    document.title = defaultSEO.defaultTitle;
+    document.title = pageTitle;
 
     // ── Primary ──────────────────────────────────────────────────────────────
     setMeta('name', 'description', metaDescription);
@@ -99,7 +101,7 @@ function SEO({
 
     // ── Open Graph ───────────────────────────────────────────────────────────
     setMeta('property', 'og:type',        ogType);
-    setMeta('property', 'og:title',       defaultSEO.defaultTitle);
+    setMeta('property', 'og:title',       pageTitle);
     setMeta('property', 'og:description', metaDescription);
     setMeta('property', 'og:image',       ogImageUrl);
     setMeta('property', 'og:url',         canonical);
@@ -107,7 +109,7 @@ function SEO({
 
     // ── Twitter Card ─────────────────────────────────────────────────────────
     setMeta('name', 'twitter:card',        'summary_large_image');
-    setMeta('name', 'twitter:title',       defaultSEO.defaultTitle);
+    setMeta('name', 'twitter:title',       pageTitle);
     setMeta('name', 'twitter:description', metaDescription);
     setMeta('name', 'twitter:image',       ogImageUrl);
     setMeta('name', 'twitter:creator',     defaultSEO.twitterHandle);
@@ -115,7 +117,7 @@ function SEO({
     // ── JSON-LD ───────────────────────────────────────────────────────────────
     if (jsonLd) setJsonLd(jsonLd);
 
-  }, [metaDescription, allKeywords, canonical, ogImageUrl, ogType, noIndex, jsonLd]);
+  }, [pageTitle, metaDescription, allKeywords, canonical, ogImageUrl, ogType, noIndex, jsonLd]);
 
   return null;
 }
