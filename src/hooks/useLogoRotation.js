@@ -39,7 +39,15 @@ export function useLogoRotation(logoRef) {
       },
     });
 
-    return () => trigger.kill();
+    // Re-measure page height whenever content loads or expands after mount
+    // (lazy images, async sections, etc. all change document.body height)
+    const ro = new ResizeObserver(() => ScrollTrigger.refresh());
+    ro.observe(document.body);
+
+    return () => {
+      trigger.kill();
+      ro.disconnect();
+    };
   }, []);
 
   // Reset on route change via the same quickTo channel
