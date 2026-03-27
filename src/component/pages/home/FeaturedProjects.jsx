@@ -95,9 +95,14 @@ function FeaturedProjects() {
               />
             )}
 
-            {/* Muted video preview on hover */}
-            {mediaHovered && getVideoId(active) && (
-              <div key={`vid-${active.id}`} className="featured-video-wrapper">
+            {/* Muted video — always mounted when active project is a video so it
+                preloads in the background; revealed instantly on hover */}
+            {getVideoId(active) && (
+              <div
+                key={`vid-${active.id}`}
+                className="featured-video-wrapper"
+                style={{ opacity: mediaHovered ? 1 : 0, transition: 'opacity 0.15s ease' }}
+              >
                 <iframe
                   src={`https://www.youtube.com/embed/${getVideoId(active)}?autoplay=1&mute=1&controls=0&loop=1&playlist=${getVideoId(active)}&modestbranding=1&playsinline=1&disablekb=1`}
                   allow="autoplay"
