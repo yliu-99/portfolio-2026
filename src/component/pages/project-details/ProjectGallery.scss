@@ -19,6 +19,11 @@
     padding: 3.5rem 5rem;
     min-height: 50vh;
     will-change: transform, opacity;
+
+    @media (max-width: 640px) {
+        padding: 2rem 1rem;
+        min-height: 40vh;
+    }
 }
 
 .gallery-img {

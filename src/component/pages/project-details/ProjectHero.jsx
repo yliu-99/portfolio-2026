@@ -91,7 +91,7 @@ function ProjectHero({ project }) {
                 <div className="hero-red-overlay absolute inset-0 bg-red" />
 
                 {/* Title + chips — bottom left aligned to grid margin */}
-                <div className="relative px-8 pb-10 max-w-[90vw]">
+                <div className="relative px-4 sm:px-8 pb-10 max-w-[90vw]">
 
                     {/* Line 1 — solid blue */}
                     <h1 className="hero-title-line text-blue m-0 leading-none">
