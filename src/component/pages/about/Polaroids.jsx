@@ -139,7 +139,7 @@ function Polaroids() {
       <div className="flex flex-col items-center mb-14">
         <h2 className="font-title text-white uppercase tracking-[0.15em] text-h3 text-center">Polaroid Wall</h2>
         <div className="border-b-3 border-white w-24 mt-1"></div>
-        <p className="font-body text-white text-h6 tracking-secondary mt-6">people, places, and things that keep me motivated and inspired</p>
+        <p className="font-body text-white text-h6 tracking-secondary mt-6 text-center px-4">people, places, and things that keep me motivated and inspired</p>
       </div>
 
       {/* Stage */}
