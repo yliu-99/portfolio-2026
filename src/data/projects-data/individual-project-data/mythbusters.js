@@ -7,7 +7,7 @@ import mythbustersPreview from '../../../assets/project-assets/mythbusters/mythb
 
 export const mythbustersDetail = {
     id:   'mythbusters',
-    slug: 'mythbusters',
+    slug: 'mythbusters-motion-graphics',
 
     overview: {
         description: 'A Mythbusters-style motion graphics explainer video debunking the personal myth of perfectionism — combining original sound design, script, and animation.',
@@ -51,5 +51,5 @@ export const mythbustersDetail = {
         },
     ],
 
-    suggested: ['true-horizons', 'apex-mountain-bikes'],
+    suggested: ['true-horizons-narrative-film', 'apex-mountain-bikes-brand-commercial'],
 };

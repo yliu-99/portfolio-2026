@@ -12,7 +12,7 @@ export const projectsData = [
     {
         id:'submarine',
         title:'SUBMARINE CD BOOKLET',
-        slug:'submarine-cd-booklet',
+        slug:'submarine-cd-booklet-print-design',
         type:'img',
         media:submarineImage,
         year:'03/26',
@@ -29,7 +29,7 @@ export const projectsData = [
     {
         id:'mythbusters',
         title:'MYTHBUSTERS',
-        slug:'mythbusters',
+        slug:'mythbusters-motion-graphics',
         type:'vid',
         media: mythbustersVid,
         year:'07/25',
@@ -46,7 +46,7 @@ export const projectsData = [
     {
         id:'horizons',
         title:'TRUE HORIZONS',
-        slug:'true-horizons',
+        slug:'true-horizons-narrative-film',
         type:'vid',
         media: trueHorizonsVid,
         year:'04/25',
@@ -63,7 +63,7 @@ export const projectsData = [
     {
         id:'apex',
         title:'APEX MOUNTAIN BIKES',
-        slug:'apex-mountain-bikes',
+        slug:'apex-mountain-bikes-brand-commercial',
         type:'vid',
         media: apexMountainBikesVid,
         year:'02/25',
@@ -81,7 +81,7 @@ export const projectsData = [
     {
         id:'vhs',
         title:'VHS FILM FESTIVAL',
-        slug:'vhs-film-festival',
+        slug:'vhs-film-festival-branding',
         type:'img',
         media:vancouverHorrorShowImage,
         year:'12/24',

@@ -144,9 +144,12 @@ const stages = [
 // ── component ─────────────────────────────────────────────────────────────
 
 function AboutMe() {
-  const [stage, setStage] = useState(0);
-  const wrapperRef     = useRef(null);
-  const stickyPanelRef = useRef(null);
+  const [stage, setStage]               = useState(0);
+  const [displayStage, setDisplayStage] = useState(0);
+  const wrapperRef      = useRef(null);
+  const stickyPanelRef  = useRef(null);
+  const imgRef          = useRef(null);
+  const contentRef      = useRef(null);
   const headerHiddenRef = useRef(false);
 
   useEffect(() => {
@@ -182,6 +185,36 @@ function AboutMe() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // GSAP crossfade when scroll-driven stage changes
+  useEffect(() => {
+    if (stage === displayStage) return;
+
+    gsap.killTweensOf([imgRef.current, contentRef.current]);
+
+    const targetStage = stage;
+
+    const preload = new Promise(res => {
+      const i = new Image();
+      i.onload = res;
+      i.onerror = res;
+      i.src = stages[targetStage].image;
+    });
+
+    const fadeOut = new Promise(res => {
+      gsap.to([imgRef.current, contentRef.current], {
+        opacity: 0, duration: 0.2, ease: 'power2.in', onComplete: res,
+      });
+    });
+
+    Promise.all([fadeOut, preload]).then(() => {
+      setDisplayStage(targetStage);
+      gsap.fromTo([imgRef.current, contentRef.current],
+        { opacity: 0 },
+        { opacity: 1, duration: 0.35, ease: 'power2.out' }
+      );
+    });
+  }, [stage]);
+
   const scrollToStage = (targetStage) => {
     if (!wrapperRef.current) return;
     const wrapperTop = wrapperRef.current.getBoundingClientRect().top + window.scrollY;
@@ -190,7 +223,7 @@ function AboutMe() {
     window.scrollTo({ top: wrapperTop + scrollable * progress, behavior: "smooth" });
   };
 
-  const { image, Content, objectPos } = stages[stage];
+  const { image, Content, objectPos } = stages[displayStage];
 
   return (
     <section className="about-me-container -mx-4 md:-mx-5 lg:-mx-6 col-span-12 border-3 border-black">
@@ -204,22 +237,24 @@ function AboutMe() {
         >
 
           {/* image */}
-          <div className="col-span-6 relative border-r-3 border-black">
+          <div className="col-span-6 relative border-r-3 border-black bg-black">
             <div className="absolute inset-0 overflow-hidden">
               <img
-                key={stage}
+                ref={imgRef}
                 src={image}
                 alt="About me"
-                className={`w-full h-full object-cover ${objectPos} fade-in`}
+                className={`w-full h-full object-cover ${objectPos}`}
               />
             </div>
-            {stage === 0 && <TitleOverlay />}
+            {displayStage === 0 && <TitleOverlay />}
           </div>
 
-          {/* content */}
-          <div key={`content-${stage}`} className="col-span-6 p-12 xl:p-24 bg-white overflow-y-auto fade-in flex flex-col justify-center">
-            <Content />
-            <StageNav stage={stage} onNavigate={scrollToStage} />
+          {/* content — bg-white on the outer wrapper so it stays opaque during fade */}
+          <div className="col-span-6 bg-white overflow-y-auto flex flex-col justify-center">
+            <div ref={contentRef} className="p-12 xl:p-24 flex flex-col justify-center">
+              <Content />
+              <StageNav stage={stage} onNavigate={scrollToStage} />
+            </div>
           </div>
 
         </div>

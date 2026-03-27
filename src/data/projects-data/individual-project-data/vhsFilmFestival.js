@@ -13,7 +13,7 @@ import tote from "../../../assets/project-assets/vhs/tote.jpg";
 
 export const vhsFilmFestivalDetail = {
   id: "vhs",
-  slug: "vhs-film-festival",
+  slug: "vhs-film-festival-branding",
 
   overview: {
     description:
@@ -62,5 +62,5 @@ export const vhsFilmFestivalDetail = {
     },
   ],
 
-  suggested: ["submarine-cd-booklet", "mythbusters"],
+  suggested: ["submarine-cd-booklet-print-design", "mythbusters-motion-graphics"],
 };
