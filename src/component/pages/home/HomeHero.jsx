@@ -137,8 +137,8 @@ function HeroContent() {
 
         {/* Col 3 — left label */}
         <div ref={leftLblRef}
-          className="left-label col-start-3 col-end-4 font-title tracking-primary translate-y-4/5">
-          <span className="text-black/70 text-h4">PORTFOLIO</span>
+          className="left-label col-start-3 col-end-4 font-title tracking-primary translate-y-2/5">
+          <span className="text-black text-h4">PORTFOLIO</span>
           <span className="text-red text-h5">2026</span>
         </div>
 
@@ -164,13 +164,18 @@ function HeroContent() {
 
         {/* Col 10 — right label */}
         <div ref={rightLblRef}
-          className="right-label col-start-10 col-end-11 font-title tracking-primary translate-y-4/5">
-          <span className="text-black/70 text-h5">CHECKOUT</span>
-          <div className="explore-text">
-        <span className="text-red text-h4">MY WORK</span>
-          <span ref={triangleRef} className="triangle"><FontAwesomeIcon icon={faCaretDown} /></span>
-          </div>
-
+          className="right-label col-start-10 col-end-11 font-title tracking-primary translate-y-2/5">
+          <button
+            className="flex flex-col items-start cursor-pointer hover:scale-105 transition-transform duration-200 origin-bottom"
+            onClick={() => document.getElementById('featured-projects')?.scrollIntoView({ behavior: 'smooth' })}
+            aria-label="Jump to featured projects"
+          >
+            <span className="text-black text-h5">CHECKOUT</span>
+            <div className="explore-text">
+              <span className="text-red text-h4">MY WORK</span>
+              <span ref={triangleRef} className="triangle"><FontAwesomeIcon icon={faCaretDown} /></span>
+            </div>
+          </button>
         </div>
 
         {/* Col 12 — right numbers */}

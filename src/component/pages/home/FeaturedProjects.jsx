@@ -42,7 +42,7 @@ function FeaturedProjects() {
 
   return (
     <>
-      <section className="col-span-12 grid grid-cols-12 grid-rows-[auto_1fr] xl:grid-rows-1 border-3 border-black bg-white h-dvh -mx-4 md:-mx-5 lg:-mx-6 overflow-hidden">
+      <section id="featured-projects" className="col-span-12 grid grid-cols-12 grid-rows-[auto_1fr] xl:grid-rows-1 border-3 border-black bg-white h-dvh -mx-4 md:-mx-5 lg:-mx-6 overflow-hidden">
 
         {/* Title — top bar on mobile/lg, left col on xl */}
         <div className="col-span-12 xl:col-span-1 flex items-center justify-center py-3 xl:py-0 px-4 xl:px-3 border-b-3 xl:border-b-0 xl:border-r-3 border-black">
