@@ -133,7 +133,7 @@ function Polaroids() {
   }, []);
 
   return (
-    <section className="relative bg-blue pt-14 pb-20 overflow-hidden select-none -mx-4 md:-mx-5 lg:-mx-6 min-h-screen flex flex-col justify-center border-b-3 border-white mt-0!">
+    <section className="relative bg-blue pt-14 pb-20 overflow-hidden select-none -mx-4 md:-mx-5 lg:-mx-16 min-h-screen flex flex-col justify-center border-b-3 border-white mt-0!">
 
       {/* Header */}
       <div className="flex flex-col items-center mb-14">

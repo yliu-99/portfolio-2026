@@ -106,7 +106,7 @@ function FeaturedProjects() {
   );
 
   return (
-    <section id="featured-projects" className="col-span-12 -mx-4 md:-mx-5 lg:-mx-6 border-t-3 border-black mt-16">
+    <section id="featured-projects" className="col-span-12 -mx-4 md:-mx-5 lg:-mx-16 border-t-3 border-black mt-16">
       {featuredProjects.map((project, i) => (
         <ProjectCard
           key={project.id}

@@ -5,7 +5,6 @@ import gsap from "gsap";
 
 import SingingImg from "../../../assets/page-assets/about/singing.JPEG";
 import TeapotHillImg from "../../../assets/page-assets/about/teapot-hill.JPEG";
-import BumbleBeeImg from "../../../assets/page-assets/about/bumble-bee-red.png"
 
 import './AboutMe.scss'
 
@@ -208,7 +207,7 @@ function AboutMe() {
   const { image, Content, objectPos } = stages[displayStage];
 
   return (
-    <section className="about-me-container -mx-4 md:-mx-5 lg:-mx-6 col-span-12 border-3 border-black">
+    <section className="about-me-container -mx-4 md:-mx-5 lg:-mx-16 col-span-12 border-3 border-black">
 
       {/* ── lg+: sticky scroll-driven panel ────────────────────────────── */}
       <div ref={wrapperRef} className="hidden lg:block h-[300vh]">

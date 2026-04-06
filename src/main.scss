@@ -57,7 +57,7 @@ main::before {
   z-index: 2;
   pointer-events: none;
   // background-image: url(./assets/global-assets/noise-3.png);
-  filter: url(./assets/global-assets/noise.svg#noise-filter) opacity(0.4) grayscale(100%);
+  filter: url(./assets/global-assets/noise.svg#noise-filter) opacity(0.35) grayscale(50%);
 }
 
 section {

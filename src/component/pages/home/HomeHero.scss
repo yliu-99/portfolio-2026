@@ -26,7 +26,7 @@
     // 41.2% of height = 41.2% × (523/715) = 30.1% of width
     grid-row: 1;
     grid-column: 1;
-    width: 75%;
+    width: 65%;
     justify-self: center;                  // 50% horizontal
     align-self: start;
     margin-top: calc(523 / 715 * 41.2%);   // 30.1% of width → circle centre
@@ -89,7 +89,8 @@
     font-size: 0.8rem;
     overflow: hidden;
     align-self: stretch;
-    gap: 3em;              // replaces the spacing that letter-spacing was adding to each span's height
+    gap: 3em;
+    padding-top: calc(5.5rem + 4px); // clear nav height              // replaces the spacing that letter-spacing was adding to each span's height
 
     &.left {
         align-items: flex-end;

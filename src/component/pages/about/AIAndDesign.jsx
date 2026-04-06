@@ -16,7 +16,7 @@ const AI_TOOLS = [
 
 function AIAndDesign() {
     return (
-        <section className="ai-and-design col-span-12 -mx-4 md:-mx-5 lg:-mx-6">
+        <section className="ai-and-design col-span-12 -mx-4 md:-mx-5 lg:-mx-16">
 
             <div className="title flex flex-col items-center mb-12">
                 <h2 className="text-h3 tracking-primary text-center">AI &amp; DESIGN</h2>

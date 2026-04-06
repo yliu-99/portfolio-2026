@@ -61,7 +61,7 @@ function HamburgerMenu() {
       <div ref={progressRef} className="scroll-progress-bar" />
 
       {/* Top bar */}
-      <div ref={containerRef} className="mobile-menu-container relative flex items-start justify-between px-6 pt-5">
+      <div ref={containerRef} className="mobile-menu-container relative flex items-start justify-between px-6 lg:px-16 pt-5">
         <div ref={logoRef} className="logo relative z-2">
           <Link to="/">
             <img ref={logoImgRef} src={LogoFull} alt="Logo" className="logo-img h-16 w-auto" />

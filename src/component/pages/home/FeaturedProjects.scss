@@ -113,7 +113,15 @@
 .featured-card__cta {
   position: absolute;
   bottom: 2rem;
-  left: 2rem;
+  left: 1rem;                   // xs: cancel bleed → grid content edge
+
+  @media (min-width: 768px) {
+    left: 1.25rem;              // md
+  }
+
+  @media (min-width: 1024px) {
+    left: 4rem;                 // lg: 64px grid margin
+  }
   display: flex;
   gap: 1rem;
   opacity: 0;

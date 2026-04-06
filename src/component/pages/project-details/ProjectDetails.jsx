@@ -54,7 +54,7 @@ function ProjectDetails() {
     ].filter(Boolean).join(', ');
 
     return (
-        <div className="project-details-wrap col-span-12 flex flex-col gap-0 -mx-4 md:-mx-5 lg:-mx-6">
+        <div className="project-details-wrap col-span-12 flex flex-col gap-0 -mx-4 md:-mx-5 lg:-mx-16">
             <SEO
                 title={seoTitle}
                 description={seoDescription}
