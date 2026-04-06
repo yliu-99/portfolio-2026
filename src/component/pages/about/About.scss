@@ -1,6 +1,8 @@
 
 .about-me-container {
-    margin-top: -4rem; // cancels pt-16 on main + global section margin, flush with header bottom
+    // Pull up by main's pt-23 (5.5rem + 4px progress bar) + cancel the global section margin (4rem)
+    // so the section starts at viewport y=0, flush behind the transparent nav
+    margin-top: calc(-5.5rem - 4px - 4rem);
 }
 
 @keyframes fadeIn {

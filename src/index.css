@@ -28,9 +28,8 @@
   --tracking-numbers:3em;     /* animated numbers */
 }
 
-/* Pass clicks through sticky header wrappers only when the header is hidden */
-.sticky:has(.header.is-hidden),
-.sticky:has(.mobile-menu-container.is-hidden) {
+/* Pass clicks through the nav wrapper only when the bar is hidden */
+.nav-wrapper:has(.mobile-menu-container.is-hidden) {
   pointer-events: none;
 }
 

@@ -5,10 +5,10 @@ import { useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 
 // importing global components
-import Header from './component/global/Header';
 import Footer from './component/global/Footer';
 import HamburgerMenu from './component/global/HambugerMenu';
 import ContactModal from './component/global/ContactModal';
+import ScrollWidget from './component/global/ScrollUp';
 import { ContactModalProvider } from './context/ContactModalContext';
 
 // importing page components
@@ -56,15 +56,16 @@ function App() {
     <ContactModalProvider>
       <Router>
         <div className="app flex flex-col min-h-screen">
-          <div className="lg:hidden sticky top-0 z-40"><HamburgerMenu /></div>
-          <div className="hidden lg:block sticky top-0 z-40"><Header /></div>
-          <main className='main-content grid grid-cols-12 gap-4 px-4 md:px-5 lg:px-6 pt-16'>
+          <div className="nav-wrapper fixed top-0 inset-x-0 z-40"><HamburgerMenu /></div>
+          <main className='main-content grid grid-cols-12 gap-4 px-4 md:px-5 lg:px-6 pt-23'>
             <div ref={gridRef} className="grid-bg" />
             <Content/>
           </main>
           <Footer />
           {/* Global contact modal — outside <main> so it escapes its stacking context */}
           <ContactModal />
+          {/* Fixed scroll-to-top + contact widget */}
+          <ScrollWidget />
         </div>
       </Router>
     </ContactModalProvider>

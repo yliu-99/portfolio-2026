@@ -9,6 +9,8 @@ export {
   faBars, // HamburgerMenu — mobile nav open
   faXmark, // HamburgerMenu — mobile nav close
   faCaretDown, // HomeHero, AboutMe — scroll hint / directional indicator
+  faCaretUp,   // ScrollWidget — scroll to top button
+  faPhone,     // ScrollWidget — contact button
   faCaretLeft,  // AboutMenu — prev page
   faCaretRight, // AboutMe — section title indicator; AboutMenu — next page
   faSquarePlus,  // FloatingMenu — expand
