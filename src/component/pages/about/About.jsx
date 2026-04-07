@@ -137,7 +137,7 @@ function IntroSection() {
             Download CV
           </a>
         </div>
-        <p className="font-body text-red/70 italic font-semibold mt-8" style={{ fontSize: "clamp(0.8rem, 1vw, 1.1rem)" }}>I hope getting to know me is a fun experience.</p>
+        <p className="font-body text-black/70 italic font-semibold mt-8" style={{ fontSize: "clamp(0.8rem, 1vw, 1.1rem)" }}>I hope getting to know me is a fun experience.</p>
       </div>
     </section>
   );
