@@ -1,289 +1,71 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretRight, faCaretDown } from "../../../data/icons";
-import { useState, useEffect, useRef } from "react";
-import gsap from "gsap";
+import SingingImg        from "../../../assets/page-assets/about/singing.jpg";
+import MovingToCanadaImg from "../../../assets/page-assets/about/moving-to-canada.jpg";
+import BabyImg           from "../../../assets/page-assets/about/baby.jpg";
+import BcitImg           from "../../../assets/page-assets/about/bcit.jpg";
+import './AboutMe.scss';
 
-import SingingImg from "../../../assets/page-assets/about/singing.JPEG";
-import TeapotHillImg from "../../../assets/page-assets/about/teapot-hill.JPEG";
-import BumbleBeeImg from "../../../assets/page-assets/about/bumble-bee-red.png"
+const TIMELINE = [
+  {
+    year: "1999",
+    img: BabyImg,
+    imgAlt: "Yuhan as a baby",
+    text: "Born and raised in Shenyang, China, I grew up loving stories. You'd find me reading and writing all the time. I took acting lessons. I was always telling stories at family gatherings. Chinese became my favourite subject in elementary school. I think this is where my love for storytelling and creativity started.",
+  },
+  {
+    year: "2010",
+    img: MovingToCanadaImg,
+    imgAlt: "A building with a Canadian flag on top",
+    text: "Moving to Canada with my mom was a curious but challenging adventure. I learned how to adapt to a new culture, navigate language barriers, and find my identity in between. It was tough at times, but it also made me more resilient and open-minded. During this time, I started to write music as a way to express myself and connect with others.",
+  },
+  {
+    year: "2017–2022",
+    img: SingingImg,
+    imgAlt: "Yuhan singing on stage",
+    text: "My interest in music developed into a passion, and I decided to get a degree in music performance. This was where I learned to be disciplined, collaborative, open to feedback, and to effectively tell a story through art. I also became a voice teacher, which taught me how to practice patience and empathy, and how to translate abstract concepts into something tangible and understandable for others.",
+  },
+  {
+    year: "2023-TODAY",
+    img: BcitImg,
+    imgAlt: "Yuhan's friends from BCIT",
+    text: "Moved to Vancouver, and decided to explore the world of design as a new creative outlet. I discover the New Media program, and not only did I learn a new set of skills, but I also found valuable friends and a supportive community who encourage and inspire me. I am really excited to continue growing as a designer and storyteller, and to see where this journey takes me.",
+  },
+];
 
-import './AboutMe.scss'
-
-const HERO_IMG = "https://i.postimg.cc/2SjhR5nF/about-me.jpg";
-const TOTAL_STAGES = 3;
-
-// ── static content blocks ──────────────────────────────────────────────────
-
-const TitleOverlay = () => (
-  <div className="section-title-box font-title text-h2 flex items-center justify-center gap-3 absolute bottom-0 right-0 translate-x-10 pl-6 pr-6 text-white bg-blue z-10">
-    <h2 className="mt-2 ml-4">ABOUT ME</h2>
-    <span className="triangle">
-      <FontAwesomeIcon icon={faCaretRight} />
-    </span>
-  </div>
-);
-
-function Paragraph1() {
-  const greetingRef = useRef(null);
-
-  useEffect(() => {
-    if (!greetingRef.current) return;
-    const tl = gsap.timeline({ repeat: -1, repeatDelay: 3, delay: 1 });
-    tl.to(greetingRef.current, { rotation: 4,   duration: 0.12, ease: "power1.inOut" })
-      .to(greetingRef.current, { rotation: -2,  duration: 0.12, ease: "power1.inOut" })
-      .to(greetingRef.current, { rotation: 4,   duration: 0.12, ease: "power1.inOut" })
-      .to(greetingRef.current, { rotation: -2,  duration: 0.12, ease: "power1.inOut" })
-      .to(greetingRef.current, { rotation: 4,   duration: 0.12, ease: "power1.inOut" })
-      .to(greetingRef.current, { rotation: 0,   duration: 0.2,  ease: "power1.out"  });
-    return () => tl.kill();
-  }, []);
-
+function TimelineItem({ year, text, img, imgAlt, isLast }) {
   return (
-  <div className="paragraph-1">
-    <p className="font-body font-bold text-h2 mt-4">
-      <span ref={greetingRef} className="inline-block" style={{ transformOrigin: "bottom left" }}>Hi,</span> <span> I'm Yuhan!</span>
-    </p>
-    <p className="font-body text-h6 sm:text-h5 leading-loose mt-4">
-      I am a{" "}
-      <span className="highlight-primary">multidisciplinary designer</span>,
-      and creativity is my way of connecting with the world. As a New Media Design and Web Development student at BCIT, I feel
-      excited to spend each day learning new ways of bringing ideas to life
-      through design, code, and storytelling. Whatever I am building, I always aim to make something that feels{" "}
-      <span className="highlight-blue">meaningful</span>. My biggest
-      inspirations come from film, video games, and music, and the
-      storytelling within these mediums that{" "}
-      <span className="highlight-blue">evokes feelings</span> both
-      vulnerable and beautiful, in people.
-    </p>
-  </div>
-  );
-}
+    <div className="grid grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] gap-x-8 mb-10">
 
-const Paragraph2 = () => (
-  <div className="paragraph-2 font-body text-h6 sm:text-h5 leading-loose">
-    <p>
-      Before shifting into tech and design, I earned a {" "}
-      <span className="highlight-blue">Bachelor's Degree in Music Performance</span> as a classical soprano and also
-      spent two years working as a{" "}
-      <span className="highlight-red">private voice teacher</span>. During this time, I learned both as a student and teacher the ways communication, empathy, and creativity connects people, and how effective storytelling makes an impact on people's lives. These became valuable lessons that I carry into all my creative projects today.
-    </p>
-  </div>
-);
-
-const Paragraph3 = () => (
-  <div className="paragraph-3 font-body text-h6 sm:text-h5 leading-loose">
-    <p className="mb-4">
-        Though I may seem shy at first, I really love connecting with people and hearing their stories. These connections inspire and motivate me, and I really cherish opportunities to learn <span className="highlight-red">new perspectives</span> and ways of thinking.
-    </p>
-    <p>
-      Outside of school and work, I recharge by making music, spending quality
-      time with loved ones, playing video games, cooking, exploring
-      the city, and crafting things by hand. These little joys help me
-      stay <span className="highlight-red">curious</span>,{" "}
-      <span className="highlight-blue">grounded</span>, and{" "}
-      <span className="highlight-red">inspired</span> in everything I do.
-    </p>
-  </div>
-);
-
-// ── stage navigation ───────────────────────────────────────────────────────
-
-function StageNav({ stage, onNavigate }) {
-  const hintRef = useRef(null);
-
-  useEffect(() => {
-    if (!hintRef.current) return;
-    const tween = gsap.to(hintRef.current, {
-      y: 2,
-      duration: 0.7,
-      ease: "power1.inOut",
-      repeat: -1,
-      yoyo: true,
-    });
-    return () => tween.kill();
-  }, []);
-
-  return (
-    <div className="flex flex-col items-start gap-3 mt-12">
-
-      {/* square indicators */}
-      <div className="flex items-center gap-2">
-        {Array.from({ length: TOTAL_STAGES }).map((_, i) => (
-          <button
-            key={i}
-            onClick={() => onNavigate(i)}
-            aria-label={`Go to section ${i + 1}`}
-            className={`transition-all duration-300 cursor-pointer ${
-              i === stage
-                ? "w-6 h-2.5 bg-blue"
-                : "w-2.5 h-2.5 bg-blue/25 hover:bg-blue/50"
-            }`}
-          />
-        ))}
+      {/* Left — image (desktop only) */}
+      <div className="hidden lg:flex justify-end items-start pt-1">
+        {img && <img src={img} alt={imgAlt} className="w-full object-cover" />}
       </div>
 
-      {/* scroll hint — hidden on last stage */}
-      {stage < TOTAL_STAGES - 1 && (
-        <p className="font-body text-xs text-black/40 tracking-widest uppercase">
-          scroll to continue <span ref={hintRef} className="inline-block"><FontAwesomeIcon icon={faCaretDown} /></span>
-        </p>
-      )}
+      {/* Centre — dot + line */}
+      <div className="flex flex-col items-center">
+        <div className="w-3 h-3 rounded-full bg-black shrink-0 mt-1" />
+        {!isLast && <div className="flex-1 w-px bg-black/20 mt-1" />}
+      </div>
+
+      {/* Right — year + image (mobile) + text */}
+      <div className="pt-0">
+        <span className={`font-title text-h6 tracking-primary block mb-2 ${year === "Now" || year === "2023-TODAY" ? "text-red" : "text-black"}`}>{year}</span>
+        {img && <img src={img} alt={imgAlt} className="lg:hidden w-full object-cover mb-3" />}
+        <p className="font-body text-h6 leading-loose">{text}</p>
+      </div>
 
     </div>
   );
 }
 
-// ── stages data ────────────────────────────────────────────────────────────
-
-const stages = [
-  { image: HERO_IMG,       Content: Paragraph1, objectPos: "object-center" },
-  { image: SingingImg,     Content: Paragraph2, objectPos: "object-right"  },
-  { image: TeapotHillImg,  Content: Paragraph3, objectPos: "object-center" },
-];
-
-// ── component ─────────────────────────────────────────────────────────────
-
 function AboutMe() {
-  const [stage, setStage]               = useState(0);
-  const [displayStage, setDisplayStage] = useState(0);
-  const wrapperRef      = useRef(null);
-  const stickyPanelRef  = useRef(null);
-  const imgRef          = useRef(null);
-  const contentRef      = useRef(null);
-  const headerHiddenRef = useRef(false);
-
-  useEffect(() => {
-    const updatePanel = (hidden) => {
-      if (!stickyPanelRef.current) return;
-      stickyPanelRef.current.style.top    = hidden ? '0px'   : '4.5rem';
-      stickyPanelRef.current.style.height = hidden ? '100vh' : 'calc(100vh - 4.5rem)';
-    };
-
-    const handleScroll = () => {
-      // Adjust panel when header shows/hides (same 50px threshold as Header.jsx)
-      const hidden = window.scrollY > 50;
-      if (hidden !== headerHiddenRef.current) {
-        headerHiddenRef.current = hidden;
-        updatePanel(hidden);
-      }
-
-      if (!wrapperRef.current || window.innerWidth < 1024) return;
-      const rect = wrapperRef.current.getBoundingClientRect();
-      const scrolled = -rect.top;
-      const scrollable = rect.height - window.innerHeight;
-      if (scrollable <= 0) return;
-      const progress = Math.max(0, Math.min(1, scrolled / scrollable));
-      if (progress < 1 / 3)      setStage(0);
-      else if (progress < 2 / 3) setStage(1);
-      else                        setStage(2);
-    };
-
-    // Set initial state in case page loads scrolled
-    updatePanel(window.scrollY > 50);
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // GSAP crossfade when scroll-driven stage changes
-  useEffect(() => {
-    if (stage === displayStage) return;
-
-    gsap.killTweensOf([imgRef.current, contentRef.current]);
-
-    const targetStage = stage;
-
-    const preload = new Promise(res => {
-      const i = new Image();
-      i.onload = res;
-      i.onerror = res;
-      i.src = stages[targetStage].image;
-    });
-
-    const fadeOut = new Promise(res => {
-      gsap.to([imgRef.current, contentRef.current], {
-        opacity: 0, duration: 0.2, ease: 'power2.in', onComplete: res,
-      });
-    });
-
-    Promise.all([fadeOut, preload]).then(() => {
-      setDisplayStage(targetStage);
-      gsap.fromTo([imgRef.current, contentRef.current],
-        { opacity: 0 },
-        { opacity: 1, duration: 0.35, ease: 'power2.out' }
-      );
-    });
-  }, [stage]);
-
-  const scrollToStage = (targetStage) => {
-    if (!wrapperRef.current) return;
-    const wrapperTop = wrapperRef.current.getBoundingClientRect().top + window.scrollY;
-    const scrollable = wrapperRef.current.offsetHeight - window.innerHeight;
-    const progress = targetStage === 0 ? 0 : (targetStage / TOTAL_STAGES) + 0.02;
-    window.scrollTo({ top: wrapperTop + scrollable * progress, behavior: "smooth" });
-  };
-
-  const { image, Content, objectPos } = stages[displayStage];
-
   return (
-    <section className="about-me-container -mx-4 md:-mx-5 lg:-mx-6 col-span-12 border-3 border-black">
-
-      {/* ── lg+: sticky scroll-driven panel ────────────────────────────── */}
-      <div ref={wrapperRef} className="hidden lg:block h-[300vh]">
-        <div
-          ref={stickyPanelRef}
-          className="sticky grid grid-cols-12"
-          style={{ top: '4.5rem', height: 'calc(100vh - 4.5rem)', transition: 'top 0.3s ease, height 0.3s ease' }}
-        >
-
-          {/* image */}
-          <div className="col-span-6 relative border-r-3 border-black bg-black">
-            <div className="absolute inset-0 overflow-hidden">
-              <img
-                ref={imgRef}
-                src={image}
-                alt="About me"
-                className={`w-full h-full object-cover ${objectPos}`}
-              />
-            </div>
-            {displayStage === 0 && <TitleOverlay />}
-          </div>
-
-          {/* content — bg-white on the outer wrapper so it stays opaque during fade */}
-          <div className="col-span-6 bg-white overflow-y-auto flex flex-col justify-center">
-            <div ref={contentRef} className="p-12 xl:p-24 flex flex-col justify-center">
-              <Content />
-              <StageNav stage={stage} onNavigate={scrollToStage} />
-            </div>
-          </div>
-
-        </div>
+    <div className="font-body text-black py-8 grid grid-cols-12">
+      <div className="col-span-12 lg:col-start-3 lg:col-span-8">
+        {TIMELINE.map((item, i) => (
+          <TimelineItem key={i} {...item} isLast={i === TIMELINE.length - 1} />
+        ))}
       </div>
-
-      {/* ── md and below: static stacked layout ────────────────────────── */}
-      <div className="lg:hidden grid grid-cols-12">
-        <div className="col-span-12 relative">
-          <img src={HERO_IMG} alt="About me" className="w-full" />
-          <TitleOverlay />
-        </div>
-        <div className="col-span-12 p-8 bg-white">
-          <Paragraph1 />
-        </div>
-        <div className="col-span-12">
-          <img src={SingingImg} alt="Yuhan singing on stage with a planist" className="w-full object-right " />
-        </div>
-        <div className="col-span-12 p-8 bg-white">
-          <Paragraph2 />
-        </div>
-        <div className="col-span-12">
-          <img src={TeapotHillImg} alt="Yuhan posing in frony of teapots at Teapot Hill" className="w-full" />
-        </div>
-        <div className="col-span-12 p-8 bg-white">
-          <Paragraph3 />
-        </div>
-      </div>
-
-    </section>
+    </div>
   );
 }
 

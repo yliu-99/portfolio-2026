@@ -1,18 +1,16 @@
 // ── AI & Design ────────────────────────────────────────────────────────────────
 
 .ai-and-design {
-    padding: 5rem 2rem;
-    background: var(--color-white);
+    padding: 5rem 0;
     margin-top: 0 !important;
     margin-bottom: 0;
 }
 
 .ai-layout {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 2fr 1fr;
     align-items: center;
     gap: 4rem;
-    max-width: 900px;
     margin: 0 auto;
 
     @media (max-width: 768px) {
@@ -38,8 +36,8 @@
     animation: ai-float 3s ease-in-out infinite;
 
     img, svg {
-        width: 8rem;
-        height: 8rem;
+        width: 6rem;
+        height: 6rem;
         object-fit: contain;
     }
 }
@@ -55,6 +53,5 @@
     font-size: clamp(1.1rem, 1.5vw, 1.35rem);
     line-height: 1.85;
     margin: 0;
-    background: var(--color-white);
     padding: 2rem 2.5rem;
 }

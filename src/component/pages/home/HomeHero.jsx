@@ -127,7 +127,7 @@ function HeroContent() {
   return (
     <section ref={heroRef} className="col-span-12 mt-0! relative">
       <FloatingMenu />
-<div ref={elementsRef} className="hero-elements grid grid-cols-12 items-center min-h-[calc(100dvh-4rem)] md:min-h-[70vh]">
+<div ref={elementsRef} className="hero-elements grid grid-cols-12 items-start min-h-dvh md:min-h-[70vh]">
 
         {/* Col 1 — left numbers */}
         <div ref={leftNumRef}
@@ -135,18 +135,18 @@ function HeroContent() {
           {leftNumbers.map((n, i) => <span key={i}>{n}</span>)}
         </div>
 
-        {/* Col 3 — left label */}
+        {/* Col 2 — left label */}
         <div ref={leftLblRef}
-          className="left-label col-start-3 col-end-4 font-title tracking-primary translate-y-2/5">
+          className="left-label col-start-3 col-end-4 font-title tracking-primary self-start justify-self-start mt-[calc(25vh+18vw-1.5rem)]">
           <span className="text-black text-h4">PORTFOLIO</span>
           <span className="text-red text-h5">2026</span>
         </div>
 
-        {/* Cols 5–8 — hero graphic */}
+        {/* Cols 4–9 — hero graphic (centre 6 columns) */}
         <div ref={graphicRef}
-          className="hero-graphic justify-center align-middle col-start-2 col-end-12 sm:col-start-3 sm:col-end-11 md:col-start-4 md:col-end-10 xl:mt-20">
+          className="hero-graphic justify-center align-middle col-start-4 col-end-10 mt-[25vh]">
           <div className="moth">
-            <img src={mothHero} alt="Luna moth decorative illustration with the word 'design' in the center" className="w-full" />
+            <img src={mothHero} alt="Luna moth decorative illustration with the word 'design' in the center" className="w-full " />
           </div>
           <div ref={circleRef} className="animated-text">
             <img src={circleText} alt="Rotating circular text animation" className="w-full" />
@@ -162,9 +162,9 @@ function HeroContent() {
           </div> */}
         </div>
 
-        {/* Col 10 — right label */}
+        {/* Col 11 — right label */}
         <div ref={rightLblRef}
-          className="right-label col-start-10 col-end-11 font-title tracking-primary translate-y-2/5">
+          className="right-label col-start-10 col-end-11 font-title tracking-primary self-start mt-[calc(25vh+18vw-1.5rem)]">
           <button
             className="flex flex-col items-start cursor-pointer hover:scale-105 transition-transform duration-200 origin-bottom"
             onClick={() => document.getElementById('featured-projects')?.scrollIntoView({ behavior: 'smooth' })}

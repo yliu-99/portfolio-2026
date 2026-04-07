@@ -1,54 +1,148 @@
-// ── Preview thumbnails — simple rectangles ────────────────────────────────────
-.filmstrip-thumb {
-  flex: 1;
-  min-width: 0;
-  padding: 0;
-  border: none;
-  cursor: pointer;
+// ── Stacked project card ──────────────────────────────────────────────────────
+.featured-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  transition: box-shadow 0.25s ease;
+  cursor: pointer;
+  border-bottom: 3px solid var(--black);
+  background: var(--black);
 
-  img {
-    display: block;
+  // ── Image ──
+  &__img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.75) saturate(0.65);
-    transition: filter 0.25s ease;
+    display: block;
+    transition: filter 0.35s ease;
   }
 
-  &.active {
-    img { filter: none; }
+
+  // ── Always-on video ──
+  &__video {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+
+    iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      // Preserve 16:9 and cover the container regardless of card shape
+      width: max(100%, 177.78vh);
+      height: max(100%, 56.25vw);
+      transform: translate(-50%, -50%);
+      border: none;
+    }
   }
 
-  &:hover:not(.active) img {
-    filter: brightness(0.75) saturate(0.8);
+  // ── Red overlay layer (matches project hero) ──
+  &__red-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--red);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  &:has(&__hotspot:hover) &__red-overlay {
+    opacity: 0.3;
+  }
+
+  // ── Hover overlay ──
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+  }
+
+  // ── Title ──
+  &__title {
+    font-size: clamp(2rem, 4.5vw, 4.209rem);
+    color: var(--blue);
+    text-align: center;
+    line-height: 1;
+    mix-blend-mode: multiply;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  &:has(&__hotspot:hover) &__title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  // ── Center hotspot — only this zone triggers hover effects ──
+  &__hotspot {
+    position: absolute;
+    left: 25%;
+    top: 25%;
+    width: 50%;
+    height: 50%;
+    z-index: 2;
+  }
+
+  // ── Chips ──
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.35s ease 0.05s, transform 0.35s ease 0.05s;
+  }
+
+  &:has(&__hotspot:hover) &__chips {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-// ── Main media image ──────────────────────────────────────────────────────────
-.featured-main-img {
-  animation: featured-fade-in 0.35s ease;
-}
-
-// ── Title ─────────────────────────────────────────────────────────────────────
-.featured-title {
-  font-size: 2rem; // sm and below
+// ── CTA overlay — appears on last card when scrolled into view ────────────────
+// Hidden on xs (below sm breakpoint) — mobile uses a separate stacked layout
+.featured-card__cta {
+  position: absolute;
+  bottom: 2rem;
+  left: 1rem;                   // xs: cancel bleed → grid content edge
 
   @media (min-width: 768px) {
-    font-size: clamp(2.5rem, 4.5vw, 4.209rem);
+    left: 1.25rem;              // md
+  }
+
+  @media (min-width: 1024px) {
+    left: 4rem;                 // lg: 64px grid margin
+  }
+  display: flex;
+  gap: 1rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+  z-index: 3;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  // Must come after display: flex so it wins in the cascade
+  @media (max-width: 639px) {
+    display: none;
   }
 }
 
-// ── Chips — centered below title ─────────────────────────────────────────────
-.featured-chips-overlay {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.4rem;
-  pointer-events: none;
-}
-
+// ── Chip pill ─────────────────────────────────────────────────────────────────
 .featured-chip {
   font-family: var(--body);
   font-size: 0.8rem;
@@ -64,33 +158,4 @@
     font-size: 1rem;
     padding: 0.3rem 0.8rem;
   }
-
-  @media (min-width: 1280px) {
-    font-size: 1.1rem;
-    padding: 0.4rem 1rem;
-  }
-}
-
-// ── Muted video preview on hover ──────────────────────────────────────────────
-.featured-video-wrapper {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  animation: featured-fade-in 0.35s ease;
-
-  iframe {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: max(100%, 177.78vh);
-    height: max(100%, 56.25vw);
-    transform: translate(-50%, -50%);
-    border: none;
-  }
-}
-
-@keyframes featured-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
 }

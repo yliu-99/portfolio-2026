@@ -14,3 +14,32 @@
     background-image: url('../../assets/global-assets/noise-3.png');
     filter: url('../../assets/global-assets/noise.svg#noise-filter') opacity(0.5) grayscale(100%);
 }
+
+// Scroll progress bar — sits at the very top, grows left → right
+.scroll-progress-bar {
+    height: 4px;
+    width: 0%;
+    background: var(--red);
+    pointer-events: none;
+    // No transition — width is updated in real-time via JS on every scroll event
+}
+
+// Main top bar
+.mobile-menu-container {
+    height: 5.5rem;
+}
+
+// Hamburger open button — red square matching scroll-widget button size
+.hamburger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 0;
+    background: var(--red);
+    border: 2px solid var(--black);
+    color: var(--white);
+    font-size: 1rem;
+    cursor: pointer;
+}

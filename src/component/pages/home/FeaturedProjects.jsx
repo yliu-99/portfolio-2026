@@ -1,17 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { projectsData } from '../../../data/projects-data/projectData';
+import { useContactModal } from '../../../context/ContactModalContext';
 import './FeaturedProjects.scss';
 
 const featuredProjects = projectsData.filter(p => p.id && p.featured);
-
-function getThumbnail(project) {
-  if (project.type === 'vid' && project.media) {
-    const match = project.media.match(/embed\/([^?]+)/);
-    if (match) return `https://img.youtube.com/vi/${match[1]}/maxresdefault.jpg`;
-  }
-  return project.media ?? null;
-}
 
 function getVideoId(project) {
   if (project.type === 'vid' && project.media) {
@@ -21,127 +14,114 @@ function getVideoId(project) {
   return null;
 }
 
-function FeaturedProjects() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [titleHovered, setTitleHovered] = useState(false);
-  const [mediaHovered, setMediaHovered] = useState(false);
-  const intervalRef = useRef(null);
-  const navigate = useNavigate();
-
-  const active = featuredProjects[activeIndex];
-
-  function startCycle() {
-    clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
-      setActiveIndex(i => (i + 1) % featuredProjects.length);
-    }, 3000);
+function getThumbnail(project) {
+  if (project.type === 'vid' && project.media) {
+    const match = project.media.match(/embed\/([^?]+)/);
+    if (match) return `https://img.youtube.com/vi/${match[1]}/maxresdefault.jpg`;
   }
-  function stopCycle() { clearInterval(intervalRef.current); }
+  return project.media ?? null;
+}
 
-  useEffect(() => { startCycle(); return () => stopCycle(); }, []);
+function ProjectCard({ project, cta }) {
+  const navigate  = useNavigate();
+  const videoId   = getVideoId(project);
+  const thumbnail = getThumbnail(project);
+  const cardRef   = useRef(null);
+  const [ctaVisible, setCtaVisible] = useState(false);
+
+  useEffect(() => {
+    if (!cta || !cardRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setCtaVisible(true); },
+      { threshold: 0.5 }
+    );
+    observer.observe(cardRef.current);
+    return () => observer.disconnect();
+  }, [cta]);
 
   return (
-    <>
-      <section id="featured-projects" className="col-span-12 grid grid-cols-12 grid-rows-[auto_1fr] xl:grid-rows-1 border-3 border-black bg-white h-dvh -mx-4 md:-mx-5 lg:-mx-6 overflow-hidden">
-
-        {/* Title — top bar on mobile/lg, left col on xl */}
-        <div className="col-span-12 xl:col-span-1 flex items-center justify-center py-3 xl:py-0 px-4 xl:px-3 border-b-3 xl:border-b-0 xl:border-r-3 border-black">
-          <h2
-            className="font-title text-[1.5rem] md:text-[2.5rem] text-black tracking-primary whitespace-nowrap xl:[writing-mode:vertical-rl] xl:transform-[rotate(180deg)]"
-          >
-            FEATURED PROJECTS
-          </h2>
+    <div
+      ref={cardRef}
+      className="featured-card"
+      onClick={() => navigate(`/projects/${project.slug}`)}
+    >
+      {/* Always-on muted autoplay video */}
+      {videoId && (
+        <div className="featured-card__video">
+          <iframe
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&playsinline=1&disablekb=1`}
+            allow="autoplay"
+            title={project.title}
+          />
         </div>
+      )}
 
-        {/* Main column */}
-        <div className="col-span-12 xl:col-span-11 flex flex-col min-h-0">
+      {/* Image for non-video projects */}
+      {!videoId && thumbnail && (
+        <img src={thumbnail} alt={project.title} className="featured-card__img" />
+      )}
 
-          {/* Preview strip — simple rectangles */}
-          <div className="flex border-b-3 border-black shrink-0 h-20">
-            {featuredProjects.map((project, i) => (
-              <button
-                key={project.id}
-                className={`filmstrip-thumb${i === activeIndex ? ' active' : ''}`}
-                onMouseEnter={() => { stopCycle(); setActiveIndex(i); }}
-                onMouseLeave={startCycle}
-                onClick={() => navigate(`/projects/${project.slug}`)}
-                aria-label={project.title}
-              >
-                {getThumbnail(project) && (
-                  <img
-                    src={getThumbnail(project)}
-                    alt={project.title}
-                    className="w-full h-full object-cover block"
-                  />
-                )}
-              </button>
+      {/* Red overlay — matches project hero at 30% opacity */}
+      <div className="featured-card__red-overlay" />
+
+      {/* Hover overlay — title + chips */}
+      <div className="featured-card__overlay">
+        <h3 className="featured-card__title font-title tracking-primary">
+          {project.title}
+        </h3>
+        {Array.isArray(project.chips) && project.chips.length > 0 && (
+          <div className="featured-card__chips">
+            {project.chips.map(chip => (
+              <span key={chip} className="featured-chip">{chip}</span>
             ))}
           </div>
+        )}
+      </div>
 
-          {/* Media area */}
-          <div
-            className="relative flex-1 overflow-hidden cursor-pointer"
-            onClick={() => navigate(`/projects/${active.slug}`)}
-            onMouseEnter={() => { stopCycle(); setMediaHovered(true); }}
-            onMouseLeave={() => { startCycle(); setMediaHovered(false); }}
-          >
-            {/* Image — dim filter applied only here */}
-            {getThumbnail(active) && (
-              <img
-                key={active.id}
-                src={getThumbnail(active)}
-                alt={active.title}
-                className={`featured-main-img w-full h-full object-cover block${titleHovered ? ' revealed' : ''}`}
-              />
-            )}
-
-            {/* Muted video — always mounted when active project is a video so it
-                preloads in the background; revealed instantly on hover */}
-            {getVideoId(active) && (
-              <div
-                key={`vid-${active.id}`}
-                className="featured-video-wrapper"
-                style={{ opacity: mediaHovered ? 1 : 0, transition: 'opacity 0.15s ease' }}
-              >
-                <iframe
-                  src={`https://www.youtube.com/embed/${getVideoId(active)}?autoplay=1&mute=1&controls=0&loop=1&playlist=${getVideoId(active)}&modestbranding=1&playsinline=1&disablekb=1`}
-                  allow="autoplay"
-                  style={{ border: 'none' }}
-                  title={active.title}
-                />
-              </div>
-            )}
-
-            {/* Title + chips */}
-            <div
-              className="absolute inset-0 flex flex-col items-center justify-center gap-4"
-              onMouseEnter={() => setTitleHovered(true)}
-              onMouseLeave={() => setTitleHovered(false)}
-            >
-              <h3
-                className="featured-title font-title text-blue tracking-primary text-center leading-none px-8"
-                style={{ mixBlendMode: 'multiply' }}
-              >
-                {active.title}
-              </h3>
-              {Array.isArray(active.chips) && active.chips.length > 0 && (
-                <div className="featured-chips-overlay opacity-70">
-                  {active.chips.map(chip => (
-                    <span key={chip} className="featured-chip">{chip}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* All Projects button — bottom right */}
-            <div className="absolute bottom-4 right-4" onClick={e => e.stopPropagation()}>
-              <button className="btn" onClick={() => navigate('/projects')}>All Projects</button>
-            </div>
-          </div>
-
+      {/* CTA buttons — only on last card, fade in on scroll into view */}
+      {cta && (
+        <div
+          className={`featured-card__cta${ctaVisible ? ' is-visible' : ''}`}
+          onClick={e => e.stopPropagation()}
+        >
+          {cta}
         </div>
-      </section>
+      )}
+
+      {/* Invisible hotspot — center 50% of the card, triggers hover effects */}
+      <div className="featured-card__hotspot" />
+    </div>
+  );
+}
+
+function FeaturedProjects() {
+  const navigate        = useNavigate();
+  const { openContact } = useContactModal();
+
+  const ctaButtons = (
+    <>
+      <button className="btn" onClick={openContact}>Get in Touch</button>
+      <button className="btn" onClick={() => navigate('/projects')}>All Projects</button>
     </>
+  );
+
+  return (
+    <section id="featured-projects" className="col-span-12 -mx-4 md:-mx-5 lg:-mx-16 border-t-3 border-black mt-16">
+      {featuredProjects.map((project, i) => (
+        <ProjectCard
+          key={project.id}
+          project={project}
+          cta={i === featuredProjects.length - 1 ? ctaButtons : null}
+        />
+      ))}
+
+      {/* Mobile CTA — stacked vertically below cards on xs */}
+      <div className="sm:hidden flex flex-col border-t-3 border-black">
+        <button className="btn border-b-3 border-black! py-5" onClick={openContact}>Get in Touch</button>
+        <button className="btn py-5" onClick={() => navigate('/projects')}>All Projects</button>
+      </div>
+
+    </section>
   );
 }
 

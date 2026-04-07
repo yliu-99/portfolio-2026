@@ -1,0 +1,65 @@
+.scroll-widget {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem; // overridden by JS when footer enters viewport
+
+  @media (min-width: 1024px) {
+    right: 4rem;
+  }
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.scroll-widget__btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background: var(--white);
+  color: var(--red);
+  border: 2px solid var(--black);
+  cursor: pointer;
+  font-family: var(--title);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  gap: 0.1rem;
+  transition: opacity 0.25s ease;
+
+  svg {
+    font-size: 0.75rem;
+  }
+}
+
+// Contact button — always visible at resting opacity
+.scroll-widget__btn--contact {
+  opacity: 0.7;
+
+  svg {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// TOP button — hidden until scrolled 1vh, then fades in
+.scroll-widget__btn--top {
+  opacity: 0;
+  pointer-events: none;
+
+  &.is-visible {
+    opacity: 0.7;
+    pointer-events: auto;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

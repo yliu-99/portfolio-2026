@@ -1,10 +1,6 @@
 // ── Projects page ──────────────────────────────────────────────────────────
 .projects-container {
     padding: 4rem 0;
-
-    @media (min-width: 1280px) {
-        padding: 4rem calc(100% / 12);
-    }
 }
 
 // ── Filter bar — slash-separated like MyTools category nav ─────────────────
