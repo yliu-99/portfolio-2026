@@ -26,9 +26,9 @@ export const submarineCdBookletDetail = {
 
     // ── Gallery ───────────────────────────────────────────────────────────────
     gallery: [
-        { src: cdFrontBack,   caption: 'Mockup (Front + Back)' },
-        { src: poolMockup,    caption: 'Underwater Mockup' },
-        { src: bookletMockup, caption: 'Booklet Spread' },
+        { src: cdFrontBack,   caption: 'Mockup (Front + Back)', featured: true },
+        { src: poolMockup,    caption: 'Underwater Mockup',     featured: true },
+        { src: bookletMockup, caption: 'Booklet Spread',        featured: true },
         { src: frontCover,    caption: 'Front Cover' },
         { src: trackList,     caption: 'Track List' },
         { src: pg1,           caption: 'Page 1' },

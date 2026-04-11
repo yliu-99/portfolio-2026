@@ -10,16 +10,20 @@ import './ProjectGallery.scss';
 // ── Helpers ────────────────────────────────────────────────────────────────────
 
 function getYouTubeId(src) {
-    const match = src.match(/youtube\.com\/embed\/([^?&]+)/);
+    const match = src?.match(/youtube\.com\/embed\/([^?&]+)/);
     return match ? match[1] : null;
+}
+
+function getThumb(item) {
+    const videoId = item.type === 'video' ? getYouTubeId(item.src) : null;
+    return videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : item.src;
 }
 
 // ── Lightbox ──────────────────────────────────────────────────────────────────
 
 function Lightbox({ gallery, activeIdx, onClose, onNavigate }) {
-    const overlayRef  = useRef(null);
-    const mediaRef    = useRef(null);
-    const lightboxIdx = activeIdx;
+    const overlayRef = useRef(null);
+    const mediaRef   = useRef(null);
 
     useEffect(() => {
         gsap.fromTo(overlayRef.current,
@@ -45,19 +49,14 @@ function Lightbox({ gallery, activeIdx, onClose, onNavigate }) {
     };
 
     const navigate = useCallback((nextIdx) => {
-        const dir = nextIdx > lightboxIdx ? 1 : -1;
-        const nextItem = gallery[nextIdx];
-        const nextVideoId = nextItem.type === 'video' ? getYouTubeId(nextItem.src) : null;
-        const nextSrc = nextVideoId ? `https://img.youtube.com/vi/${nextVideoId}/maxresdefault.jpg` : nextItem.src;
-
-        const preload = nextSrc
+        const dir      = nextIdx > activeIdx ? 1 : -1;
+        const nextSrc  = getThumb(gallery[nextIdx]);
+        const preload  = nextSrc
             ? new Promise(res => { const i = new Image(); i.onload = res; i.onerror = res; i.src = nextSrc; })
             : Promise.resolve();
-
         const anim = new Promise(res => {
             gsap.to(mediaRef.current, { opacity: 0, x: -40 * dir, duration: 0.15, ease: 'power2.in', onComplete: res });
         });
-
         Promise.all([anim, preload]).then(() => {
             onNavigate(nextIdx);
             gsap.fromTo(mediaRef.current,
@@ -65,23 +64,19 @@ function Lightbox({ gallery, activeIdx, onClose, onNavigate }) {
                 { opacity: 1, x: 0, duration: 0.2, ease: 'power2.out' }
             );
         });
-    }, [lightboxIdx, onNavigate, gallery]);
+    }, [activeIdx, onNavigate, gallery]);
 
-    const total = gallery.length;
-    const item  = gallery[lightboxIdx];
+    const total   = gallery.length;
+    const item    = gallery[activeIdx];
     const videoId = item.type === 'video' ? getYouTubeId(item.src) : null;
-    const autoplaySrc = videoId
-        ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`
-        : null;
 
     return createPortal(
         <div ref={overlayRef} className="lightbox-overlay" onClick={handleClose}>
             <div className="lightbox-modal" onClick={e => e.stopPropagation()}>
-
                 <div ref={mediaRef} className="lightbox-media">
                     {videoId ? (
                         <iframe
-                            src={autoplaySrc}
+                            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
                             title={item.caption}
                             className="lightbox-video"
                             allowFullScreen
@@ -90,125 +85,143 @@ function Lightbox({ gallery, activeIdx, onClose, onNavigate }) {
                     ) : (
                         <img
                             src={item.src}
-                            alt={item.caption ?? `Image ${lightboxIdx + 1}`}
+                            alt={item.caption ?? `Image ${activeIdx + 1}`}
                             className="lightbox-img"
                         />
                     )}
                 </div>
-
                 {total > 1 && (
                     <>
-                        <button className="lightbox-nav lightbox-nav--prev" onClick={() => navigate((lightboxIdx - 1 + total) % total)} aria-label="Previous">
+                        <button className="lightbox-nav lightbox-nav--prev" onClick={() => navigate((activeIdx - 1 + total) % total)} aria-label="Previous">
                             <Icon icon="fa-solid:caret-left" />
                         </button>
-                        <button className="lightbox-nav lightbox-nav--next" onClick={() => navigate((lightboxIdx + 1) % total)} aria-label="Next">
+                        <button className="lightbox-nav lightbox-nav--next" onClick={() => navigate((activeIdx + 1) % total)} aria-label="Next">
                             <Icon icon="fa-solid:caret-right" />
                         </button>
                     </>
                 )}
-
                 <div className="lightbox-caption">
-                    <span className="font-title uppercase tracking-[0.15em]">{item.caption ?? `Image ${lightboxIdx + 1}`}</span>
+                    <span className="font-title uppercase tracking-[0.15em]">{item.caption ?? `Image ${activeIdx + 1}`}</span>
                 </div>
-
             </div>
         </div>,
         document.body
     );
 }
 
+// ── Horizontal scroll gallery (scroll-driven via parent ScrollTrigger) ────────
+//
+//  .h-gallery-clip   clips overflow so the track's off-screen images stay hidden
+//  .h-gallery-track  translateX is animated by RevealBlock's ScrollTrigger phase 2
+
+function HorizontalGallery({ items, onOpen }) {
+    return (
+        <div className="h-gallery-clip">
+            <div className="h-gallery-track">
+                {items.map((item, i) => {
+                    const videoId = item.type === 'video' ? getYouTubeId(item.src) : null;
+                    const src     = getThumb(item);
+
+                    return (
+                        <div
+                            key={i}
+                            className="h-gallery__item"
+                            onClick={() => onOpen(i)}
+                        >
+                            <img src={src} alt={item.caption ?? ''} className="h-gallery__img" />
+                            {videoId && (
+                                <div className="h-gallery__play">
+                                    <Icon icon="fa-solid:play" />
+                                </div>
+                            )}
+                            {item.caption && (
+                                <div className="h-gallery__caption">
+                                    <span className="font-title uppercase">{item.caption}</span>
+                                </div>
+                            )}
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+}
+
+// ── Secondary grid item ───────────────────────────────────────────────────────
+
+function GalleryItem({ item, globalIdx, onClick }) {
+    const videoId = item.type === 'video' ? getYouTubeId(item.src) : null;
+    const src     = getThumb(item);
+
+    return (
+        <div className="gallery-item" onClick={() => onClick(globalIdx)}>
+            <img src={src} alt={item.caption ?? ''} className="gallery-item__img" />
+            {videoId && (
+                <div className="gallery-item__play">
+                    <Icon icon="fa-solid:play" />
+                </div>
+            )}
+            {item.caption && (
+                <div className="gallery-item__caption">
+                    <span className="font-title uppercase">{item.caption}</span>
+                </div>
+            )}
+        </div>
+    );
+}
+
 // ── Gallery ───────────────────────────────────────────────────────────────────
 
 function ProjectGallery({ gallery = [] }) {
-    const [activeIdx,    setActiveIdx]    = useState(0);
-    const [lightboxOpen, setLightboxOpen] = useState(false);
-    const mediaRef = useRef(null);
+    const [lightboxIdx, setLightboxIdx] = useState(null);
 
     if (!gallery.length) return null;
 
-    const total = gallery.length;
-    const item  = gallery[activeIdx];
-    const videoId = item.type === 'video' ? getYouTubeId(item.src) : null;
-    const thumbnail = videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : null;
+    // Split on featured flag; if no flags exist, treat all as featured
+    const hasFeaturedFlag = gallery.some(item => item.featured);
+    const featured  = hasFeaturedFlag ? gallery.filter(item => item.featured)  : gallery;
+    const secondary = hasFeaturedFlag ? gallery.filter(item => !item.featured) : [];
 
-    const navigate = (nextIdx) => {
-        if (nextIdx === activeIdx) return;
-        const dir = nextIdx > activeIdx ? 1 : -1;
-        const nextItem = gallery[nextIdx];
-        const nextVideoId = nextItem.type === 'video' ? getYouTubeId(nextItem.src) : null;
-        const nextSrc = nextVideoId ? `https://img.youtube.com/vi/${nextVideoId}/maxresdefault.jpg` : nextItem.src;
-
-        const preload = nextSrc
-            ? new Promise(res => { const i = new Image(); i.onload = res; i.onerror = res; i.src = nextSrc; })
-            : Promise.resolve();
-
-        const anim = new Promise(res => {
-            gsap.to(mediaRef.current, { opacity: 0, x: -40 * dir, duration: 0.18, ease: 'power2.in', onComplete: res });
-        });
-
-        Promise.all([anim, preload]).then(() => {
-            setActiveIdx(nextIdx);
-            gsap.fromTo(mediaRef.current,
-                { opacity: 0, x: 40 * dir },
-                { opacity: 1, x: 0, duration: 0.25, ease: 'power2.out' }
-            );
-        });
-    };
-
-    const prev = () => navigate((activeIdx - 1 + total) % total);
-    const next = () => navigate((activeIdx + 1) % total);
+    // Map secondary items back to their original index for the lightbox
+    const secondaryIndices = gallery
+        .map((item, i) => ({ item, i }))
+        .filter(({ item }) => hasFeaturedFlag ? !item.featured : false)
+        .map(({ i }) => i);
 
     return (
         <section className="project-gallery">
 
-            <div className="gallery-media-wrap">
-                <div className="gallery-media" ref={mediaRef}>
-                    {videoId ? (
-                        /* Video — show thumbnail with play button */
-                        <div className="gallery-video-thumb" onClick={() => setLightboxOpen(true)}>
-                            <img src={thumbnail} alt={item.caption} className="gallery-img" />
-                            <div className="gallery-play-btn">
-                                <Icon icon="fa-solid:play" />
-                            </div>
-                        </div>
-                    ) : (
-                        /* Image — clickable for lightbox */
-                        <img
-                            src={item.src}
-                            alt={item.caption ?? `Gallery image ${activeIdx + 1}`}
-                            className="gallery-img gallery-img--clickable"
-                            onClick={() => setLightboxOpen(true)}
-                        />
-                    )}
+            {/* ── Featured: horizontal scroll with zoom ──────────────── */}
+            <HorizontalGallery
+                items={featured}
+                onOpen={setLightboxIdx}
+            />
+
+            {/* ── Secondary items ──────────────────────────────────────── */}
+            {secondary.length > 0 && (
+                <div className="gallery-secondary">
+                    <div className="gallery-secondary__header border-t-2 border-black">
+                        <span className="font-title uppercase">More</span>
+                    </div>
+                    <div className="gallery-secondary__grid">
+                        {secondary.map((item, i) => (
+                            <GalleryItem
+                                key={i}
+                                item={item}
+                                globalIdx={secondaryIndices[i]}
+                                onClick={setLightboxIdx}
+                            />
+                        ))}
+                    </div>
                 </div>
+            )}
 
-                {total > 1 && (
-                    <>
-                        <button onClick={prev} className="gallery-nav-btn gallery-nav-btn--prev" aria-label="Previous image">
-                            <Icon icon="fa-solid:caret-left" />
-                        </button>
-                        <button onClick={next} className="gallery-nav-btn gallery-nav-btn--next" aria-label="Next image">
-                            <Icon icon="fa-solid:caret-right" />
-                        </button>
-                    </>
-                )}
-
-                <div className="gallery-caption-bar">
-                    <span className="gallery-caption-text font-title uppercase">
-                        {item.caption ?? `Image ${activeIdx + 1}`}
-                    </span>
-                    <span className="gallery-caption-index font-title">
-                        {String(activeIdx + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-                    </span>
-                </div>
-            </div>
-
-            {lightboxOpen && (
+            {lightboxIdx !== null && (
                 <Lightbox
                     gallery={gallery}
-                    activeIdx={activeIdx}
-                    onClose={() => setLightboxOpen(false)}
-                    onNavigate={setActiveIdx}
+                    activeIdx={lightboxIdx}
+                    onClose={() => setLightboxIdx(null)}
+                    onNavigate={setLightboxIdx}
                 />
             )}
 

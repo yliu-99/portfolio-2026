@@ -53,30 +53,3 @@
     letter-spacing: 0.04em;
 }
 
-// ── Specs Strip ───────────────────────────────────────────────────────────────
-
-.specs-strip {
-    padding-block: 0.6rem;
-}
-
-.specs-label {
-    font-family: var(--font-title);
-    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
-    letter-spacing: 0.2em;
-    color: var(--color-black);
-}
-
-.specs-value {
-    font-family: var(--font-title);
-    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
-    letter-spacing: 0.2em;
-    color: var(--color-red);
-}
-
-.specs-dragonfly {
-    width: 2.2rem;
-    height: auto;
-    object-fit: contain;
-    flex-shrink: 0;
-    opacity: 0.85;
-}

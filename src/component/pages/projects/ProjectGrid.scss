@@ -12,6 +12,9 @@
         grid-template-columns: repeat(3, 1fr);
         grid-auto-flow: dense;
 
+        // Video cards span 2 columns (only in this editorial grid, not in suggested)
+        .project-card.is-video { grid-column: span 2; }
+
         // Group A (cards 1,2,3): large left first, 2 smalls stacked right
         .project-card:nth-child(6n+1) { grid-column: 1 / span 2; grid-row: span 2; align-self: start; }
         .project-card:nth-child(6n+2) { grid-column: 3; align-self: start; }

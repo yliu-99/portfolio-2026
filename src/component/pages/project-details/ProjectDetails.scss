@@ -3,8 +3,168 @@
 // sections in the project detail page sit flush against each other.
 
 .project-details-wrap {
-    section,
+    section:not(.hero-section),
     nav {
         margin-top: 0;
+    }
+}
+
+// Hero pulls up to cover main's pt-23 (5.75rem) so it starts at the top of the viewport.
+// Needs higher specificity than the reset above to win.
+.project-details-wrap .hero-section {
+    margin-top: -5.75rem;
+}
+
+// ── MetaStrip ─────────────────────────────────────────────────────────────────
+
+.meta-strip {
+    display: flex;
+    height: 80px;
+}
+
+.meta-cell {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-blue);
+    color: #ffffff;
+    overflow: hidden;
+    transition: background 0.2s ease;
+    cursor: default;
+
+    &__icon {
+        position: absolute;
+        font-size: 5rem;
+        color: #ffffff;
+        opacity: 0.08;
+        pointer-events: none;
+    }
+
+    &__label {
+        font-size: clamp(1.2rem, 2vw, var(--text-h3));
+        letter-spacing: 0.1em;
+        transition: opacity 0.2s ease;
+    }
+
+    &__value {
+        position: absolute;
+        font-size: clamp(1.2rem, 2vw, var(--text-h3));
+        letter-spacing: 0.1em;
+        color: #ffffff;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    &:hover &__label { opacity: 0; }
+    &:hover &__value { opacity: 1; }
+}
+
+// ── SpecsStrip ────────────────────────────────────────────────────────────────
+
+.specs-strip {
+    padding-block: 1.75rem;
+    cursor: default;
+}
+
+.specs-label {
+    font-family: var(--font-title);
+    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+    letter-spacing: 0.2em;
+    color: var(--color-blue);
+}
+
+.specs-value {
+    font-family: var(--font-title);
+    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+    letter-spacing: 0.2em;
+    color: var(--color-blue);
+    opacity: 0.6;
+}
+
+.specs-dragonfly {
+    width: 2.2rem;
+    height: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.85;
+}
+
+// ── RevealBlock ───────────────────────────────────────────────────────────────
+//
+//  Three sticky layers inside a tall scroll container:
+//    reveal-specs   (z-30) — marquee, always on top
+//    reveal-overview (z-10) — gets covered as gallery slides in
+//    reveal-gallery  (z-20) — two-phase: slides in, then track scrolls left
+//
+//  CSS vars set by JS:
+//    --specs-h  measured height of the specs strip element
+//  Wrap height is also set by JS once images have loaded.
+//
+//  NAV height (4.5rem) is the fixed global nav; sticky elements sit below it.
+
+$nav-h: 4.5rem;
+
+.reveal-wrap {
+    position: relative;
+    // overflow-x: clip lets sticky work while hiding off-screen gallery
+    overflow-x: clip;
+    // Solid white fill so no grid-bg or body bg bleeds through during scroll
+    background: var(--color-white);
+}
+
+// ── Specs — sticky just below the fixed nav, always above gallery ─────────────
+
+.reveal-specs {
+    background: var(--color-white);
+    position: relative;
+    z-index: 30;
+
+    @media (min-width: 1024px) {
+        position: sticky;
+        top: 0;
+    }
+}
+
+// ── Overview — sticky below specs, white fill, covered by gallery ─────────────
+
+.reveal-overview {
+    background: var(--color-white);
+
+    @media (min-width: 1024px) {
+        position: sticky;
+        top: var(--specs-h, 5rem);
+        height: calc(100dvh - var(--specs-h, 5rem));
+        z-index: 10;
+        display: flex;
+        align-items: center;
+    }
+}
+
+// ── Gallery sticky shell — NEVER receives transform (keeps position:sticky intact)
+
+.reveal-gallery {
+    @media (min-width: 1024px) {
+        position: sticky;
+        top: var(--specs-h, 5rem);
+        height: calc(100dvh - var(--specs-h, 5rem));
+        z-index: 20;
+        // overflow:clip clips the inner without creating a scroll container
+        // (overflow:hidden on a sticky element breaks stickiness in some browsers)
+        overflow: clip;
+    }
+}
+
+// ── Gallery inner — GSAP slides this element in from the right
+
+.reveal-gallery__inner {
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+
+    .project-gallery,
+    .h-gallery-clip {
+        height: 100%;
     }
 }
