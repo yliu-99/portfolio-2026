@@ -21,9 +21,9 @@ function ProjectsCard({ project }) {
   return (
     <Link
       to={`/projects/${project.slug}`}
-      className={`project-card flex flex-col no-underline text-black border-2 border-black overflow-hidden shadow-[3px_7px_6.5px_rgba(0,0,0,0.25)]${isVideo ? ' is-video' : ''}`}
+      className={`project-card block aspect-video no-underline text-black border-2 border-black overflow-hidden shadow-[3px_7px_6.5px_rgba(0,0,0,0.25)]${isVideo ? ' is-video' : ''}`}
     >
-      <div className="card-media relative flex-1 min-h-0 aspect-video overflow-hidden bg-beige">
+      <div className="card-media relative w-full h-full overflow-hidden bg-beige">
         {videoId ? (
           <iframe
             src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&playsinline=1&disablekb=1`}
@@ -39,7 +39,7 @@ function ProjectsCard({ project }) {
           {/* Chips — top */}
           <div className="flex flex-wrap gap-1">
             {Array.isArray(project.chips) && project.chips.map(chip => (
-              <span key={chip} className="font-body text-[0.75rem] py-[0.15rem] px-[0.5rem] border border-white/60 text-white leading-[1.4]">{chip}</span>
+              <span key={chip} className="font-body text-[0.75rem] py-[0.15rem] px-2 border border-white/60 text-white leading-[1.4]">{chip}</span>
             ))}
           </div>
 
