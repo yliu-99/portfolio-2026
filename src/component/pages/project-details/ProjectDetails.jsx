@@ -176,10 +176,18 @@ function RevealBlock({ project, detail, gallery }) {
 
                 const tl = gsap.timeline();
 
-                // Phase 1 — inner div slides in from right (xPercent 100 → 0)
+                // Phase 1 — two sequential tweens so x and y feel decoupled:
+                //   1a (hold):  gallery stays parked off-screen right for the first
+                //               25% of SLIDE_H — only vertical page scroll happens.
+                //   1b (slide): gallery sweeps in from right for the remaining 75%.
+                // fromTo at t=0 applies immediateRender so xPercent:100 is set
+                // the moment buildTimeline() runs, not just when scrolled to.
                 tl.fromTo(inner,
                     { xPercent: 100 },
-                    { xPercent: 0, ease: 'none', duration: SLIDE_H }
+                    { xPercent: 100, ease: 'none', duration: SLIDE_H * 0.25 }
+                );
+                tl.to(inner,
+                    { xPercent: 0, ease: 'none', duration: SLIDE_H * 0.75 }
                 );
 
                 // Phase 2 — track scrolls left to expose all images
