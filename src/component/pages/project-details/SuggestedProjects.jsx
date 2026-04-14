@@ -4,6 +4,9 @@ import { projectsData } from '../../../data/projects-data/projectData';
 // import components
 import ProjectsCard from '../projects/ProjectCard';
 
+// import styles
+import './SuggestedProjects.scss';
+
 const CATEGORY_LABELS = {
     'video':          'More Video Projects',
     'motion':         'More Video Projects',
@@ -20,18 +23,20 @@ function SuggestedProjects({ suggested = [], category = '' }) {
     const heading = CATEGORY_LABELS[category?.toLowerCase()] ?? 'More Projects';
 
     return (
-        <section className="w-full border-t-2 border-black px-8 py-16">
+        <section className="suggested-projects">
+            <div className="suggested-projects__inner">
 
-            <h2 className="font-title text-h4 uppercase tracking-[0.06em] text-black mb-10">
-                {heading}
-            </h2>
+                <span className="suggested-projects__title font-title uppercase">
+                    {heading}
+                </span>
 
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
-                {projects.map(project => (
-                    <ProjectsCard key={project.slug} project={project} />
-                ))}
+                <div className="suggested-projects__grid">
+                    {projects.map(project => (
+                        <ProjectsCard key={project.slug} project={project} />
+                    ))}
+                </div>
+
             </div>
-
         </section>
     );
 }

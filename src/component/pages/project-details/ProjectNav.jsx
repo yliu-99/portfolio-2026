@@ -1,5 +1,6 @@
 // import dependencies
 import { Link } from 'react-router-dom';
+import { Icon } from '@iconify/react';
 
 // import data
 import { projectsData } from '../../../data/projects-data/projectData';
@@ -20,9 +21,8 @@ function ProjectNav({ currentSlug }) {
             <div className={`project-nav-side ${!prev ? 'project-nav-side--empty' : ''}`}>
                 {prev ? (
                     <Link to={`/projects/${prev.slug}`} className="project-nav-link">
-                        <span className="font-title uppercase text-white project-nav-text">
-                            Previous:&nbsp;&nbsp;{prev.title}
-                        </span>
+                        <Icon icon="fa-solid:caret-left" className="project-nav-caret" />
+                        <span className="font-title uppercase text-white project-nav-text">Previous</span>
                     </Link>
                 ) : null}
             </div>
@@ -33,9 +33,8 @@ function ProjectNav({ currentSlug }) {
             <div className={`project-nav-side project-nav-side--right ${!next ? 'project-nav-side--empty' : ''}`}>
                 {next ? (
                     <Link to={`/projects/${next.slug}`} className="project-nav-link">
-                        <span className="font-title uppercase text-white project-nav-text">
-                            Next:&nbsp;&nbsp;{next.title}
-                        </span>
+                        <span className="font-title uppercase text-white project-nav-text">Next</span>
+                        <Icon icon="fa-solid:caret-right" className="project-nav-caret" />
                     </Link>
                 ) : null}
             </div>

@@ -67,6 +67,11 @@ export const submarineCdBookletDetail = {
             title: 'Takeaway',
             body:  'This project allowed me to apply my own creative interpretation to an existing design, and also help me practice storytelling through the use of graphics, typography, colours, and layout. In my next iteration of this project, I would like to explore expanding on this thematic idea and applying it on a larger scale, such as a design for a tour poster, merchandise, and a social media marketing reel. It is entirely possible to apply motion to some of the elements in this booklet, and I would be interested to see the entire system being applied across different mediums and formats.',
             image: poolMockup,
+            keypoints: [
+                'Blend modes are a powerful tool for creating visual unity across disparate elements.',
+                'Shifting perspective on an existing narrative adds depth without losing the original intent.',
+                'A cohesive system applied across different mediums reveals the full potential of a design concept.',
+            ],
         },
     ],
 

@@ -128,9 +128,16 @@ $nav-h: 4.5rem;
 }
 
 // ── Overview — sticky below specs, white fill, covered by gallery ─────────────
+//  Hidden on mobile: the overview only makes sense on desktop where the gallery
+//  slides over it. On mobile the gallery stacks normally so the overview would
+//  just be a large white gap.
 
 .reveal-overview {
     background: var(--color-white);
+
+    @media (max-width: 1023px) {
+        display: none;
+    }
 
     @media (min-width: 1024px) {
         position: sticky;
@@ -145,6 +152,8 @@ $nav-h: 4.5rem;
 // ── Gallery sticky shell — NEVER receives transform (keeps position:sticky intact)
 
 .reveal-gallery {
+    background: var(--color-black);
+
     @media (min-width: 1024px) {
         position: sticky;
         top: var(--specs-h, 5rem);
@@ -163,8 +172,12 @@ $nav-h: 4.5rem;
     height: 100%;
     will-change: transform;
 
-    .project-gallery,
-    .h-gallery-clip {
-        height: 100%;
+    // On desktop the gallery must fill the sticky shell's fixed height.
+    // On mobile the shell has no explicit height, so let content size naturally.
+    @media (min-width: 1024px) {
+        .project-gallery,
+        .h-gallery-clip {
+            height: 100%;
+        }
     }
 }

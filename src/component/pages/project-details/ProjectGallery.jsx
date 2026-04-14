@@ -147,29 +147,6 @@ function HorizontalGallery({ items, onOpen }) {
     );
 }
 
-// ── Secondary grid item ───────────────────────────────────────────────────────
-
-function GalleryItem({ item, globalIdx, onClick }) {
-    const videoId = item.type === 'video' ? getYouTubeId(item.src) : null;
-    const src     = getThumb(item);
-
-    return (
-        <div className="gallery-item" onClick={() => onClick(globalIdx)}>
-            <img src={src} alt={item.caption ?? ''} className="gallery-item__img" />
-            {videoId && (
-                <div className="gallery-item__play">
-                    <Icon icon="fa-solid:play" />
-                </div>
-            )}
-            {item.caption && (
-                <div className="gallery-item__caption">
-                    <span className="font-title uppercase">{item.caption}</span>
-                </div>
-            )}
-        </div>
-    );
-}
-
 // ── Gallery ───────────────────────────────────────────────────────────────────
 
 function ProjectGallery({ gallery = [] }) {
@@ -177,44 +154,17 @@ function ProjectGallery({ gallery = [] }) {
 
     if (!gallery.length) return null;
 
-    // Split on featured flag; if no flags exist, treat all as featured
+    // If any item is flagged as featured, show only those; otherwise show all
     const hasFeaturedFlag = gallery.some(item => item.featured);
-    const featured  = hasFeaturedFlag ? gallery.filter(item => item.featured)  : gallery;
-    const secondary = hasFeaturedFlag ? gallery.filter(item => !item.featured) : [];
-
-    // Map secondary items back to their original index for the lightbox
-    const secondaryIndices = gallery
-        .map((item, i) => ({ item, i }))
-        .filter(({ item }) => hasFeaturedFlag ? !item.featured : false)
-        .map(({ i }) => i);
+    const featured = hasFeaturedFlag ? gallery.filter(item => item.featured) : gallery;
 
     return (
         <section className="project-gallery">
 
-            {/* ── Featured: horizontal scroll with zoom ──────────────── */}
             <HorizontalGallery
                 items={featured}
                 onOpen={setLightboxIdx}
             />
-
-            {/* ── Secondary items ──────────────────────────────────────── */}
-            {secondary.length > 0 && (
-                <div className="gallery-secondary">
-                    <div className="gallery-secondary__header border-t-2 border-black">
-                        <span className="font-title uppercase">More</span>
-                    </div>
-                    <div className="gallery-secondary__grid">
-                        {secondary.map((item, i) => (
-                            <GalleryItem
-                                key={i}
-                                item={item}
-                                globalIdx={secondaryIndices[i]}
-                                onClick={setLightboxIdx}
-                            />
-                        ))}
-                    </div>
-                </div>
-            )}
 
             {lightboxIdx !== null && (
                 <Lightbox

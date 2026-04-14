@@ -48,6 +48,11 @@ export const trueHorizonsDetail = {
             title: 'Reflection',
             body: 'This project was a major learning experience in creative problem-solving, collaboration, and production planning. Despite limited resources and no prior experience producing a video at this scale, our team stayed committed and found solutions as obstacles came up. Looking back, I would approach pre-production with more precision — a more detailed storyboard would have clarified our vision early and saved time during filming. I\'d also experiment more with close-up shots to better convey emotion. This project deepened my appreciation for video storytelling and showed me how much small creative decisions shape the final experience.',
             image: story,
+            keypoints: [
+                'Pre-production precision shapes the quality of every moment captured on camera.',
+                'Creative problem-solving and adaptability are just as essential as technical skill on set.',
+                'Small decisions — framing, pacing, audio — collectively define how a story feels to an audience.',
+            ],
         },
     ],
 

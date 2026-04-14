@@ -4,12 +4,17 @@
     position: relative;
     width: 100%;
 
+    @media (max-width: 900px) {
+        border-bottom: none;
+    }
+
     // Blue sits as its own layer behind the content grid
     &::before {
         content: '';
         position: absolute;
         inset: 0;
         background: var(--color-blue);
+        mix-blend-mode: multiply;
         z-index: 0;
     }
 }
@@ -19,7 +24,7 @@
     z-index: 1;          // image + text sit above the blue layer
     display: grid;
     grid-template-columns: 55fr 45fr;
-    min-height: 520px;
+    min-height: 100dvh;
 
     @media (max-width: 900px) {
         grid-template-columns: 1fr;
@@ -29,18 +34,22 @@
 
 .first-section-media {
     position: relative;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    // left padding matches where grid columns start; right/vertical give breathing room
+    padding: 3rem 2rem 3rem 4rem;
 
     @media (max-width: 900px) {
-        aspect-ratio: 16 / 9;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+        padding: 2.5rem 1.5rem;
     }
 }
 
 .first-section-img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    object-position: center;
     display: block;
 }
 
@@ -50,8 +59,6 @@
     flex-direction: column;
     justify-content: center;
     gap: 1.75rem;
-    border-left: 2px solid rgba(255, 255, 255, 0.15);
-
     @media (max-width: 900px) {
         border-left: none;
         padding: 3rem 2rem;
@@ -73,29 +80,77 @@
     line-height: 1;
 }
 
-// ── Last section — beige, no image ────────────────────────────────────────────
+// ── Last section ──────────────────────────────────────────────────────────────
 
 .project-last-section {
-    background: var(--color-beige);
+    position: relative;
     width: 100%;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--color-blue);
+        mix-blend-mode: multiply;
+        z-index: 0;
+    }
 }
 
 .last-section-inner {
+    position: relative;
+    z-index: 1;
     padding: 5rem 4rem;
-    max-width: 900px;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 1.75rem;
 
     @media (max-width: 900px) {
         padding: 3.5rem 2rem;
+    }
+}
+
+// When keypoints are present — switch to 3-column grid on desktop
+.last-section-inner--kp {
+    @media (min-width: 1024px) {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        align-items: center;
+        gap: 3rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        text-align: left;
+        overflow: visible;   // allow rotated cards to bleed outside the grid
+    }
+}
+
+.last-section-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.75rem;
+
+    @media (min-width: 1024px) {
+        align-items: flex-start;
+        text-align: left;
     }
 
     p {
         font-size: clamp(1.05rem, 1.4vw, 1.25rem);
         max-width: 60ch;
         line-height: 1.85;
-        color: var(--color-black);
+        color: var(--color-white);
+
+        @media (max-width: 900px) {
+            max-width: 100%;
+        }
     }
 }
 
@@ -103,28 +158,74 @@
     display: block;
     font-size: clamp(1.1rem, 1.8vw, 1.5rem);
     letter-spacing: 0.15em;
-    color: var(--color-black);
+    color: var(--color-white);
     line-height: 1;
 }
 
+// ── Keypoint columns (desktop only) ───────────────────────────────────────────
+
+.last-kp-col {
+    display: none;
+
+    @media (min-width: 1024px) {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        overflow: visible;   // let rotated cards bleed outside their column
+    }
+}
+
+.keypoint-card {
+    background: #ffffff;
+    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.22);
+    padding: 1.5rem 1.75rem;
+}
+
+.keypoint-card__text {
+    font-size: clamp(0.88rem, 1.05vw, 1rem);
+    color: var(--color-black);
+    line-height: 1.7;
+    margin: 0;
+}
+
+// ── Mobile keypoints (hidden on desktop) ──────────────────────────────────────
+
+.last-kp-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+
+    @media (min-width: 1024px) {
+        display: none;
+    }
+}
+
+.keypoint-mobile {
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    color: var(--color-white);
+    line-height: 1.75;
+    border-left: 2px solid rgba(255, 255, 255, 0.5);
+    padding-left: 1rem;
+    text-align: left;
+    max-width: 100%;
+}
+
 // ── Tabbed middle sections ─────────────────────────────────────────────────────
+//
+//  Mirrors the challenge (first) section layout but with text LEFT and image RIGHT.
+//  Challenge: image(55fr left) | text(45fr right)
+//  Process:   text(45fr left) | image(55fr right)  ← reversed
 
 .project-content {
     background: var(--color-white);
     width: 100%;
-}
 
-// ── Process section header ─────────────────────────────────────────────────────
-
-.content-process-header {
-    padding: 1.1rem 4rem;
-    background: var(--color-white);
-
-    span {
-        font-size: clamp(0.75rem, 1.1vw, 0.95rem);
-        letter-spacing: 0.22em;
-        color: var(--color-black);
-        opacity: 0.45;
+    // Full viewport height on desktop — flex column so body can grow to fill
+    @media (min-width: 1024px) {
+        display: flex;
+        flex-direction: column;
+        min-height: 100dvh;
     }
 }
 
@@ -135,6 +236,16 @@
     flex-wrap: wrap;
     gap: 0.75rem;
     padding: 2rem 4rem 1.25rem;
+
+    @media (min-width: 1024px) {
+        padding-top: 5rem;
+        justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+        padding: 1.5rem 1.5rem 1rem;
+        gap: 0.5rem;
+    }
 }
 
 .content-tab {
@@ -148,6 +259,11 @@
     transition: background 0.15s ease, color 0.15s ease;
 
     &:hover:not(.content-tab--active) { background: rgba(0, 68, 148, 0.06); }
+
+    @media (max-width: 900px) {
+        flex: 1 1 100%;
+        text-align: center;
+    }
 }
 
 .content-tab--active {
@@ -155,12 +271,45 @@
     color: var(--color-white);
 }
 
-// ── Body row ───────────────────────────────────────────────────────────────────
+// ── Track — desktop horizontal slide container ────────────────────────────────
+//
+//  .content-track-clip  clips the off-screen panels on desktop.
+//  .content-track       all panels laid out side-by-side; GSAP translates X.
+//  .content-panel       each panel is 100% of the clip width.
+//  On mobile only .content-panel--active is shown; all others are hidden.
 
-.content-body {
+.content-track-clip {
+    overflow: hidden;
+
+    @media (min-width: 1024px) {
+        flex: 1;   // fill remaining height in the flex-column section
+    }
+}
+
+.content-track {
+    display: flex;
+    height: 100%;
+    will-change: transform;
+
+    @media (max-width: 1023px) {
+        display: block;
+        height: auto;
+    }
+}
+
+.content-panel {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 500px;
+    grid-template-columns: 45fr 55fr;
+
+    @media (max-width: 1023px) {
+        display: none;
+        height: auto;
+
+        &--active { display: grid; }
+    }
 
     @media (max-width: 900px) {
         grid-template-columns: 1fr;
@@ -176,28 +325,46 @@
     justify-content: center;
     gap: 1.25rem;
 
+    @media (min-width: 1024px) {
+        padding-top: 2rem;
+    }
+
+    @media (max-width: 900px) {
+        padding: 2.5rem 1.5rem;
+        grid-column: 1 / -1;
+    }
+
     p {
         font-size: clamp(1.05rem, 1.4vw, 1.25rem);
         max-width: 60ch;
         line-height: 1.85;
+        color: var(--color-black);
+
+        @media (max-width: 900px) {
+            max-width: 100%;
+        }
     }
 }
 
-// ── Image ──────────────────────────────────────────────────────────────────────
+// ── Image — mirrors first-section-media but padded on the right ────────────────
 
 .content-image {
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    // right padding matches where grid columns end; mirrors challenge's left padding
+    padding: 3rem 4rem 3rem 2rem;
 
     @media (max-width: 900px) {
-        padding: 0 1.5rem 1.5rem;
+        padding: 0 1.5rem 2rem;
     }
 }
 
 .content-img {
     width: 100%;
-    height: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    object-position: center;
     display: block;
 }
 

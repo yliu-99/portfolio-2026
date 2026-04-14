@@ -19,7 +19,6 @@ import ProjectHero     from './ProjectHero';
 import ProjectOverview from './ProjectOverview';
 import ProjectGallery  from './ProjectGallery';
 import ProjectContent  from './ProjectContent';
-import ProjectNav      from './ProjectNav';
 import SuggestedProjects from './SuggestedProjects';
 import SEO from '../../SEO/SEO';
 
@@ -123,9 +122,11 @@ function SpecsStrip({ project }) {
 //  Three sticky layers inside a tall scroll container:
 //    reveal-specs   (z-30) — always visible above everything
 //    reveal-overview (z-10) — gets covered as gallery slides in
-//    reveal-gallery  (z-20) — two-phase ScrollTrigger:
-//      Phase 1  gallery panel slides in from the right (xPercent 100 → 0)
-//      Phase 2  gallery track translates left, revealing all images in sequence
+//    reveal-gallery  (z-20) — three-phase ScrollTrigger:
+//      Phase 1  gallery rises up from below into the right 10% of the screen
+//               (yPercent 100 → 0, xPercent stays at 90)
+//      Phase 2  gallery sweeps left across the full viewport (xPercent 90 → 0)
+//      Phase 3  gallery track translates left, revealing all images in sequence
 //               Only after all images have scrolled through does the page move on.
 
 function RevealBlock({ project, detail, gallery }) {
@@ -167,7 +168,15 @@ function RevealBlock({ project, detail, gallery }) {
             const buildTimeline = () => {
                 const d = dist();
 
-                wrap.style.height = `${SLIDE_H + d + window.innerHeight}px`;
+                // Timeline scroll budget:
+                //   Hold      SLIDE_H × 0.3  — a couple of scroll ticks on the overview
+                //   Rise      SLIDE_H × 0.35 — gallery enters from bottom-right
+                //   Sweep     SLIDE_H × 0.65 — gallery sweeps left to full viewport
+                //   Track     d              — horizontal image scroll
+                //   Buffer    SLIDE_H × 2    — sticky holds after animation so
+                //                             scrub:1.5 has time to complete
+                const totalAnim = SLIDE_H * 1.3 + d;  // hold(0.3) + rise+sweep(1) + track
+                wrap.style.height = `${totalAnim + window.innerHeight * 2}px`;
 
                 // Kill any existing triggers so we can recreate cleanly
                 ScrollTrigger.getAll()
@@ -176,21 +185,25 @@ function RevealBlock({ project, detail, gallery }) {
 
                 const tl = gsap.timeline();
 
-                // Phase 1 — two sequential tweens so x and y feel decoupled:
-                //   1a (hold):  gallery stays parked off-screen right for the first
-                //               25% of SLIDE_H — only vertical page scroll happens.
-                //   1b (slide): gallery sweeps in from right for the remaining 75%.
-                // fromTo at t=0 applies immediateRender so xPercent:100 is set
-                // the moment buildTimeline() runs, not just when scrolled to.
+                // Hold — fromTo with equal values locks the hidden state via
+                //   immediateRender and keeps the gallery off-screen for a couple
+                //   of scroll ticks so the user can take in the overview first.
                 tl.fromTo(inner,
-                    { xPercent: 100 },
-                    { xPercent: 100, ease: 'none', duration: SLIDE_H * 0.25 }
-                );
-                tl.to(inner,
-                    { xPercent: 0, ease: 'none', duration: SLIDE_H * 0.75 }
+                    { yPercent: 100, xPercent: 90 },
+                    { yPercent: 100, xPercent: 90, ease: 'none', duration: SLIDE_H * 0.3 }
                 );
 
-                // Phase 2 — track scrolls left to expose all images
+                // Phase 1 — gallery rises up into the right 10% of the screen
+                tl.to(inner,
+                    { yPercent: 0, xPercent: 90, ease: 'none', duration: SLIDE_H * 0.35 }
+                );
+
+                // Phase 2 — gallery sweeps left to cover the full viewport
+                tl.to(inner,
+                    { xPercent: 0, ease: 'none', duration: SLIDE_H * 0.65 }
+                );
+
+                // Phase 3 — track scrolls left to expose all images
                 if (track && d > 0) {
                     tl.to(track, { x: -d, ease: 'none', duration: d }, '>');
                 }
@@ -200,8 +213,11 @@ function RevealBlock({ project, detail, gallery }) {
                     animation: tl,
                     trigger:   wrap,
                     start:     'top top',
-                    end:       `+=${SLIDE_H + d}`,
+                    end:       `+=${totalAnim}`,
                     scrub:     1.5,
+                    // Snap animation to complete if the user fast-scrolls past end
+                    // before the scrub tween has finished.
+                    onLeave:   self => self.animation.progress(1),
                 });
             };
 
@@ -226,7 +242,7 @@ function RevealBlock({ project, detail, gallery }) {
     }, []);
 
     return (
-        <div ref={wrapRef} className="reveal-wrap border-b-2 border-black">
+        <div ref={wrapRef} className="reveal-wrap">
 
             {/* Specs marquee — sticky below nav, always above gallery */}
             <div ref={specsRef} className="reveal-specs">
@@ -335,10 +351,7 @@ function ProjectDetails() {
             {/* 6 — Tabbed narrative sections */}
             <ProjectContent sections={detail.sections ?? []} />
 
-            {/* 7 — Previous / Next project navigation */}
-            <ProjectNav currentSlug={slug} />
-
-            {/* 8 — Suggested related projects */}
+            {/* 7 — Suggested related projects */}
             <SuggestedProjects suggested={detail.suggested ?? []} category={project.category} />
         </div>
     );
