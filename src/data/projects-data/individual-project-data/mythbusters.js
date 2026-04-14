@@ -51,7 +51,7 @@ export const mythbustersDetail = {
             keypoints: [
                 'Choosing a personal topic leads to more purposeful and authentic creative decisions.',
                 'Storytelling within tight constraints demands deliberate clarity over quantity.',
-                'Sound design is as critical as visuals in shaping how a viewer experiences a film.',
+                'Working in chunks — script, assets, animation, sound — helps manage complexity and keep the project on track.',
             ],
         },
     ],

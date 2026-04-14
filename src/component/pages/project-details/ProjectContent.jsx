@@ -162,16 +162,21 @@ function LastSection({ section }) {
                 });
             };
 
-            const st = ScrollTrigger.create({
-                trigger:    wrapRef.current,
-                pin:        true,
-                pinSpacing: true,
-                start:      'top top',
-                end:        () => `+=${window.innerHeight * 2}`,
-                onUpdate:   self => thresholds.forEach((t, i) => { if (self.progress >= t) popCard(i); }),
+            let st;
+            const frame = requestAnimationFrame(() => {
+                if (!wrapRef.current) return;
+                st = ScrollTrigger.create({
+                    trigger:             wrapRef.current,
+                    pin:                 true,
+                    pinSpacing:          true,
+                    start:               'top top',
+                    end:                 () => `+=${window.innerHeight * 2}`,
+                    invalidateOnRefresh: true,
+                    onUpdate:            self => thresholds.forEach((t, i) => { if (self.progress >= t) popCard(i); }),
+                });
             });
 
-            return () => st.kill();
+            return () => { cancelAnimationFrame(frame); if (st) st.kill(); };
         });
 
         // ── Mobile: fade in keypoint paragraphs as they enter the viewport ───

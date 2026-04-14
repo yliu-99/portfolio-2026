@@ -60,9 +60,9 @@ export const vhsFilmFestivalDetail = {
       body: "With the brand guide and logo finalized, I created mockups showing real-life applications of the new design. For the website, I focused on information architecture and visual consistency — centering the navigation, featuring the new logo in the hero, and removing borders from the feature video for a cleaner, more modern feel. I then designed social media posts, merchandise (t-shirts, tote bags), and event ticket mockups, all using the updated design rules.",
       image: website,
       keypoints: [
-          'A strong acronym logo creates more versatile and memorable branding than a full-name wordmark.',
-          'Visual consistency across every touchpoint is what turns scattered assets into a recognizable brand.',
-          'Genre-appropriate colour choices establish emotional context before a viewer reads a single word.',
+          'A logo should be versatile and adapt to different applications',
+          'A well-established brand will have consistency across all touchpoints, from digital to physical',
+          'Genre-appropriate design choices are essential for effective communication',
       ],
     },
   ],

@@ -18,7 +18,7 @@ export const projectsData = [
         heroVideoId: 'KsUM108TayE',   // looping bg video for the project detail hero
         hoverVideoId: 'KsUM108TayE',  // preloaded hover video for the project grid card
         year:'03/26',
-        timeline:'Feb 23 - Mar 16, 2026',
+        timeline:'Feb 23 - Mar 16, 2026 (8 hrs)',
         description:'CD booklet design for the "Submarine" album by the Marias, focusing on reinforcing the existing storytelling and aesthetic of the music through design and layout.',
         shortDescription: 'CD booklet design for the "Submarine" album by the Marias.',
         chips:['graphic design', 'print', 'indesign'],
@@ -35,13 +35,13 @@ export const projectsData = [
         type:'vid',
         media: mythbustersVid,
         year:'07/25',
-        timeline:'Jun 11 - Jul 5, 2025',
+        timeline:'Jun 11 - Jul 5, 2025 (23 hrs)',
         description:'A Mythbusters explainer style motion graphics video focusing on debunking the biggest personal myth -- "perfectionism',
         shortDescription: 'Motion graphics debunking the personal myth of perfectionism.',
-        chips: ['motion graphics', 'storytelling', 'sound design'],
+        chips: ['motion graphics', 'storytelling', 'sound production'],
         category:'motion',
         tools: ['after effects', 'photoshop', 'audition', 'illustrator'],
-        role: ['concept development', 'scriptwriter', 'motion design', 'sound design'],
+        role: ['concept development', 'scriptwriter', 'motion design', 'sound production'],
         featured: true
     },
     // 04/25
@@ -52,13 +52,13 @@ export const projectsData = [
         type:'vid',
         media: trueHorizonsVid,
         year:'04/25',
-        timeline:'Dec 5, 2024 - Jun 11, 2025',
+        timeline:'Dec 5, 2024 - Jun 11, 2025 (75 hrs)',
         description:'A narrative-driven commercial exploring the relationship of two long distance friends, emphasizing the value of personal connection over external/online validation.',
         shortDescription: 'A narrative commercial about long-distance friendship and real connection.',
-        chips:['video production','storytelling','sound design'],
+        chips:['video production','storytelling','sound editing'],
         category:'video',
         tools: ['premier','audition','after effects'],
-        role: ['concept development', 'actor', 'director', 'editor', 'sound design'],
+        role: ['concept development', 'actor', 'director', 'editor', 'sound production'],
         featured: true
     },
     // 02/25
@@ -71,13 +71,13 @@ export const projectsData = [
         heroVideoId:  'Sr4oXdiLrzE',  // preview shown on hero bg + cards/featured
         hoverVideoId: 'Sr4oXdiLrzE',
         year:'02/25',
-        timeline:'Jan 30 - Feb 27, 2025',
+        timeline:'Jan 30 - Feb 27, 2025 (19 hrs)',
         description:'A 2-minute talking head commercial for a fictitious mountain bike company with energetic storytelling, featuring original music made in GarageBand.',
         shortDescription: 'Talking head commercial with original music for a fictional mountain bike brand.',
-        chips:['video production','storytelling','sound design','music production'],
+        chips:['video production','storytelling','sound editing','music production'],
         category:'video',
         tools: ['premier','audition','garageband'],
-        role: ['brand development', 'scriptwriter','director', 'music production', 'sound design'],
+        role: ['brand development', 'scriptwriter','director', 'music production', 'sound production'],
         featured: true
     },
     // 12/24
@@ -89,7 +89,7 @@ export const projectsData = [
         type:'img',
         media:vancouverHorrorShowImage,
         year:'12/24',
-        timeline:' Nov 14, 2024 - Dec 12, 2025',
+        timeline:' Nov 14, 2024 - Dec 12, 2025 (26 hrs)',
         description:'A redesign project for a Vancouver-based horror film festival focusing on improved branding.',
         shortDescription: 'Redesigned branding and identity for a Vancouver horror film festival.',
         chips:['graphic design', 'redesign', 'branding'],

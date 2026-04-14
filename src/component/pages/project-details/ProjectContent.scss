@@ -2,13 +2,13 @@
 
 .project-first-section {
     position: relative;
-    width: 100%;
+    isolation: isolate;  // self-contained compositing group — contains the ::before
+    width: 100%;         // blend mode so it can't flash into neighbouring sections
 
     @media (max-width: 900px) {
         border-bottom: none;
     }
 
-    // Blue sits as its own layer behind the content grid
     &::before {
         content: '';
         position: absolute;
@@ -84,6 +84,7 @@
 
 .project-last-section {
     position: relative;
+    isolation: isolate;  // same containment as first section — prevents compositor flash
     width: 100%;
     min-height: 100dvh;
     display: flex;
