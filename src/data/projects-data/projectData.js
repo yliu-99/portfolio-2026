@@ -15,6 +15,8 @@ export const projectsData = [
         slug:'submarine-cd-booklet-print-design',
         type:'img',
         media:submarineImage,
+        heroVideoId: 'KsUM108TayE',   // looping bg video for the project detail hero
+        hoverVideoId: 'KsUM108TayE',  // preloaded hover video for the project grid card
         year:'03/26',
         timeline:'Feb 23 - Mar 16, 2026',
         description:'CD booklet design for the "Submarine" album by the Marias, focusing on reinforcing the existing storytelling and aesthetic of the music through design and layout.',
@@ -66,6 +68,8 @@ export const projectsData = [
         slug:'apex-mountain-bikes-brand-commercial',
         type:'vid',
         media: apexMountainBikesVid,
+        heroVideoId:  'Sr4oXdiLrzE',  // preview shown on hero bg + cards/featured
+        hoverVideoId: 'Sr4oXdiLrzE',
         year:'02/25',
         timeline:'Jan 30 - Feb 27, 2025',
         description:'A 2-minute talking head commercial for a fictitious mountain bike company with energetic storytelling, featuring original music made in GarageBand.',

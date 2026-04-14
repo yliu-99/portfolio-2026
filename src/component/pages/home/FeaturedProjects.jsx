@@ -8,9 +8,12 @@ const featuredProjects = projectsData.filter(p => p.id && p.featured);
 
 function getVideoId(project) {
   if (project.type === 'vid' && project.media) {
+    // Prefer hoverVideoId (preview clip) for cards/featured
+    if (project.hoverVideoId) return project.hoverVideoId;
     const match = project.media.match(/embed\/([^?]+)/);
     return match ? match[1] : null;
   }
+  // img-type with hoverVideoId uses the hover overlay pattern, not always-on
   return null;
 }
 
@@ -22,12 +25,48 @@ function getThumbnail(project) {
   return project.media ?? null;
 }
 
+// Builds a muted autoplay loop src with enablejsapi so postMessage events fire
+function ytSrc(id) {
+  return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&enablejsapi=1`;
+}
+
+// Listens for YouTube's postMessage onStateChange=1 (playing).
+// Falls back to revealing after fallbackMs if postMessage is unavailable.
+function useYTReady(ref, enabled, fallbackMs = 4000) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if (!enabled || ready) return;
+    const timer = setTimeout(() => setReady(true), fallbackMs);
+    const onMsg = (e) => {
+      if (e.origin !== 'https://www.youtube.com') return;
+      if (!ref.current || e.source !== ref.current.contentWindow) return;
+      try {
+        const d = JSON.parse(e.data);
+        if (d.event === 'onStateChange' && d.info === 1) setReady(true);
+      } catch {}
+    };
+    window.addEventListener('message', onMsg);
+    return () => { clearTimeout(timer); window.removeEventListener('message', onMsg); };
+  }, [enabled, ready]);
+  return ready;
+}
+
 function ProjectCard({ project, cta }) {
   const navigate  = useNavigate();
   const videoId   = getVideoId(project);
   const thumbnail = getThumbnail(project);
   const cardRef   = useRef(null);
+  const videoRef  = useRef(null);
+  const hoverRef  = useRef(null);
   const [ctaVisible, setCtaVisible] = useState(false);
+
+  // img-type: hoverVideoId drives the hover-reveal pattern
+  const hoverVidId = !videoId ? (project.hoverVideoId ?? null) : null;
+
+  // videoReady — vid-type: fade thumbnail out once video starts playing
+  // hoverReady — img-type: only reveal hover video once buffered (no spinner flash)
+  const videoReady = useYTReady(videoRef, !!videoId);
+  const hoverReady = useYTReady(hoverRef, !!hoverVidId);
 
   useEffect(() => {
     if (!cta || !cardRef.current) return;
@@ -42,23 +81,43 @@ function ProjectCard({ project, cta }) {
   return (
     <div
       ref={cardRef}
-      className="featured-card"
+      className={`featured-card${hoverReady ? ' hover-video-ready' : ''}`}
       onClick={() => navigate(`/projects/${project.slug}`)}
     >
-      {/* Always-on muted autoplay video */}
+      {/* Thumbnail — always rendered.
+          For vid-type: acts as placeholder above iframe, fades when video plays.
+          For img-type: static default, fades on hover once hover video is ready. */}
+      {thumbnail && (
+        <img
+          src={thumbnail}
+          alt={project.title}
+          className={`featured-card__img${videoReady ? ' featured-card__img--hidden' : ''}`}
+        />
+      )}
+
+      {/* Always-on video (vid-type, e.g. Apex) */}
       {videoId && (
         <div className="featured-card__video">
           <iframe
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&playsinline=1&disablekb=1`}
+            ref={videoRef}
+            src={ytSrc(videoId)}
             allow="autoplay"
             title={project.title}
           />
         </div>
       )}
 
-      {/* Image for non-video projects */}
-      {!videoId && thumbnail && (
-        <img src={thumbnail} alt={project.title} className="featured-card__img" />
+      {/* Preloaded hover video (img-type with hoverVideoId, e.g. Submarine)
+          In DOM immediately so YouTube buffers; CSS only reveals on hover+ready */}
+      {hoverVidId && (
+        <div className="featured-card__hover-video">
+          <iframe
+            ref={hoverRef}
+            src={ytSrc(hoverVidId)}
+            allow="autoplay"
+            title={`${project.title} — video`}
+          />
+        </div>
       )}
 
       {/* Red overlay — matches project hero at 30% opacity */}

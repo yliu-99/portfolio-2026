@@ -27,20 +27,27 @@ function ProjectHero({ project }) {
         ?? (project.type === 'img' ? project.media : null)
         ?? (project.type === 'vid' ? getYouTubeThumbnail(project.media) : null);
 
-    // Autoplay embed URL for video heroes (muted required by browsers)
-    const videoId = project.type === 'vid'
-        ? (project.media?.match(/\/embed\/([^?&]+)/)?.[1] ?? null)
-        : null;
-    const autoplaySrc = videoId
-        ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&rel=0&modestbranding=1&playsinline=1`
+    // heroVideoId field overrides type-based video detection (e.g. img-type projects with a bg video)
+    const heroVidId = project.heroVideoId
+        ?? (project.type === 'vid' ? (project.media?.match(/\/embed\/([^?&]+)/)?.[1] ?? null) : null);
+    const autoplaySrc = heroVidId
+        ? `https://www.youtube.com/embed/${heroVidId}?autoplay=1&mute=1&loop=1&playlist=${heroVidId}&controls=0&rel=0&modestbranding=1&playsinline=1`
         : null;
 
     return (
         <section className="hero-section relative w-full h-dvh flex flex-col justify-end">
 
-            {/* Background media */}
+            {/* Background media — image always rendered as placeholder;
+                iframe loads on top and naturally covers it once buffered */}
             <div className="absolute inset-0 bg-black overflow-hidden">
-                {autoplaySrc ? (
+                {heroBg && (
+                    <img
+                        src={heroBg}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                    />
+                )}
+                {autoplaySrc && (
                     <iframe
                         src={autoplaySrc}
                         title={project.title}
@@ -48,13 +55,7 @@ function ProjectHero({ project }) {
                         allow="autoplay; encrypted-media"
                         allowFullScreen={false}
                     />
-                ) : heroBg ? (
-                    <img
-                        src={heroBg}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                    />
-                ) : null}
+                )}
             </div>
 
             {/* Red overlay 30% */}

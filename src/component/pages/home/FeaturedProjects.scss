@@ -9,6 +9,8 @@
   background: var(--black);
 
   // ── Image ──
+  // Always rendered. For vid-type: placeholder above iframe, fades via --hidden.
+  // For img-type: static default, fades on hover when hover-video-ready.
   &__img {
     position: absolute;
     inset: 0;
@@ -16,7 +18,13 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: filter 0.35s ease;
+    z-index: 1; // above the video iframe so it masks the spinner
+    transition: filter 0.35s ease, opacity 0.5s ease;
+
+    &--hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
   }
 
 
@@ -38,6 +46,30 @@
       border: none;
     }
   }
+
+  // ── Preloaded hover video (img-type projects with hoverVideoId) ──
+  &__hover-video {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+
+    iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: max(100%, 177.78vh);
+      height: max(100%, 56.25vw);
+      transform: translate(-50%, -50%);
+      border: none;
+    }
+  }
+
+  // Hover video + img fade only activate once buffered (.hover-video-ready)
+  &.hover-video-ready:has(&__hotspot:hover) &__hover-video { opacity: 1; }
+  &.hover-video-ready:has(&__hotspot:hover) &__img         { opacity: 0; }
 
   // ── Red overlay layer (matches project hero) ──
   &__red-overlay {

@@ -1,11 +1,22 @@
 // ── First section — blue bg, image LEFT ───────────────────────────────────────
 
 .project-first-section {
-    background: var(--color-blue);
+    position: relative;
     width: 100%;
+
+    // Blue sits as its own layer behind the content grid
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--color-blue);
+        z-index: 0;
+    }
 }
 
 .first-section-inner {
+    position: relative;
+    z-index: 1;          // image + text sit above the blue layer
     display: grid;
     grid-template-columns: 55fr 45fr;
     min-height: 520px;
@@ -19,7 +30,6 @@
 .first-section-media {
     position: relative;
     overflow: hidden;
-    background: var(--color-blue);
 
     @media (max-width: 900px) {
         aspect-ratio: 16 / 9;
@@ -32,7 +42,6 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    mix-blend-mode: multiply;
 }
 
 .first-section-text {
