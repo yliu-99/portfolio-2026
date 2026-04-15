@@ -22,16 +22,16 @@ export const vhsFilmFestivalDetail = {
   },
 
   gallery: [
-    { src: website, caption: "Website Redesign" },
-    { src: ticket, caption: "Event Ticket" },
-    { src: longSleeve, caption: "Merch — Long Sleeve" },
+    { src: website,     caption: "Website Redesign",   featured: true },
+    { src: poster,      caption: "Event Poster",       featured: true },
+    { src: ticket,      caption: "Event Ticket",       featured: true },
+    { src: longSleeve,  caption: "Merch — Long Sleeve" },
     { src: shortSleeve, caption: "Merch — Short Sleeve" },
-    { src: tote, caption: "Merch — Tote Bag" },
-    { src: logo, caption: "New Logo" },
-    { src: colors, caption: "Color Palette" },
-    { src: typography, caption: "Typography" },
-    { src: webPromo, caption: "Web Promo" },
-    { src: poster, caption: "Event Poster" },
+    { src: tote,        caption: "Merch — Tote Bag" },
+    { src: logo,        caption: "New Logo" },
+    { src: colors,      caption: "Color Palette" },
+    { src: typography,  caption: "Typography" },
+    { src: webPromo,    caption: "Web Promo" },
   ],
 
   sections: [
@@ -59,6 +59,11 @@ export const vhsFilmFestivalDetail = {
       title: "Mockups",
       body: "With the brand guide and logo finalized, I created mockups showing real-life applications of the new design. For the website, I focused on information architecture and visual consistency — centering the navigation, featuring the new logo in the hero, and removing borders from the feature video for a cleaner, more modern feel. I then designed social media posts, merchandise (t-shirts, tote bags), and event ticket mockups, all using the updated design rules.",
       image: website,
+      keypoints: [
+          'A logo should be versatile and adapt to different applications',
+          'A well-established brand will have consistency across all touchpoints, from digital to physical',
+          'Genre-appropriate design choices are essential for effective communication',
+      ],
     },
   ],
 

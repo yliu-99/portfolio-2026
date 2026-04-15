@@ -14,7 +14,7 @@ const PAGES = [
   { id: "text3", body: null },
 ];
 
-function AboutMenu() {
+function AboutMenu({ isOpen, onToggle, className }) {
   const [page, setPage] = useState(0);
   const contentRef = useRef(null);
   const prevPage = useRef(0);
@@ -32,7 +32,7 @@ function AboutMenu() {
   }, [page]);
 
   return (
-    <MenuTemplate title="About Yuhan">
+    <MenuTemplate title="About Yuhan" isOpen={isOpen} onToggle={onToggle} className={className}>
       <div className="w-full flex-1 flex flex-col items-center justify-between text-center">
 
         <div ref={contentRef} className="w-full flex flex-col items-center gap-4">

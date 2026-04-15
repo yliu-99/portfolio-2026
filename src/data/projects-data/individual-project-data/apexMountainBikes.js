@@ -49,6 +49,11 @@ export const apexMountainBikesDetail = {
             title: 'Reflection',
             body: 'This project gave me a solid introduction to video production and showed me how much of the final result depends on decisions made before the camera starts rolling. The audio echo was the biggest technical setback, and it came down to mic placement during the shoot — something I\'d prioritize much earlier next time. That said, the interview format worked really well for what we were going for, and producing the music was one of the most enjoyable parts of the project. I came away with a better understanding of how audio, visuals, and pacing work together to shape how a viewer feels.',
             image: reflection,
+            keypoints: [
+                'Mic placement matters! Always plan ahead.',
+                'Sell the feeling, not the product',
+                'A person’s experience with the product can be more convincing than what the product does',
+            ],
         },
     ],
 

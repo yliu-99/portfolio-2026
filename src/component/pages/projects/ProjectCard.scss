@@ -1,29 +1,31 @@
-// ── Video cards span 2 columns at lg (controlled by grid layout) ───────────
-.project-card.is-video {
-    @media (min-width: 1024px) {
-        grid-column: span 2;
-    }
-}
+
 
 // ── Hover: lift above grain overlay + zoom media ───────────────────────────
 .project-card:hover {
     position: relative;
     z-index: 3;
 
-    .card-media img,
-    .card-media iframe {
+    // Scale the primary media (image or always-on video iframe)
+    .card-media .card-img:not(.card-img--placeholder),
+    .card-media > iframe:not(.card-hover-video) {
         transform: scale(1.05);
     }
 }
 
+// Hover video only reveals once the video has buffered (.hover-video-ready on card)
+.project-card.hover-video-ready:hover {
+    .card-hover-video { opacity: 1; }
+    .card-img:not(.card-img--placeholder) { opacity: 0; }
+}
+
 // ── Media transitions ──────────────────────────────────────────────────────
 .card-media {
-    img {
+    .card-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
-        transition: transform 0.4s ease;
+        transition: transform 0.4s ease, opacity 0.4s ease;
     }
 
     iframe {
@@ -35,6 +37,29 @@
         pointer-events: none;
         transition: transform 0.4s ease;
     }
+}
+
+// ── vid-type thumbnail placeholder ────────────────────────────────────────
+// Sits above the always-on iframe (z-index 1) until the video starts playing,
+// then fades out so the video shows cleanly with no spinner visible.
+.card-img--placeholder {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    transition: opacity 0.5s ease !important;
+
+    &.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+// ── Preloaded hover video ──────────────────────────────────────────────────
+// Always in the DOM so YouTube buffers it; invisible until hover + ready.
+.card-hover-video {
+    opacity: 0;
+    transition: opacity 0.4s ease !important;
+    transform: none !important;
 }
 
 // ── Bottom gradient scrim behind title/description ─────────────────────────

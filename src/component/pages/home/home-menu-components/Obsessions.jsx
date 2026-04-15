@@ -72,7 +72,7 @@ function DetailModal({ item, onClose }) {
 
 // ── Obsessions ────────────────────────────────────────────────────────────────
 
-function Obsessions() {
+function Obsessions({ isOpen, onToggle, className }) {
     const [index,     setIndex]     = useState(0);
     const [active,    setActive]    = useState(null);
     const [paused,    setPaused]    = useState(false);
@@ -101,7 +101,7 @@ function Obsessions() {
     }, [paused]);
 
     return (
-        <MenuTemplate title="Latest Obsession">
+        <MenuTemplate title="Latest Obsession" isOpen={isOpen} onToggle={onToggle} className={className}>
             <div
                 className="flex flex-col items-center gap-3 w-full overflow-hidden"
                 onMouseEnter={() => setPaused(true)}

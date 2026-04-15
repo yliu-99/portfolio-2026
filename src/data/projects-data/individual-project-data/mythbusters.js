@@ -48,6 +48,11 @@ export const mythbustersDetail = {
             title: 'Reflection',
             body: 'This project helped me practice storytelling through motion graphics and get more comfortable working in After Effects. Choosing a personal topic made the creative decisions feel more purposeful, and working within a one-minute constraint pushed me to be more deliberate about what stays in and what gets cut. In a future iteration, I would like to explore more complex character rigs and experiment further with transitions and scene variety.',
             image: mythbustersPreview,
+            keypoints: [
+                'Choosing a personal topic leads to more purposeful and authentic creative decisions.',
+                'Storytelling within tight constraints demands deliberate clarity over quantity.',
+                'Working in chunks — script, assets, animation, sound — helps manage complexity and keep the project on track.',
+            ],
         },
     ],
 

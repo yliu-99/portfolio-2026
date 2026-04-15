@@ -31,7 +31,7 @@ const curve = [
 
 const BAR_COUNT = 5;
 
-function Energy() {
+function Energy({ isOpen, onToggle, className }) {
   const [clock, setClock] = useState('');
   const [energyLevel, setEnergyLevel] = useState(0);
   const [energyLine, setEnergyLine] = useState('');
@@ -75,7 +75,7 @@ function Energy() {
   const filledBars = Math.round((energyLevel / 100) * BAR_COUNT);
 
   return (
-    <MenuTemplate title="Energy Meter">
+    <MenuTemplate title="Energy Meter" isOpen={isOpen} onToggle={onToggle} className={className}>
       <div className="text-red text-lg tracking-[0.1em] text-center">{clock}</div>
       <div className="text-h1 text-red leading-none">{energyLevel}%</div>
       <div className="flex gap-[0.3rem]">

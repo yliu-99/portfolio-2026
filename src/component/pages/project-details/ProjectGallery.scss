@@ -3,131 +3,111 @@
 .project-gallery {
     width: 100%;
     background: var(--color-black);
-    border-bottom: 2px solid var(--color-black);
 }
 
-// ── Media ──────────────────────────────────────────────────────────────────────
+// ── Horizontal featured gallery (scroll-driven) ────────────────────────────────
+//
+//  .h-gallery-clip   clips the track's overflow. On desktop this fills the sticky
+//                    reveal-gallery panel (height set by parent context styles).
+//  .h-gallery-track  extends beyond the clip width. RevealBlock's ScrollTrigger
+//                    animates its translateX as the user scrolls vertically.
 
-.gallery-media-wrap {
+$item-w:     76vw;
+$item-w-sm:  90vw;
+$item-gap:   3px;
+$side-pad:   10vw; // breathing room before first / after last item
+
+.h-gallery-clip {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background: var(--color-black);
+
+    // Mobile: stack vertically, no horizontal scroll
+    @media (max-width: 1023px) {
+        height: auto;
+        overflow: visible;
+    }
+}
+
+.h-gallery-track {
+    display: flex;
+    align-items: center;
+    gap: $item-gap;
+    padding: 2rem $side-pad;
+    flex-shrink: 0;
+    will-change: transform;
+
+    // Mobile: vertical stack
+    @media (max-width: 1023px) {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0;
+        width: 100%;
+        gap: $item-gap;
+    }
+}
+
+.h-gallery__item {
+    flex: 0 0 $item-w;
+    width: $item-w;
+    aspect-ratio: 16 / 9;
     position: relative;
-}
-
-.gallery-media {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3.5rem 5rem;
-    min-height: 50vh;
-    will-change: transform, opacity;
-
-    @media (max-width: 640px) {
-        padding: 2rem 1rem;
-        min-height: 40vh;
-    }
-}
-
-.gallery-img {
-    max-width: 100%;
-    max-height: 75vh;
-    object-fit: contain;
-    display: block;
-}
-
-// ── Caption + nav bar ─────────────────────────────────────────────────────────
-
-.gallery-caption-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 0.85rem 2.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.04);
-}
-
-.gallery-caption-text {
-    font-size: clamp(0.75rem, 1vw, 0.9rem);
-    color: var(--color-white);
-    letter-spacing: 0.18em;
-}
-
-.gallery-caption-index {
-    font-size: clamp(0.75rem, 1vw, 0.85rem);
-    color: rgba(255, 255, 255, 0.45);
-    letter-spacing: 0.1em;
-}
-
-// Side nav buttons — absolute over media
-.gallery-nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--color-white);
-    font-size: 1.4rem;
-    width: 2.75rem;
-    height: 2.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease;
-    z-index: 2;
-
-    &:hover {
-        background: rgba(0, 0, 0, 0.65);
-        border-color: rgba(255, 255, 255, 0.6);
-    }
-
-    &--prev { left: 1.5rem; }
-    &--next { right: 1.5rem; }
-}
-
-// Clickable cursor on the gallery image
-.gallery-img--clickable {
+    overflow: hidden;
     cursor: zoom-in;
-}
+    background: #111;
 
-// Video thumbnail with play button
-.gallery-video-thumb {
-    position: relative;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:hover .gallery-play-btn {
-        background: rgba(0, 0, 0, 0.75);
-        transform: translate(-50%, -50%) scale(1.08);
+    // Mobile: full width, natural stacking
+    @media (max-width: 1023px) {
+        flex: none;
+        width: 100%;
     }
 }
 
-.gallery-play-btn {
+.h-gallery__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+}
+
+.h-gallery__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.25rem 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+
+    span {
+        font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+        letter-spacing: 0.18em;
+        color: var(--color-white);
+    }
+}
+
+.h-gallery__item:hover .h-gallery__caption { opacity: 1; }
+
+.h-gallery__play {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 4rem;
-    height: 4rem;
-    background: rgba(0, 0, 0, 0.55);
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    width: 3.5rem;
+    height: 3.5rem;
+    background: rgba(0,0,0,0.55);
+    border: 2px solid rgba(255,255,255,0.8);
     color: #ffffff;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s ease, transform 0.2s ease;
     pointer-events: none;
-}
-
-// Lightbox video
-.lightbox-video {
-    width: 88vw;
-    max-width: 960px;
-    aspect-ratio: 16 / 9;
-    border: none;
-    display: block;
 }
 
 // ── Lightbox ───────────────────────────────────────────────────────────────────
@@ -135,7 +115,7 @@
 .lightbox-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.92);
+    background: rgba(0,0,0,0.92);
     z-index: 9999;
     display: flex;
     align-items: center;
@@ -165,31 +145,20 @@
     will-change: transform, opacity;
 }
 
-.lightbox-close {
-    position: absolute;
-    top: -2.5rem;
-    right: 0;
-    background: none;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    color: #ffffff;
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.15s ease;
-
-    &:hover { background: rgba(255, 255, 255, 0.12); }
+.lightbox-video {
+    width: 88vw;
+    max-width: 960px;
+    aspect-ratio: 16 / 9;
+    border: none;
+    display: block;
 }
 
 .lightbox-nav {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.2);
     color: var(--color-white);
     font-size: 1.6rem;
     width: 3rem;
@@ -201,7 +170,7 @@
     transition: background 0.15s ease, border-color 0.15s ease;
     z-index: 10000;
 
-    &:hover { background: rgba(0, 0, 0, 0.7); border-color: rgba(255, 255, 255, 0.6); }
+    &:hover { background: rgba(0,0,0,0.7); border-color: rgba(255,255,255,0.6); }
     &--prev { left: 1.5rem; }
     &--next { right: 1.5rem; }
 }
@@ -214,39 +183,4 @@
     color: var(--color-white);
     font-size: clamp(0.75rem, 1vw, 0.9rem);
     letter-spacing: 0.15em;
-}
-
-.lightbox-index {
-    color: rgba(255, 255, 255, 0.45);
-    letter-spacing: 0.1em;
-}
-
-// ── Dot indicators — absolute over bottom of media ────────────────────────────
-
-.gallery-dots {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 0.5rem;
-    pointer-events: auto;
-}
-
-.gallery-dot {
-    width: 0.4rem;
-    height: 0.4rem;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.25);
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s ease;
-
-    &--active {
-        background: var(--color-white);
-    }
-
-    &:hover:not(&--active) {
-        background: rgba(255, 255, 255, 0.5);
-    }
 }
