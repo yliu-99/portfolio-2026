@@ -68,6 +68,7 @@ function ProjectCard({ project, cta }) {
   const videoReady = useYTReady(videoRef, !!videoId);
   const hoverReady = useYTReady(hoverRef, !!hoverVidId);
 
+  // ── CTA visibility via IntersectionObserver ───────────────────────────────
   useEffect(() => {
     if (!cta || !cardRef.current) return;
     const observer = new IntersectionObserver(
@@ -91,6 +92,7 @@ function ProjectCard({ project, cta }) {
         <img
           src={thumbnail}
           alt={project.title}
+          loading="lazy"
           className={`featured-card__img${videoReady ? ' featured-card__img--hidden' : ''}`}
         />
       )}
