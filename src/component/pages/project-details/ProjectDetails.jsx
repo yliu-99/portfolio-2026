@@ -132,17 +132,19 @@ function SpecsStrip({ project }) {
 function RevealBlock({ project, detail, gallery }) {
     const wrapRef        = useRef(null);
     const specsRef       = useRef(null);
+    const overviewRef    = useRef(null);
     // galleryRef — the sticky container (never transformed, so sticky stays intact)
     const galleryRef     = useRef(null);
     // innerRef  — the element that slides in; child of the sticky container
     const innerRef       = useRef(null);
 
     useEffect(() => {
-        const wrap  = wrapRef.current;
-        const specs = specsRef.current;
-        const panel = galleryRef.current;  // sticky container
-        const inner = innerRef.current;    // animated child
-        if (!wrap || !specs || !panel || !inner) return;
+        const wrap     = wrapRef.current;
+        const specs    = specsRef.current;
+        const overview = overviewRef.current;
+        const panel    = galleryRef.current;  // sticky container
+        const inner    = innerRef.current;    // animated child
+        if (!wrap || !specs || !overview || !panel || !inner) return;
 
         const SLIDE_H = window.innerHeight;
 
@@ -166,16 +168,19 @@ function RevealBlock({ project, detail, gallery }) {
             //    Durations are in "arbitrary units" that map to scroll distance.
             //    SLIDE_H units = 1 viewport of scroll; dist() units = pixel count.
             const buildTimeline = () => {
-                const d = dist();
+                const d        = dist();
+                // Hold scroll distance = overview's full rendered height so the
+                // gallery doesn't start until the user has scrolled past it all.
+                const holdDist = overview.offsetHeight;
 
                 // Timeline scroll budget:
-                //   Hold      SLIDE_H × 0.3  — a couple of scroll ticks on the overview
+                //   Hold      overviewHeight — wait until user has scrolled past the overview
                 //   Rise      SLIDE_H × 0.35 — gallery enters from bottom-right
                 //   Sweep     SLIDE_H × 0.65 — gallery sweeps left to full viewport
                 //   Track     d              — horizontal image scroll
                 //   Buffer    SLIDE_H × 2    — sticky holds after animation so
                 //                             scrub:1.5 has time to complete
-                const totalAnim = SLIDE_H * 1.3 + d;  // hold(0.3) + rise+sweep(1) + track
+                const totalAnim = holdDist + SLIDE_H * 1.0 + d;
                 wrap.style.height = `${totalAnim + window.innerHeight * 2}px`;
 
                 // Kill any existing triggers so we can recreate cleanly
@@ -185,12 +190,11 @@ function RevealBlock({ project, detail, gallery }) {
 
                 const tl = gsap.timeline();
 
-                // Hold — fromTo with equal values locks the hidden state via
-                //   immediateRender and keeps the gallery off-screen for a couple
-                //   of scroll ticks so the user can take in the overview first.
+                // Hold — locks gallery off-screen until user scrolls through the
+                // full overview height, giving them time to read before the reveal.
                 tl.fromTo(inner,
                     { yPercent: 100, xPercent: 90 },
-                    { yPercent: 100, xPercent: 90, ease: 'none', duration: SLIDE_H * 0.3 }
+                    { yPercent: 100, xPercent: 90, ease: 'none', duration: holdDist }
                 );
 
                 // Phase 1 — gallery rises up into the right 10% of the screen
@@ -250,7 +254,7 @@ function RevealBlock({ project, detail, gallery }) {
             </div>
 
             {/* Overview — sticky below specs, covered as gallery slides in */}
-            <div className="reveal-overview">
+            <div ref={overviewRef} className="reveal-overview">
                 <ProjectOverview detail={detail} />
             </div>
 
