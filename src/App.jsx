@@ -18,17 +18,12 @@ import Projects from './component/pages/projects/Projects';
 import ProjectDetails from './component/pages/project-details/ProjectDetails';
 import Playground from './component/pages/playground/Playground';
 
-// importing styles
-
 function Content() {
-  // handle scroll to top on route change
   const location = useLocation();
-    useEffect(() => {
-    // Scroll to top on route change
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
   return (
-       // create routes for each page
     <Routes location={location} key={location.pathname}>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
@@ -37,7 +32,7 @@ function Content() {
       <Route path="/playground" element={<Playground />} />
     </Routes>
   );
-};
+}
 
 function App() {
   const gridRef = useRef(null);
