@@ -3,6 +3,11 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
+
+  @media (max-width: 767px) and (orientation: portrait) {
+    aspect-ratio: unset;
+    height: 50dvh;
+  }
   overflow: hidden;
   cursor: pointer;
   border-bottom: 3px solid var(--black);

@@ -42,4 +42,14 @@
     color: var(--white);
     font-size: 1rem;
     cursor: pointer;
+
+    // Desktop only — match the resting opacity of the scroll-widget buttons
+    @media (min-width: 1024px) {
+        opacity: 0.7;
+        transition: opacity 0.25s ease;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
 }

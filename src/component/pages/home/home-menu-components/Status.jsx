@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import MenuTemplate from './MenuTemplate';
 import { useContactModal } from '../../../../context/ContactModalContext';
 
-function Status() {
+function Status({ isOpen, onToggle, className }) {
     const { openContact } = useContactModal();
     const btnRef = useRef(null);
 
@@ -22,7 +22,7 @@ function Status() {
     }, []);
 
     return (
-        <MenuTemplate title="Current Status">
+        <MenuTemplate title="Current Status" isOpen={isOpen} onToggle={onToggle} className={className}>
             <div className="flex flex-col items-center gap-5 w-full">
                 <p className="font-title text-red text-[2rem] leading-tight tracking-[0.05em] text-center">
                     LOOKING<br />FOR WORK

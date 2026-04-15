@@ -20,6 +20,14 @@
     }
 }
 
+// Mobile-only CTA sits in grid-row 2 of the hero-graphic cell, centred below the moth
+.mobile-hero-cta {
+    grid-row: 2;
+    grid-column: 1;
+    justify-self: center;
+    margin-top: 1rem;
+}
+
 .animated-text {
     // blue circle: cx=357.748/715=50%, cy=215.33/523=41.2%, r=170/715=47.6% of width
     // margin-top % is width-relative in grid (always reliable, unlike top: % which needs height)
@@ -90,7 +98,10 @@
     overflow: hidden;
     align-self: stretch;
     gap: 3em;
-    padding-top: calc(5.5rem + 4px); // clear nav height              // replaces the spacing that letter-spacing was adding to each span's height
+    padding-top: calc(5.5rem + 4px); // clear nav height
+    @media (max-width: 767px) {
+        padding-top: 0;
+    }
 
     &.left {
         align-items: flex-end;

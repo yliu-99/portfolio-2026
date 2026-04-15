@@ -177,9 +177,10 @@ function FeaturedProjects() {
       ))}
 
       {/* Mobile CTA — stacked vertically below cards on xs */}
-      <div className="sm:hidden flex flex-col border-t-3 border-black">
-        <button className="btn border-b-3 border-black! py-5" onClick={openContact}>Get in Touch</button>
-        <button className="btn py-5" onClick={() => navigate('/projects')}>All Projects</button>
+      <div className="sm:hidden flex flex-col">
+        <button className="btn border-none! py-5" onClick={openContact}>Get in Touch</button>
+        <hr className="border-t-2 border-black m-0" />
+        <button className="btn border-none! py-5" onClick={() => navigate('/projects')}>All Projects</button>
       </div>
 
     </section>

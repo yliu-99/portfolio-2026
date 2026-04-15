@@ -6,19 +6,25 @@ import { useMenuOpen } from '../../../../context/MenuOpenContext';
 
 const BODY_HEIGHT = 330;
 
-function MenuTemplate({ title, children, defaultOpen = false, headerAction }) {
-    const [isOpen, setIsOpen] = useState(defaultOpen);
+// Supports both uncontrolled (defaultOpen) and controlled (isOpen + onToggle) modes.
+// In controlled mode the parent owns the open state; register() is skipped so the
+// mobile strip doesn't trigger the desktop greyscale effect.
+function MenuTemplate({ title, children, defaultOpen = false, headerAction, isOpen: controlledOpen, onToggle, className = 'w-64' }) {
+    const isControlled = controlledOpen !== undefined;
+    const [internalOpen, setInternalOpen] = useState(defaultOpen);
+    const isOpen = isControlled ? controlledOpen : internalOpen;
+
     const bodyRef = useRef(null);
     const isFirst = useRef(true);
     const { register } = useMenuOpen() ?? {};
 
     // set initial height before first paint — no animation
     useLayoutEffect(() => {
-        gsap.set(bodyRef.current, { height: defaultOpen ? BODY_HEIGHT : 0 });
-        if (defaultOpen && register) register(true);
-    }, []);
+        gsap.set(bodyRef.current, { height: isOpen ? BODY_HEIGHT : 0 });
+        if (isOpen && register && !isControlled) register(true);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // animate on every subsequent toggle
+    // animate whenever open state changes (works for both controlled & uncontrolled)
     useEffect(() => {
         if (isFirst.current) { isFirst.current = false; return; }
         gsap.to(bodyRef.current, {
@@ -26,14 +32,19 @@ function MenuTemplate({ title, children, defaultOpen = false, headerAction }) {
             duration: 0.4,
             ease: isOpen ? 'power2.out' : 'power2.in',
         });
-        if (register) register(isOpen);
-    }, [isOpen]);
+        if (register && !isControlled) register(isOpen);
+    }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const handleToggle = () => {
+        if (isControlled) onToggle?.();
+        else setInternalOpen(p => !p);
+    };
 
     return (
-        <div className={`w-64 border-2 border-black bg-white font-title uppercase select-none shadow-[3px_7px_6.5px_rgba(0,0,0,0.25)] transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`}>
+        <div className={`${className} border-2 border-black bg-white font-title uppercase select-none shadow-[3px_7px_6.5px_rgba(0,0,0,0.25)] transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`}>
             <div
                 className="flex justify-between items-center px-3 py-2 cursor-pointer border-b-2 border-black gap-2"
-                onClick={() => setIsOpen(p => !p)}
+                onClick={handleToggle}
             >
                 <span className="text-[0.95rem] tracking-secondary">{title}</span>
                 <div className="flex items-center gap-2 shrink-0" onClick={e => headerAction && e.stopPropagation()}>

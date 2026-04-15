@@ -9,7 +9,7 @@ import mothHero from "../../../assets/page-assets/home/centre-element.png";
 import circleText from "../../../assets/page-assets/home/circle-text.svg";
 
 // import components
-import FloatingMenu from './FloatingMenu';
+import FloatingMenu, { MobileMenuStrip } from './FloatingMenu';
 import { MenuOpenProvider, useMenuOpen } from '../../../context/MenuOpenContext';
 
 // import styles
@@ -75,7 +75,8 @@ function HeroContent() {
   const rightNumRef  = useRef(null);
   const leftLblRef   = useRef(null);
   const rightLblRef  = useRef(null);
-  const triangleRef  = useRef(null);
+  const triangleRef       = useRef(null);
+  const mobileTriangleRef = useRef(null);
   // redesign refs (restore when redesign concept is re-enabled):
   // const cycleWordRef, mothImgRef, staticWordRef, overlayRef
 
@@ -91,8 +92,8 @@ function HeroContent() {
       gsap.from([leftLblRef.current, rightLblRef.current], {
         opacity: 0, duration: 0.8, delay: 0.6, stagger: 0.1, ease: "power2.out"
       });
-      gsap.to(triangleRef.current, {
-        y: 5, duration: 0.6, ease: "power1.inOut", yoyo: true, repeat: -1, delay: 1.4
+      [triangleRef.current, mobileTriangleRef.current].filter(Boolean).forEach(el => {
+        gsap.to(el, { y: 5, duration: 0.6, ease: "power1.inOut", yoyo: true, repeat: -1, delay: 1.4 });
       });
 
       // ── Circle text stepped rotation (6 words × 60°) ─────────────────────
@@ -142,9 +143,9 @@ function HeroContent() {
           <span className="text-red text-h5">2026</span>
         </div>
 
-        {/* Cols 4–9 — hero graphic (centre 6 columns) */}
+        {/* Cols 4–9 — hero graphic (centre 6 cols desktop; 10 cols centered mobile) */}
         <div ref={graphicRef}
-          className="hero-graphic justify-center align-middle col-start-4 col-end-10 mt-[25vh]">
+          className="hero-graphic justify-center align-middle col-start-2 col-end-12 md:col-start-4 md:col-end-10 self-center md:self-auto md:mt-[25vh]">
           <div className="moth">
             <img src={mothHero} alt="Luna moth decorative illustration with the word 'design' in the center" className="w-full " />
           </div>
@@ -152,14 +153,21 @@ function HeroContent() {
             <img src={circleText} alt="Rotating circular text animation" className="w-full" />
           </div>
 
+          {/* Mobile-only CTA — inside the graphic cell so it never creates a second grid row */}
+          <button
+            className="mobile-hero-cta md:hidden font-title tracking-[0.12em] cursor-pointer hover:scale-105 transition-transform duration-200"
+            onClick={() => document.getElementById('featured-projects')?.scrollIntoView({ behavior: 'smooth' })}
+            aria-label="Jump to featured projects"
+          >
+            <span className="text-black text-[0.75rem] uppercase">CHECKOUT</span>
+            <span className="text-red text-[0.9rem] uppercase ml-2">MY WORK</span>
+            <span ref={mobileTriangleRef} className="text-red text-[0.9rem] ml-2">
+              <FontAwesomeIcon icon={faCaretDown} />
+            </span>
+          </button>
+
           {/* ── Redesign concept (hidden) ── */}
-          {/* <div className="moth-redesign">
-            <img ref={mothImgRef} src={lunaMothRed} alt="Luna moth illustration" className="w-full" />
-            <div ref={overlayRef} className="moth-redesign__overlay">
-              <span ref={cycleWordRef} className="moth-redesign__cycle">GRAPHIC</span>
-              <span ref={staticWordRef} className="moth-redesign__static">DESIGN</span>
-            </div>
-          </div> */}
+          {/* <div className="moth-redesign"> ... </div> */}
         </div>
 
         {/* Col 11 — right label */}
@@ -185,6 +193,9 @@ function HeroContent() {
         </div>
 
       </div>
+
+      {/* Mobile-only: menus in a horizontal scroll strip below the graphic */}
+      <MobileMenuStrip />
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 
 import Energy     from './home-menu-components/Energy';
@@ -48,3 +48,19 @@ function FloatingMenu() {
 }
 
 export default FloatingMenu;
+
+// ── Mobile-only horizontal strip — one menu open at a time ────────────────────
+
+export function MobileMenuStrip() {
+    const [activeId, setActiveId] = useState('about');
+    const toggle = (id) => setActiveId(prev => prev === id ? null : id);
+
+    return (
+        <div className="flex flex-col md:hidden gap-3 px-4 pt-6 pb-8">
+            <AboutMenu    isOpen={activeId === 'about'}      onToggle={() => toggle('about')}      className="w-full" />
+            <Energy       isOpen={activeId === 'energy'}     onToggle={() => toggle('energy')}     className="w-full" />
+            <Status       isOpen={activeId === 'status'}     onToggle={() => toggle('status')}     className="w-full" />
+            <Obsessions   isOpen={activeId === 'obsessions'} onToggle={() => toggle('obsessions')} className="w-full" />
+        </div>
+    );
+}
