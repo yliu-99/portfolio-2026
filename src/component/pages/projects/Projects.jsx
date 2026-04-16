@@ -25,10 +25,15 @@ function Projects() {
   return (
     <div className="projects-container col-span-12">
 
-      {/* Page title — styled like the About Me section heading */}
-      <div className="projects-title-box font-title text-h2 flex items-center gap-3 bg-blue text-white mix-blend-multiply pl-6 pr-6 mb-12">
-        <h1 className="mt-2">MY PROJECTS</h1>
-        <span><FontAwesomeIcon icon={faCaretRight} /></span>
+      {/* Page title + description — both covered by blue multiply bg */}
+      <div className="projects-title-box bg-blue text-white mix-blend-multiply px-8 pt-6 pb-8 mb-12">
+        <div className="font-title text-h2 flex items-center gap-3 mb-6">
+          <h1 className="mt-2">MY PROJECTS</h1>
+          <span><FontAwesomeIcon icon={faCaretRight} /></span>
+        </div>
+        <p className="font-body text-white/90 max-w-xl" style={{ fontSize: '20px', lineHeight: 1.7 }}>
+          My work intentionally spans across multiple disciplines, including graphic design, video production, and motion graphics. I want to address all the layers of a brand, from the static to the dynamic, and create work that can live.
+        </p>
       </div>
 
       {/* Filter bar */}
