@@ -1,23 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
-import { Icon } from "@iconify/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot, faSquarePlus, faSquareMinus } from "../../../data/icons";
+import { faLocationDot, faSquarePlus, faSquareMinus, faCaretDown } from "../../../data/icons";
 
-import { toolIcons } from "../../../data/icons";
 import cvPdf from "../../../assets/page-assets/about/yuhan-liu-master-cv.pdf";
-import dragonflyRed  from "../../../assets/global-assets/dragonfly-red.png";
 import Values from "./Values";
 import AIAndDesign from "./AIAndDesign";
 import AboutMe from "./AboutMe";
+import WhatIDo from "./WhatIDo";
 import GetInTouch from "./GetInTouch";
 import "./About.scss";
 
 import heroImg from "../../../assets/page-assets/about/about-me.jpg";
-
-// ── All tools flattened for the marquee ────────────────────────────────────
-const allTools = toolIcons.flatMap(g => g.tools);
 
 // ── Section 1 + 2: Intro ──────────────────────────────────────────────────
 const TITLES = [
@@ -33,9 +28,6 @@ const TITLES = [
   "Campfire Guitarist",
 ];
 
-const FEEL_WORDS = [
-  "feel", "dream", "inspired", "connect", "motivated", "hope", "move", "remember", "wonder", "empathize", "create", "belong","crave", "laugh", "think", "grow", "explore", "believe", "care", "share", "play",
-];
 
 function IntroSection() {
   const hiRef = useRef(null);
@@ -55,19 +47,6 @@ function IntroSection() {
   const [titleIdx, setTitleIdx] = useState(0);
   const timerRef = useRef(null);
 
-  const [feelIdx, setFeelIdx] = useState(0);
-  const feelIntervalRef = useRef(null);
-  const isPausedRef = useRef(false);
-
-  useEffect(() => {
-    feelIntervalRef.current = setInterval(() => {
-      if (!isPausedRef.current) {
-        setFeelIdx(prev => (prev + 1) % FEEL_WORDS.length);
-      }
-    }, 400);
-    return () => clearInterval(feelIntervalRef.current);
-  }, []);
-
   const handleTitleClick = () => {
     setTitleIdx(prev => (prev + 1) % TITLES.length);
     clearTimeout(timerRef.current);
@@ -78,21 +57,13 @@ function IntroSection() {
 
   return (
     <section className="relative grid grid-cols-12 gap-4 items-center pb-16 overflow-visible">
-      {/* Red dragonfly — background, right edge */}
-      <img
-        src={dragonflyRed}
-        alt=""
-        aria-hidden="true"
-        className="absolute top-1/2 -right-4 md:-right-5 lg:-right-16 w-156 md:w-3xl translate-x-1/2 -translate-y-1/2 pointer-events-none select-none mix-blend-multiply z-0"
-      />
-
-      {/* Photo — cols 1–5 */}
-      <div className="col-span-12 md:col-span-5 flex justify-start overflow-hidden md:pr-8 relative z-1">
+      {/* Photo — cols 2–5 */}
+      <div className="col-span-12 md:col-start-2 md:col-span-4 flex justify-start overflow-hidden md:pr-8 relative z-1">
         <img src={heroImg} alt="Yuhan Liu" className="w-full h-[70vh] object-cover border-2 border-black" />
       </div>
 
-      {/* Text + buttons — cols 6–12 */}
-      <div className="col-span-12 md:col-start-6 md:col-span-7 flex flex-col gap-8 relative z-1 text-center md:text-left">
+      {/* Text + buttons — cols 6–11 */}
+      <div className="col-span-12 md:col-start-6 md:col-span-6 md:pl-8 flex flex-col gap-8 relative z-1 text-center md:text-left">
         <h1 className="font-title tracking-primary text-black" style={{ fontSize: "clamp(2rem, 5vw, 4.209rem)" }}>
           <span ref={hiRef} className="inline-block" style={{ transformOrigin: "bottom left" }}>Hi,</span>
           {" "}I'm Yuhan!
@@ -109,15 +80,7 @@ function IntroSection() {
           <br />based in <FontAwesomeIcon icon={faLocationDot} /> Vancouver.
         </p>
         <p className="font-body text-black/70 font-semibold" style={{ fontSize: "clamp(1rem, 1.5vw, 1.333rem)" }}>
-          I make designs that tell <span className="text-blue">stories</span>.<br />
-          Stories that make people{" "}
-          <span
-            className="text-red inline-block"
-            onMouseEnter={() => { isPausedRef.current = true; }}
-            onMouseLeave={() => { isPausedRef.current = false; }}
-          >
-            {FEEL_WORDS[feelIdx]}
-          </span>.
+          I design to facilitate a connection between people and what they care about. Then, I use storytelling to turn that connection into action.
         </p>
         <div className="flex gap-3 mt-2 justify-center md:justify-start">
           <Link
@@ -138,50 +101,17 @@ function IntroSection() {
           </a>
         </div>
         <p className="font-body text-black/70 italic font-semibold mt-8" style={{ fontSize: "clamp(0.8rem, 1vw, 1.1rem)" }}>I hope getting to know me is a fun experience.</p>
+        <div className="flex justify-center md:justify-start mt-4">
+          <FontAwesomeIcon icon={faCaretDown} className="text-black/30 caret-bounce text-2xl" />
+        </div>
       </div>
     </section>
   );
 }
 
-// ── Section 3: Tools marquee ───────────────────────────────────────────────
-const imgSrcs = allTools.filter(t => t.imgSrc).map(t => t.imgSrc);
-
-function ToolsMarquee() {
-  const [ready, setReady] = useState(imgSrcs.length === 0);
-
-  useEffect(() => {
-    if (imgSrcs.length === 0) return;
-    let loaded = 0;
-    imgSrcs.forEach(src => {
-      const img = new Image();
-      img.onload = img.onerror = () => {
-        if (++loaded === imgSrcs.length) setReady(true);
-      };
-      img.src = src;
-    });
-  }, []);
-
-  // Triple items so the seam never shows during the loop
-  const items = [...allTools, ...allTools, ...allTools];
-
-  return (
-    <div className="tools-marquee py-8 overflow-hidden">
-      <div className={`tools-marquee__track flex gap-8${ready ? '' : ' paused'}`}>
-        {items.map((tool, i) => (
-          <div key={i} className="tools-marquee__item shrink-0 flex items-center justify-center w-8 h-8 text-black/70">
-            {tool.imgSrc
-              ? <img src={tool.imgSrc} alt={tool.name} className="w-8 h-8 object-contain" />
-              : <Icon icon={tool.icon} width={32} height={32} />
-            }
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ── Section 4: Accordion sections ─────────────────────────────────────────
+// ── Section 3: Accordion sections ─────────────────────────────────────────
 const SECTIONS = [
+  { id: "what-i-do",      label: "What I Do",         content: <WhatIDo /> },
   { id: "read-the-lore",  label: "Read the Lore",     content: <AboutMe /> },
   { id: "deck-of-values", label: "My Deck of Values", content: <Values /> },
   { id: "ai-and-design",  label: "AI + Design",       content: <AIAndDesign /> },
@@ -248,7 +178,6 @@ function About() {
   return (
     <div className="about col-span-12 px-0">
       <IntroSection />
-      <ToolsMarquee />
       <ContentSection />
     </div>
   );

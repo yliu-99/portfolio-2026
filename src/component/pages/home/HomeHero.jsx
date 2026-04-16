@@ -77,6 +77,7 @@ function HeroContent() {
   const rightLblRef  = useRef(null);
   const triangleRef       = useRef(null);
   const mobileTriangleRef = useRef(null);
+  const circleTimelineRef = useRef(null);
   // redesign refs (restore when redesign concept is re-enabled):
   // const cycleWordRef, mothImgRef, staticWordRef, overlayRef
 
@@ -103,6 +104,7 @@ function HeroContent() {
       const BUMP_DUR = 0.25; // overshoot
       const BACK_DUR = 0.25; // settle
       const tl = gsap.timeline({ repeat: -1, delay: 1.2 });
+      circleTimelineRef.current = tl;
       for (let i = 1; i <= 6; i++) {
         const deg = STEP * i;
         tl.to(circleRef.current, { rotation: deg,     duration: ROT_DUR,  ease: "power1.in" })
@@ -114,7 +116,7 @@ function HeroContent() {
     return () => ctx.revert();
   }, []);
 
-  // ── Greyscale when any menu is open ──────────────────────────────────────
+  // ── Greyscale + pause circle when any menu is open (desktop only) ────────
   const { anyOpen } = useMenuOpen();
   useEffect(() => {
     gsap.to(elementsRef.current, {
@@ -122,6 +124,10 @@ function HeroContent() {
       duration: 0.4,
       ease: 'power2.inOut',
     });
+    if (isLg()) {
+      if (anyOpen) circleTimelineRef.current?.pause();
+      else         circleTimelineRef.current?.resume();
+    }
   }, [anyOpen]);
 
   // ── Render ────────────────────────────────────────────────────────────────

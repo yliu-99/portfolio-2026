@@ -1,3 +1,8 @@
+// Drop below the hamburger menu panel while it's open
+body.menu-is-open .scroll-widget {
+  z-index: 1;
+}
+
 .scroll-widget {
   position: fixed;
   right: 1.5rem;

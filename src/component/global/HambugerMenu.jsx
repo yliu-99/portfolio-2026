@@ -17,11 +17,37 @@ function HamburgerMenu() {
   const containerRef = useRef(null);
   const hamburgerRef = useRef(null);
   const progressRef  = useRef(null);
+  const overlayRef   = useRef(null);
   const lastScrollY  = useRef(0);
   const isHidden     = useRef(false);
   const { openContact } = useContactModal();
 
   useLogoRotation(logoImgRef);
+
+  // Initialise overlay off-screen so it's invisible before any interaction
+  useEffect(() => {
+    gsap.set(overlayRef.current, { x: '100%', pointerEvents: 'none' });
+  }, []);
+
+  const openMenu = () => {
+    setIsOpen(true);
+    document.body.classList.add('menu-is-open');
+    gsap.killTweensOf(overlayRef.current);
+    gsap.set(overlayRef.current, { pointerEvents: 'all' });
+    gsap.to(overlayRef.current, { x: '0%', duration: 0.45, ease: 'power3.out' });
+  };
+
+  const closeMenu = () => {
+    gsap.killTweensOf(overlayRef.current);
+    gsap.to(overlayRef.current, {
+      x: '100%', duration: 0.3, ease: 'power3.in',
+      onComplete: () => {
+        setIsOpen(false);
+        document.body.classList.remove('menu-is-open');
+        if (overlayRef.current) gsap.set(overlayRef.current, { pointerEvents: 'none' });
+      },
+    });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,58 +97,60 @@ function HamburgerMenu() {
         <button
           ref={hamburgerRef}
           className="hamburger-btn relative z-2"
-          onClick={() => setIsOpen(true)}
+          onClick={openMenu}
           aria-label="Open menu"
         >
           <FontAwesomeIcon icon={faBars} />
         </button>
       </div>
 
-      {/* Full-screen overlay */}
-      {isOpen && (
-        <div className="mobile-menu-overlay fixed inset-0 z-50 bg-beige flex flex-col p-6">
-          <div className="hm-grain" aria-hidden="true" />
+      {/* Menu panel — always in DOM, GSAP slides it in/out from the right.
+          Mobile: full-screen (left-0). Desktop: right-side drawer (auto width). */}
+      <div
+        ref={overlayRef}
+        className="mobile-menu-overlay fixed top-0 right-0 bottom-0 max-lg:left-0 z-200 bg-beige flex flex-col p-6 lg:px-12 lg:py-8 lg:border-l-2 lg:border-black"
+      >
+        <div className="hm-grain" aria-hidden="true" />
 
+        <button
+          className="self-end text-blue text-h4 mb-10 relative z-2"
+          onClick={closeMenu}
+          aria-label="Close menu"
+        >
+          <FontAwesomeIcon icon={faXmark} />
+        </button>
+
+        <nav className="flex flex-col gap-6 font-title text-h3 text-blue uppercase mb-auto text-center lg:text-left relative z-2">
+          <Link to="/"           onClick={closeMenu} className="lg:hover:text-red lg:transition-colors lg:duration-200">Home</Link>
+          <Link to="/about"      onClick={closeMenu} className="lg:hover:text-red lg:transition-colors lg:duration-200">About Me</Link>
+          <Link to="/projects"   onClick={closeMenu} className="lg:hover:text-red lg:transition-colors lg:duration-200">Projects</Link>
+          <Link to="/playground" onClick={closeMenu} className="lg:hover:text-red lg:transition-colors lg:duration-200">Playground</Link>
           <button
-            className="self-end text-blue text-h4 mb-10 relative z-2"
-            onClick={() => setIsOpen(false)}
-            aria-label="Close menu"
+            onClick={() => { closeMenu(); openContact(); }}
+            className="contact-nav-btn lg:text-left lg:hover:text-red lg:transition-colors lg:duration-200"
           >
-            <FontAwesomeIcon icon={faXmark} />
+            Contact
           </button>
+        </nav>
 
-          <nav className="flex flex-col gap-6 font-title text-h3 text-blue uppercase mb-auto text-center relative z-2">
-            <Link to="/"           onClick={() => setIsOpen(false)}>Home</Link>
-            <Link to="/about"      onClick={() => setIsOpen(false)}>About Me</Link>
-            <Link to="/projects"   onClick={() => setIsOpen(false)}>Projects</Link>
-            <Link to="/playground" onClick={() => setIsOpen(false)}>Playground</Link>
-            <button
-              onClick={() => { setIsOpen(false); openContact(); }}
-              className="contact-nav-btn"
-            >
-              Contact
-            </button>
-          </nav>
-
-          <div className="social-links flex gap-6 text-blue text-h4 justify-center relative z-2">
-            <a href="https://www.linkedin.com/in/yuhan-liu-1a571524b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <FontAwesomeIcon icon={faLinkedin} />
-            </a>
-            <a href="https://instagram.com/_yuhan.liu_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <FontAwesomeIcon icon={faInstagram} />
-            </a>
-            <a href="https://www.youtube.com/@Yuhan_Liu" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-              <FontAwesomeIcon icon={faYoutube} />
-            </a>
-            <a href="https://github.com/yliu-99" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <FontAwesomeIcon icon={faGithub} />
-            </a>
-            <a href="mailto:yuhancreates@gmail.com" aria-label="Email">
-              <FontAwesomeIcon icon={faEnvelope} />
-            </a>
-          </div>
+        <div className="social-links flex gap-6 text-blue text-h4 justify-center lg:justify-start relative z-2">
+          <a href="https://www.linkedin.com/in/yuhan-liu-1a571524b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="lg:hover:text-red lg:transition-colors lg:duration-200">
+            <FontAwesomeIcon icon={faLinkedin} />
+          </a>
+          <a href="https://instagram.com/_yuhan.liu_" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="lg:hover:text-red lg:transition-colors lg:duration-200">
+            <FontAwesomeIcon icon={faInstagram} />
+          </a>
+          <a href="https://www.youtube.com/@Yuhan_Liu" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="lg:hover:text-red lg:transition-colors lg:duration-200">
+            <FontAwesomeIcon icon={faYoutube} />
+          </a>
+          <a href="https://github.com/yliu-99" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="lg:hover:text-red lg:transition-colors lg:duration-200">
+            <FontAwesomeIcon icon={faGithub} />
+          </a>
+          <a href="mailto:yuhancreates@gmail.com" aria-label="Email" className="lg:hover:text-red lg:transition-colors lg:duration-200">
+            <FontAwesomeIcon icon={faEnvelope} />
+          </a>
         </div>
-      )}
+      </div>
     </div>
   );
 }
