@@ -118,8 +118,12 @@ const SECTIONS = [
   { id: "get-in-touch",   label: "Get in Touch",       content: <GetInTouch /> },
 ];
 
-function AccordionItem({ label, content, isOpen, onToggle }) {
+function AccordionItem({ label, content, isOpen, onToggle, sectionRef }) {
   const bodyRef = useRef(null);
+
+  useEffect(() => {
+    gsap.set(bodyRef.current, { height: isOpen ? "auto" : 0 });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!bodyRef.current) return;
@@ -130,25 +134,29 @@ function AccordionItem({ label, content, isOpen, onToggle }) {
     });
   }, [isOpen]);
 
-  useEffect(() => {
-    gsap.set(bodyRef.current, { height: isOpen ? "auto" : 0 });
-  }, []);
-
   return (
-    <div className="border-t-2 border-black">
-      <button
-        onClick={onToggle}
-        className="w-full flex items-center justify-between px-0 py-5 font-title uppercase tracking-primary text-h5 text-left transition-colors duration-200 hover:text-red"
-      >
-        {label}
-        <FontAwesomeIcon
-          icon={isOpen ? faSquareMinus : faSquarePlus}
-          className="text-blue"
-        />
-      </button>
+    <div ref={sectionRef} className="mb-3">
+      <div className="grid grid-cols-12">
+        <div className="col-span-12 lg:col-start-2 lg:col-span-10">
+          <button
+            onClick={onToggle}
+            className="w-full flex items-center justify-between px-3 py-2 border-2 border-black bg-white font-title uppercase tracking-secondary text-h5 text-left select-none shadow-[3px_7px_6.5px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:text-red"
+          >
+            {label}
+            <FontAwesomeIcon
+              icon={isOpen ? faSquareMinus : faSquarePlus}
+              className="text-blue shrink-0"
+            />
+          </button>
+        </div>
+      </div>
       <div ref={bodyRef} className="overflow-hidden">
-        <div className="pb-8">
-          {content ?? <p className="font-body text-black/40 text-sm">Coming soon.</p>}
+        <div className="pb-8 pt-6">
+          {content ?? (
+            <div className="grid grid-cols-12">
+              <p className="col-span-12 lg:col-start-3 lg:col-span-8 font-body text-black/40 text-sm">Coming soon.</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -157,6 +165,24 @@ function AccordionItem({ label, content, isOpen, onToggle }) {
 
 function ContentSection() {
   const [openId, setOpenId] = useState(SECTIONS[0].id);
+  const sectionRefs = useRef({});
+
+  const handleToggle = (id) => {
+    const opening = openId !== id;
+    setOpenId(prev => prev === id ? null : id);
+
+    if (opening) {
+      // Wait for the previous section's close animation (0.4s) to finish
+      // before scrolling so the layout is stable
+      setTimeout(() => {
+        const el = sectionRefs.current[id];
+        if (!el) return;
+        const navHeight = document.querySelector('.nav-wrapper')?.offsetHeight ?? 92;
+        const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 8;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }, 420);
+    }
+  };
 
   return (
     <section className="mt-16 mb-16">
@@ -164,11 +190,11 @@ function ContentSection() {
         <AccordionItem
           key={section.id}
           {...section}
+          sectionRef={el => sectionRefs.current[section.id] = el}
           isOpen={openId === section.id}
-          onToggle={() => setOpenId(prev => prev === section.id ? null : section.id)}
+          onToggle={() => handleToggle(section.id)}
         />
       ))}
-      <div className="border-t-2 border-black" />
     </section>
   );
 }

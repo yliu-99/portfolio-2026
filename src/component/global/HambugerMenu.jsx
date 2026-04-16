@@ -18,15 +18,17 @@ function HamburgerMenu() {
   const hamburgerRef = useRef(null);
   const progressRef  = useRef(null);
   const overlayRef   = useRef(null);
+  const backdropRef  = useRef(null);
   const lastScrollY  = useRef(0);
   const isHidden     = useRef(false);
   const { openContact } = useContactModal();
 
   useLogoRotation(logoImgRef);
 
-  // Initialise overlay off-screen so it's invisible before any interaction
+  // Initialise overlay off-screen and backdrop inert before any interaction
   useEffect(() => {
-    gsap.set(overlayRef.current, { x: '100%', pointerEvents: 'none' });
+    gsap.set(overlayRef.current,  { x: '100%', pointerEvents: 'none' });
+    gsap.set(backdropRef.current, { pointerEvents: 'none' });
   }, []);
 
   const openMenu = () => {
@@ -34,11 +36,13 @@ function HamburgerMenu() {
     document.body.classList.add('menu-is-open');
     gsap.killTweensOf(overlayRef.current);
     gsap.set(overlayRef.current, { pointerEvents: 'all' });
+    gsap.set(backdropRef.current, { pointerEvents: 'all' });
     gsap.to(overlayRef.current, { x: '0%', duration: 0.45, ease: 'power3.out' });
   };
 
   const closeMenu = () => {
     gsap.killTweensOf(overlayRef.current);
+    gsap.set(backdropRef.current, { pointerEvents: 'none' });
     gsap.to(overlayRef.current, {
       x: '100%', duration: 0.3, ease: 'power3.in',
       onComplete: () => {
@@ -103,6 +107,14 @@ function HamburgerMenu() {
           <FontAwesomeIcon icon={faBars} />
         </button>
       </div>
+
+      {/* Backdrop — transparent click-catcher behind the menu panel */}
+      <div
+        ref={backdropRef}
+        className="fixed inset-0 z-199"
+        onClick={closeMenu}
+        aria-hidden="true"
+      />
 
       {/* Menu panel — always in DOM, GSAP slides it in/out from the right.
           Mobile: full-screen (left-0). Desktop: right-side drawer (auto width). */}

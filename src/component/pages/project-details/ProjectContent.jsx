@@ -26,7 +26,7 @@ function BodyText({ text, className }) {
 function PdfModal({ src, onClose }) {
     return createPortal(
         <div
-            className="fixed inset-0 bg-black/85 z-9999 flex items-center justify-center"
+            className="fixed inset-0 bg-black/70 backdrop-blur-[6px] z-9999 flex items-center justify-center"
             onClick={onClose}
         >
             <div

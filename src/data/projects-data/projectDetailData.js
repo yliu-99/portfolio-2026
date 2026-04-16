@@ -13,9 +13,11 @@ import { apexMountainBikesDetail }   from './individual-project-data/apexMountai
 import { fableFragrancesDetail }     from './individual-project-data/fableFragrances';
 import { vhsFilmFestivalDetail }     from './individual-project-data/vhsFilmFestival';
 import { submarineCdBookletDetail }  from './individual-project-data/submarineCdBooklet';
+import { getAGripDetail }            from './individual-project-data/getAGrip';
 // import { sectionMapDemoDetail }      from './individual-project-data/sectionMapDemo'; // local dev only — gitignored
 
 export const projectDetailData = [
+    getAGripDetail,
     submarineCdBookletDetail,
     mythbustersDetail,
     trueHorizonsDetail,

@@ -1,4 +1,5 @@
 import submarineImage from '../../assets/project-assets/submarine/pool-mockup-opt.jpg';
+import getAGripBanner from '../../assets/project-assets/breast-cancer/main-banner.jpg';
 
 // !! update image links
 const vancouverHorrorShowImage = "https://i.postimg.cc/VNCN3yZW/vancouver-horror-show.png";
@@ -8,24 +9,26 @@ const mythbustersVid = "https://www.youtube.com/embed/ioG4kkKj6ZM?si=ymFZFlZC33j
 
 
 export const projectsData = [
-    // 03/26
+    // ── Featured (home page order) ────────────────────────────────────────────
+
+    // 02/25
     {
-        id:'submarine',
-        title:'SUBMARINE CD BOOKLET',
-        slug:'submarine-cd-booklet-print-design',
-        type:'img',
-        media:submarineImage,
-        heroVideoId: 'KsUM108TayE',   // looping bg video for the project detail hero
-        hoverVideoId: 'KsUM108TayE',  // preloaded hover video for the project grid card
-        year:'03/26',
-        timeline:'Feb 23 - Mar 16, 2026 (8 hrs)',
-        description:'CD booklet design for the "Submarine" album by the Marias, focusing on reinforcing the existing storytelling and aesthetic of the music through design and layout.',
-        shortDescription: 'CD booklet design for the "Submarine" album by the Marias.',
-        chips:['graphic design', 'print', 'indesign'],
-        category:'graphic design',
-        tools: ['figma', 'photoshop', 'indesign', 'illustrator'],
-        role: ['graphic design','layout design'],
-        featured: true
+        id:'apex',
+        title:'APEX MOUNTAIN BIKES',
+        slug:'apex-mountain-bikes-brand-commercial',
+        type:'vid',
+        media: apexMountainBikesVid,
+        heroVideoId:  'Sr4oXdiLrzE',
+        hoverVideoId: 'Sr4oXdiLrzE',
+        year:'02/25',
+        timeline:'Jan 30 - Feb 27, 2025 (19 hrs)',
+        description:'A 2-minute talking head commercial for a fictitious mountain bike company with energetic storytelling, featuring original music made in GarageBand.',
+        shortDescription: 'Talking head commercial with original music for a fictional mountain bike brand.',
+        chips:['video production','storytelling','sound editing','music production'],
+        category:'video',
+        tools: ['premier','audition','garageband'],
+        role: ['brand development', 'scriptwriter','director', 'music production', 'sound production'],
+        featured: true,
     },
     // 07/25
     {
@@ -42,8 +45,49 @@ export const projectsData = [
         category:'motion',
         tools: ['after effects', 'photoshop', 'audition', 'illustrator'],
         role: ['concept development', 'scriptwriter', 'motion design', 'sound production'],
-        featured: true
+        featured: true,
     },
+    // 03/26
+    {
+        id:'submarine',
+        title:'SUBMARINE CD BOOKLET',
+        slug:'submarine-cd-booklet-print-design',
+        type:'img',
+        media:submarineImage,
+        heroVideoId: 'KsUM108TayE',
+        hoverVideoId: 'KsUM108TayE',
+        year:'03/26',
+        timeline:'Feb 23 - Mar 16, 2026 (8 hrs)',
+        description:'CD booklet design for the "Submarine" album by the Marias, focusing on reinforcing the existing storytelling and aesthetic of the music through design and layout.',
+        shortDescription: 'CD booklet design for the "Submarine" album by the Marias.',
+        chips:['graphic design', 'print', 'indesign'],
+        category:'graphic design',
+        tools: ['figma', 'photoshop', 'indesign', 'illustrator'],
+        role: ['graphic design','layout design'],
+        featured: true,
+    },
+    // 04/26
+    {
+        id: 'get-a-grip',
+        title: '#GETAGRIP Campaign',
+        slug: 'get-a-grip-breast-cancer-awareness',
+        type: 'img',
+        media: getAGripBanner,
+        heroVideoId:  'G90zbODJwoc',
+        hoverVideoId: 'wsZOPDZvrek',
+        year: '04/26',
+        timeline: 'Apr 2026',
+        description: 'A breast cancer awareness campaign tackling the "awareness gap" in women\'s health in Canada by encouraging self-examinations as a preventive measure, driving traffic to the BC Women\'s Health Foundation.',
+        shortDescription: 'Breast cancer awareness campaign encouraging self-examinations.',
+        chips: ['graphic design', 'campaign', 'print', 'social media'],
+        category: 'graphic design',
+        tools: ['photoshop', 'illustrator', 'after effects'],
+        role: ['concept development', 'graphic design', 'campaign design'],
+        featured: true,
+    },
+
+    // ── Not featured ──────────────────────────────────────────────────────────
+
     // 04/25
     {
         id:'horizons',
@@ -59,29 +103,9 @@ export const projectsData = [
         category:'video',
         tools: ['premier','audition','after effects'],
         role: ['concept development', 'actor', 'director', 'editor', 'sound production'],
-        featured: true
-    },
-    // 02/25
-    {
-        id:'apex',
-        title:'APEX MOUNTAIN BIKES',
-        slug:'apex-mountain-bikes-brand-commercial',
-        type:'vid',
-        media: apexMountainBikesVid,
-        heroVideoId:  'Sr4oXdiLrzE',  // preview shown on hero bg + cards/featured
-        hoverVideoId: 'Sr4oXdiLrzE',
-        year:'02/25',
-        timeline:'Jan 30 - Feb 27, 2025 (19 hrs)',
-        description:'A 2-minute talking head commercial for a fictitious mountain bike company with energetic storytelling, featuring original music made in GarageBand.',
-        shortDescription: 'Talking head commercial with original music for a fictional mountain bike brand.',
-        chips:['video production','storytelling','sound editing','music production'],
-        category:'video',
-        tools: ['premier','audition','garageband'],
-        role: ['brand development', 'scriptwriter','director', 'music production', 'sound production'],
-        featured: true
+        featured: false,
     },
     // 12/24
-    // { id:'fable', hidden: true },
     {
         id:'vhs',
         title:'VHS FILM FESTIVAL',
@@ -96,11 +120,10 @@ export const projectsData = [
         category:'graphic design',
         tools: ['photoshop', 'illustrator','indesign'],
         role: ['graphic design', 'web design', 'brand development'],
-        featured: false
+        featured: false,
     },
 
     // ── Section style-guide (local dev only — sectionMapDemo.js is gitignored) ──
-    // Uncomment to enable /projects/section-map locally:
     // {
     //     id: 'section-map',
     //     slug: 'section-map',
