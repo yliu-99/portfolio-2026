@@ -9,7 +9,7 @@ import { OBSESSIONS } from '../../../../data/component-data/obsessionsData';
 
 // ── Detail modal ──────────────────────────────────────────────────────────────
 
-function DetailModal({ item, onClose }) {
+export function DetailModal({ item, onClose }) {
     const overlayRef = useRef(null);
     const cardRef    = useRef(null);
 

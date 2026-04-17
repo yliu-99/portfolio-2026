@@ -29,7 +29,7 @@ function Status({ isOpen, onToggle, className }) {
                 </p>
                 <div className="text-center">
                     <p className="text-[0.85rem] tracking-[0.12em] ">TYPE:</p>
-                    <p className="text-[0.85rem] tracking-[0.08em]">DESIGN INTERNSHIP</p>
+                    <p className="text-[0.85rem] tracking-[0.08em]">AGENCY WORK</p>
                 </div>
                 <button
                     ref={btnRef}
