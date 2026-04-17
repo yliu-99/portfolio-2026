@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,23 +9,70 @@ import cvPdf from "../../../assets/page-assets/about/yuhan-liu-master-cv.pdf";
 import Values from "./Values";
 import AIAndDesign from "./AIAndDesign";
 import AboutMe from "./AboutMe";
-import WhatIDo from "./WhatIDo";
+import { ToolsMarquee } from "./WhatIDo";
 import GetInTouch from "./GetInTouch";
 import "./About.scss";
 
-import heroImg from "../../../assets/page-assets/about/about-me.jpg";
+import heroImg       from "../../../assets/page-assets/about/about-me.jpg";
+import catMomImg    from "../../../assets/page-assets/about/polaroid/vesper-and-me.jpeg";
+import vesperImg    from "../../../assets/page-assets/about/polaroid/vesper.jpeg";
+import vesperAndMe2 from "../../../assets/page-assets/about/polaroid/vesper-and-me-2.jpeg";
+
+// ── Vesper popup easter egg ────────────────────────────────────────────────
+const VESPER_IMGS = [vesperImg, vesperAndMe2];
+
+function VesperPopups() {
+  const refs = [useRef(null), useRef(null)];
+  const positions = useRef([
+    { top: `${10 + Math.random() * 25}%`, left: `${58 + Math.random() * 20}%`, rotation: -6 + Math.random() * 4 },
+    { top: `${55 + Math.random() * 20}%`, left: `${5  + Math.random() * 18}%`, rotation:  4 + Math.random() * 4 },
+  ]);
+
+  useEffect(() => {
+    const els = refs.map(r => r.current).filter(Boolean);
+    gsap.fromTo(els,
+      { scale: 0, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.4, stagger: 0.15, ease: 'back.out(1.7)' }
+    );
+    const timer = setTimeout(() => {
+      gsap.to(els, { scale: 0, opacity: 0, duration: 0.3, stagger: 0.1, ease: 'back.in(1.4)' });
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return createPortal(
+    <>
+      {VESPER_IMGS.map((src, i) => (
+        <div
+          key={i}
+          ref={refs[i]}
+          className="fixed z-500 pointer-events-none w-36 md:w-44 shadow-[4px_8px_20px_rgba(0,0,0,0.35)]"
+          style={{
+            top: positions.current[i].top,
+            left: positions.current[i].left,
+            transform: `rotate(${positions.current[i].rotation}deg)`,
+          }}
+        >
+          <img src={src} alt={`Vesper ${i + 1}`} className="w-full block border-4 border-white" />
+        </div>
+      ))}
+    </>,
+    document.body
+  );
+}
 
 // ── Section 1 + 2: Intro ──────────────────────────────────────────────────
 const TITLES = [
   "Multidisciplinary Designer",
-  "Tech Enthusiast",
+  "Storyteller",
   "Singer / Musician",
   "Cat Mom",
   "Movie Lover",
-  "Gamer",
+  "Late-Night Gamer",
+  "Instant Ramen Chef",
   "Cinnamoroll Collector",
   "Matcha Addict",
-  "Gen-Z",
+  "Horror Enthusiast",
   "Campfire Guitarist",
 ];
 
@@ -45,6 +93,7 @@ function IntroSection() {
   }, []);
 
   const [titleIdx, setTitleIdx] = useState(0);
+  const isCatMom = TITLES[titleIdx] === 'Cat Mom';
   const timerRef = useRef(null);
 
   const handleTitleClick = () => {
@@ -59,7 +108,10 @@ function IntroSection() {
     <section className="relative grid grid-cols-12 gap-4 items-center pb-16 overflow-visible">
       {/* Photo — cols 2–5 */}
       <div className="col-span-12 md:col-start-2 md:col-span-4 flex justify-start overflow-hidden md:pr-8 relative z-1">
-        <img src={heroImg} alt="Yuhan Liu" className="w-full h-[70vh] object-cover border-2 border-black" />
+        <div className="relative w-full h-[70vh] border-2 border-black overflow-hidden">
+          <img src={heroImg}   alt="Yuhan Liu" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isCatMom ? 'opacity-0' : 'opacity-100'}`} />
+          <img src={catMomImg} alt="Vesper and me" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isCatMom ? 'opacity-100' : 'opacity-0'}`} />
+        </div>
       </div>
 
       {/* Text + buttons — cols 6–11 */}
@@ -79,8 +131,8 @@ function IntroSection() {
           </span>
           <br />based in <FontAwesomeIcon icon={faLocationDot} /> Vancouver.
         </p>
-        <p className="font-body text-black/70 font-semibold" style={{ fontSize: "clamp(1rem, 1.5vw, 1.333rem)" }}>
-          I design to facilitate a connection between people and what they care about. Then, I use storytelling to turn that connection into action.
+        <p className="font-body text-black/70 font-semibold" style={{ fontSize: "clamp(1.1rem, 2vw, 1.777rem)" }}>
+          I design to facilitate a connection between people and what they care about. I strive to create work that people can feel, remember, and respond to.
         </p>
         <div className="flex gap-3 mt-2 justify-center md:justify-start">
           <Link
@@ -105,15 +157,16 @@ function IntroSection() {
           <FontAwesomeIcon icon={faCaretDown} className="text-black/30 caret-bounce text-2xl" />
         </div>
       </div>
+
+      {isCatMom && <VesperPopups />}
     </section>
   );
 }
 
 // ── Section 3: Accordion sections ─────────────────────────────────────────
 const SECTIONS = [
-  { id: "what-i-do",      label: "What I Do",         content: <WhatIDo /> },
-  { id: "read-the-lore",  label: "Read the Lore",     content: <AboutMe /> },
   { id: "deck-of-values", label: "My Deck of Values", content: <Values /> },
+  { id: "read-the-lore",  label: "Read the Lore",     content: <AboutMe /> },
   { id: "ai-and-design",  label: "AI + Design",       content: <AIAndDesign /> },
   { id: "get-in-touch",   label: "Get in Touch",       content: <GetInTouch /> },
 ];
@@ -204,6 +257,12 @@ function About() {
   return (
     <div className="about col-span-12 px-0">
       <IntroSection />
+      <div className="mt-12 grid grid-cols-12">
+        <div className="col-span-12 lg:col-start-2 lg:col-span-10">
+          <p className="font-title uppercase tracking-primary text-[0.7rem] text-black/30 text-center mb-2">Tools &amp; Software</p>
+          <ToolsMarquee />
+        </div>
+      </div>
       <ContentSection />
     </div>
   );
