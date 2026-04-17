@@ -20,10 +20,16 @@ import Projects from './component/pages/projects/Projects';
 import ProjectDetails from './component/pages/project-details/ProjectDetails';
 import Playground from './component/pages/playground/Playground';
 
+// Prevent the browser from restoring the previous scroll position on navigation —
+// our own scrollTo(0,0) handles it and must not be overridden by the browser.
+if ('scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
+
 function Content() {
   const location = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     AOS.refresh();
   }, [location.pathname]);
   return (
