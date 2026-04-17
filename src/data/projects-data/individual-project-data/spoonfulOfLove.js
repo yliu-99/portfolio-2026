@@ -47,13 +47,14 @@ export const spoonfulOfLoveDetail = {
         },
         {
             title: 'Direction',
-            body: 'Two concept directions were pitched to the team — they chose Concept 1.\n\n• Concept 1 — A building block visual identity using the metaphor of constructing a house to represent the organization\'s core initiatives working together, each one a pillar of the whole.\n\n• Concept 2 — Overlapping blobs with transparencies and illustrated faces, centered on community and framing the organization\'s work as a shared commitment to collective wellbeing.',
+            body: 'Two concept directions were pitched to the team. Concept 1 — A building block visual identity using the metaphor of constructing a house to represent the organization\'s core initiatives working together, each one a pillar of the whole. Concept 2 — Overlapping blobs with transparencies and illustrated faces, centered on community and framing the organization\'s work as a shared commitment to collective wellbeing. My team chose concept 1 for its stronger storytelling and more versatile visual system.',
             image: pitch,
         },
         {
             title: 'Delivery',
             body: 'The original logo was recreated and enhanced in Illustrator — refined with a heavier typeface and polished details, while keeping the warmth of the original. A set of brand shapes was developed alongside it, building a visual language that feels fun and friendly while keeping the organization\'s mission front and centre.\n\nA full style guide was produced for the team, along with a complete asset export package: 1×, 2× PNGs, SVGs, an .ase colour swatch file, and an icon library — everything needed to apply the brand consistently across any channel.',
             image: mainBanner,
+            pdfLink: styleGuide,
         },
         {
             title: 'Reflection',

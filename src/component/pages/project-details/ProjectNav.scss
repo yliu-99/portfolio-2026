@@ -36,8 +36,10 @@
     text-decoration: none;
     transition: background 0.2s ease;
 
-    &:hover {
-        background: rgba(255, 255, 255, 0.08);
+    @media (hover: hover) {
+        &:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
     }
 
     .project-nav-side--right & {
