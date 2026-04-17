@@ -51,7 +51,7 @@ export const submarineCdBookletDetail = {
     },
     {
       title: "Discovery",
-      body: "During my research,Maria mentioned in one of her interviews that loneliness and technology are intertwined, and I decided to further explore this idea in this project. This will bring a slight shift in perspective to the existing narrative while not detracting from the overarching storytelling. My mood board consists of these types of imagery: ripples, distortion, and blurriness to represent water and images of old technology to add a surreal, dissociative feel.",
+      body: "During my research, Maria mentioned in one of her interviews that loneliness and technology are intertwined, and I decided to further explore this idea in this project. This will bring a slight shift in perspective to the existing narrative while not detracting from the overarching storytelling. My mood board consists of these types of imagery: ripples, distortion, and blurriness to represent water and images of old technology to add a surreal, dissociative feel.",
       image: moodboard,
     },
     {

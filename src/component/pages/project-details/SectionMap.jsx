@@ -61,7 +61,7 @@ function SplitSection({ layout = 'imageRight', heading, body, image }) {
                 <p className="font-body text-[1.18rem] leading-[1.75] text-black m-0">{body}</p>
             </div>
             <div className="split-image" onMouseEnter={onImgEnter} onMouseLeave={onImgLeave}>
-                {image && <img ref={imgRef} src={image} alt={heading || ''} />}
+                {image && <img ref={imgRef} src={image} alt={heading || 'Section image'} />}
             </div>
         </div>
     );
@@ -73,7 +73,7 @@ function SplitSection({ layout = 'imageRight', heading, body, image }) {
 function FullImage({ image, alt }) {
     return (
         <div className="w-full aspect-video overflow-hidden border-2 border-black bg-beige">
-            {image && <img src={image} alt={alt || ''} className="w-full h-full object-cover block" />}
+            {image && <img src={image} alt={alt || 'Full width image'} className="w-full h-full object-cover block" />}
         </div>
     );
 }
@@ -96,7 +96,7 @@ function ImageGrid({ columns = 3, images = [] }) {
         <div className="sm-image-grid" style={{ '--grid-cols': columns }}>
             {images.map((img, i) => (
                 <div key={i} className="ig-cell" onMouseEnter={onCellEnter} onMouseLeave={onCellLeave}>
-                    <img src={img.src} alt={img.alt || ''} className="opacity-90" />
+                    <img src={img.src} alt={img.alt || 'Grid image'} className="opacity-90" />
                 </div>
             ))}
         </div>
@@ -324,7 +324,7 @@ function Goals({ body }) {
 function ProcessImage({ image, alt }) {
     return (
         <div className="w-full overflow-hidden border-2 border-black bg-beige">
-            {image && <img src={image} alt={alt || ''} className="w-full h-auto block" />}
+            {image && <img src={image} alt={alt || 'Process image'} className="w-full h-auto block" />}
         </div>
     );
 }

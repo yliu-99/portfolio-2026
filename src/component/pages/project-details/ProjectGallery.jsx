@@ -133,7 +133,7 @@ function HorizontalGallery({ items, onOpen }) {
                             className="h-gallery__item"
                             onClick={() => onOpen(i)}
                         >
-                            <img src={src} alt={item.caption ?? ''} className="h-gallery__img" loading="lazy" />
+                            <img src={src} alt={item.caption ?? 'Project gallery image'} className="h-gallery__img" loading="lazy" />
                             {videoId && (
                                 <div className="h-gallery__play">
                                     <Icon icon="fa-solid:play" />
