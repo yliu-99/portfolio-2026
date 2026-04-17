@@ -59,6 +59,7 @@ function PanelMedia({ section, onPdfOpen }) {
     const isPdf   = /\.pdf$/i.test(section.image);
     const isMp4   = /\.mp4$/i.test(section.image);
     const isAudio = /\.(mp3|m4a|wav|ogg)$/i.test(section.image);
+    const hasPdfLink = !!section.pdfLink;
 
     if (isAudio) return (
         <div className="flex items-center justify-center w-full p-8">
@@ -78,16 +79,16 @@ function PanelMedia({ section, onPdfOpen }) {
 
     if (isPdf) return (
         <div
-            className="group relative w-full aspect-video overflow-hidden cursor-pointer"
+            className="group relative w-full aspect-3/4 overflow-hidden cursor-pointer border-2 border-black"
             onClick={onPdfOpen}
         >
             <iframe
-                src={`${section.image}#toolbar=0&navpanes=0&scrollbar=0`}
+                src={`${section.image}#toolbar=0&navpanes=0&scrollbar=0&view=Fit`}
                 className="w-full h-full border-0 block pointer-events-none"
                 title="PDF preview"
                 tabIndex={-1}
             />
-            <div className="absolute inset-0 bg-black/45 flex flex-col items-center justify-center gap-[0.6rem] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-[0.6rem] opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/40">
                 <Icon icon="fa-solid:expand" className="text-[2rem] text-white" />
                 <span className="font-title uppercase text-[clamp(0.75rem,1vw,0.9rem)] tracking-[0.18em] text-white">
                     View Document
@@ -98,6 +99,20 @@ function PanelMedia({ section, onPdfOpen }) {
 
     const mediaClass = 'w-full h-auto aspect-[4/3] object-contain object-center block';
     if (isMp4) return <video src={section.image} className={mediaClass} autoPlay loop muted playsInline />;
+
+    // Image with an attached PDF — show the image but overlay a "View Document" indicator
+    if (hasPdfLink) return (
+        <div className="group relative w-full cursor-pointer" onClick={onPdfOpen}>
+            <img src={section.image} alt={section.title} className={mediaClass} loading="lazy" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-[0.6rem] bg-black/30 group-hover:bg-black/50 transition-colors duration-200">
+                <Icon icon="fa-solid:file-pdf" className="text-[2rem] text-white" />
+                <span className="font-title uppercase text-[clamp(0.75rem,1vw,0.9rem)] tracking-[0.18em] text-white">
+                    View Style Guide
+                </span>
+            </div>
+        </div>
+    );
+
     return <img src={section.image} alt={section.title} className={mediaClass} loading="lazy" />;
 }
 
@@ -419,7 +434,7 @@ function ProjectContent({ sections = [] }) {
                                         <div className="flex items-center pt-12 pr-16 pb-12 pl-8 max-[900px]:pt-0 max-[900px]:px-6 max-[900px]:pb-8">
                                             <PanelMedia
                                                 section={sec}
-                                                onPdfOpen={() => setPdfSrc(sec.image)}
+                                                onPdfOpen={() => setPdfSrc(sec.pdfLink ?? sec.image)}
                                             />
                                         </div>
                                     )}

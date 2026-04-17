@@ -73,8 +73,11 @@
   }
 
   // Hover video + img fade only activate once buffered (.hover-video-ready)
-  &.hover-video-ready:has(&__hotspot:hover) &__hover-video { opacity: 1; }
-  &.hover-video-ready:has(&__hotspot:hover) &__img         { opacity: 0; }
+  // Guarded by (hover: hover) so touch taps never trigger a stuck state
+  @media (hover: hover) {
+    &.hover-video-ready:has(&__hotspot:hover) &__hover-video { opacity: 1; }
+    &.hover-video-ready:has(&__hotspot:hover) &__img         { opacity: 0; }
+  }
 
   // ── Red overlay layer (matches project hero) ──
   &__red-overlay {
@@ -85,8 +88,10 @@
     transition: opacity 0.35s ease;
   }
 
-  &:has(&__hotspot:hover) &__red-overlay {
-    opacity: 0.3;
+  @media (hover: hover) {
+    &:has(&__hotspot:hover) &__red-overlay {
+      opacity: 0.3;
+    }
   }
 
   // ── Hover overlay ──
@@ -113,9 +118,11 @@
     transition: opacity 0.35s ease, transform 0.35s ease;
   }
 
-  &:has(&__hotspot:hover) &__title {
-    opacity: 1;
-    transform: translateY(0);
+  @media (hover: hover) {
+    &:has(&__hotspot:hover) &__title {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   // ── Center hotspot — only this zone triggers hover effects ──
@@ -139,9 +146,11 @@
     transition: opacity 0.35s ease 0.05s, transform 0.35s ease 0.05s;
   }
 
-  &:has(&__hotspot:hover) &__chips {
-    opacity: 1;
-    transform: translateY(0);
+  @media (hover: hover) {
+    &:has(&__hotspot:hover) &__chips {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 

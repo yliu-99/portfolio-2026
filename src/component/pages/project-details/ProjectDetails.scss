@@ -57,8 +57,10 @@
         transition: opacity 0.2s ease;
     }
 
-    &:hover &__label { opacity: 0; }
-    &:hover &__value { opacity: 1; }
+    @media (hover: hover) {
+        &:hover &__label { opacity: 0; }
+        &:hover &__value { opacity: 1; }
+    }
 }
 
 // ── SpecsStrip ────────────────────────────────────────────────────────────────
