@@ -8,18 +8,36 @@ import { PASSION_PROJECTS } from '../../../data/passionProjectsData';
 import { DetailModal } from '../home/home-menu-components/Obsessions';
 import './Playground.scss';
 
+import enqiBrother   from '../../../assets/page-assets/about/polaroid/enqi-my-brother.jpeg';
+import cedarWaxwing  from '../../../assets/playground-assets/photos/cedar-waxwing.jpeg';
+import davif         from '../../../assets/playground-assets/photos/davif.jpeg';
+import chameleon     from '../../../assets/playground-assets/photos/chameleon.jpeg';
+import deer          from '../../../assets/playground-assets/photos/deer.jpeg';
+import redWing       from '../../../assets/playground-assets/photos/red-wing.jpeg';
+import quebec        from '../../../assets/playground-assets/photos/quebec.jpeg';
+import lululemonHike from '../../../assets/playground-assets/photos/lululemon-hike.jpeg';
+import hotel         from '../../../assets/playground-assets/photos/hotel.jpeg';
+import hCoffee       from '../../../assets/playground-assets/photos/h-coffee.jpeg';
+import jellyFish     from '../../../assets/playground-assets/photos/jelly-fish.jpeg';
+import fluffyBird    from '../../../assets/playground-assets/photos/fluffy-bird.jpeg';
+
+const PHOTOS = [
+  enqiBrother, cedarWaxwing, fluffyBird, redWing, chameleon, deer,
+  jellyFish, quebec, lululemonHike, hotel, hCoffee, davif,
+];
+
 const ITEMS_PER_PAGE = 3;
 
 // ── Obsession card ─────────────────────────────────────────────────────────────
 function ObsessionCard({ item, onOpen }) {
   return (
     <button
-      className="text-left w-full border-2 border-black bg-white overflow-hidden shadow-[3px_7px_6.5px_rgba(0,0,0,0.25)] hover:opacity-80 transition-opacity duration-150 cursor-pointer"
+      className="group text-left w-full border-2 border-black bg-white overflow-hidden shadow-[3px_7px_6.5px_rgba(0,0,0,0.25)] cursor-pointer relative hover:z-3"
       onClick={() => onOpen(item)}
     >
       <div className="aspect-video bg-[#e8e8e8] overflow-hidden">
         {item.img
-          ? <img src={item.img} alt={item.title} className="w-full h-full object-cover block" />
+          ? <img src={item.img} alt={item.title} className="w-full h-full object-cover block transition-transform duration-400 ease-out group-hover:scale-105" />
           : <div className="w-full h-full bg-linear-to-br from-[#e0e0e0] to-[#ccc]" />
         }
       </div>
@@ -87,6 +105,8 @@ function PassionProjectModal({ project, onClose }) {
               className="w-full h-full border-none block"
               title={project.title}
             />
+          ) : project.media[imgIndex]?.type === 'video' ? (
+            <video src={project.media[imgIndex].src} autoPlay muted loop playsInline controls className="w-full h-full object-contain block" />
           ) : (
             <img
               src={project.media[imgIndex]}
@@ -128,7 +148,18 @@ function PassionProjectModal({ project, onClose }) {
         <div className="p-8">
           <p className="font-title text-[0.75rem] tracking-[0.12em] opacity-50 mb-3 uppercase">{project.category}</p>
           <h2 className="font-title text-red text-h3 leading-tight tracking-[0.04em] mb-4 uppercase">{project.title}</h2>
-          <p className="font-body text-base leading-relaxed tracking-[0.02em] opacity-70">{project.description}</p>
+          <p className="font-body text-base leading-relaxed tracking-[0.02em] opacity-70 mb-4">{project.description}</p>
+          {project.repo && (
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-title text-[0.8rem] tracking-[0.12em] uppercase border-2 border-black px-4 py-2 inline-block hover:text-red hover:border-red transition-colors duration-150"
+              onClick={e => e.stopPropagation()}
+            >
+              View on GitHub
+            </a>
+          )}
         </div>
       </div>
     </div>,
@@ -140,17 +171,22 @@ function PassionProjectModal({ project, onClose }) {
 function PassionProjectCard({ project, onOpen }) {
   return (
     <button
-      className="text-left w-full border-2 border-black bg-white overflow-hidden shadow-[3px_7px_6.5px_rgba(0,0,0,0.25)] hover:opacity-80 transition-opacity duration-150 cursor-pointer"
+      className="group text-left w-full border-2 border-black bg-white overflow-hidden shadow-[3px_7px_6.5px_rgba(0,0,0,0.25)] cursor-pointer relative hover:z-3"
       onClick={() => onOpen(project)}
     >
       <div className="aspect-video bg-[#e8e8e8] overflow-hidden">
-        <img
-          src={project.thumbnail?.type === 'youtube'
-            ? `https://img.youtube.com/vi/${project.thumbnail.videoId}/maxresdefault.jpg`
-            : project.thumbnail}
-          alt={project.title}
-          className="w-full h-full object-cover block"
-        />
+        {project.thumbnail?.type === 'video' ? (
+          <video src={project.thumbnail.src} autoPlay muted loop playsInline className="w-full h-full object-cover block transition-transform duration-400 ease-out group-hover:scale-105" />
+        ) : project.thumbnail?.type === 'youtube' ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${project.thumbnail.videoId}?autoplay=1&mute=1&loop=1&playlist=${project.thumbnail.videoId}&controls=0&rel=0&playsinline=1&disablekb=1`}
+            allow="autoplay"
+            className="w-full h-full border-none block pointer-events-none transition-transform duration-400 ease-out group-hover:scale-105"
+            title={project.title}
+          />
+        ) : (
+          <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover block transition-transform duration-400 ease-out group-hover:scale-105" />
+        )}
       </div>
       <div className="p-4">
         <p className="font-body text-[0.75rem] tracking-[0.12em] opacity-50 mb-1 uppercase">{project.category}</p>
@@ -160,11 +196,84 @@ function PassionProjectCard({ project, onOpen }) {
   );
 }
 
+// ── Photo lightbox ────────────────────────────────────────────────────────────
+function PhotoLightbox({ photos, startIndex, onClose }) {
+  const overlayRef = useRef(null);
+  const imgRef     = useRef(null);
+  const [index, setIndex] = useState(startIndex);
+
+  useEffect(() => {
+    gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'power2.out' });
+    gsap.fromTo(imgRef.current, { scale: 0.94, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: 'back.out(1.4)' });
+  }, []);
+
+  const handleClose = useCallback(() => {
+    gsap.to(imgRef.current,     { scale: 0.94, opacity: 0, duration: 0.18, ease: 'power2.in' });
+    gsap.to(overlayRef.current, { opacity: 0,  duration: 0.2, ease: 'power2.in', onComplete: onClose });
+  }, [onClose]);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape')     handleClose();
+      if (e.key === 'ArrowLeft')  setIndex(i => (i - 1 + photos.length) % photos.length);
+      if (e.key === 'ArrowRight') setIndex(i => (i + 1) % photos.length);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [handleClose, photos.length]);
+
+  return createPortal(
+    <div
+      ref={overlayRef}
+      className="fixed inset-0 bg-black/85 backdrop-blur-[6px] z-1000 flex items-center justify-center cursor-pointer"
+      onClick={handleClose}
+    >
+      <button
+        className="absolute top-6 right-6 w-10 h-10 bg-white rounded-full text-[0.9rem] flex items-center justify-center z-1001 hover:bg-[#eee] transition-colors duration-150 cursor-pointer"
+        onClick={e => { e.stopPropagation(); handleClose(); }}
+        aria-label="Close"
+      >✕</button>
+
+      <button
+        onClick={e => { e.stopPropagation(); setIndex(i => (i - 1 + photos.length) % photos.length); }}
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 flex items-center justify-center transition-colors duration-150 cursor-pointer"
+        aria-label="Previous"
+      ><FontAwesomeIcon icon={faCaretLeft} className="text-white text-lg" /></button>
+
+      <button
+        onClick={e => { e.stopPropagation(); setIndex(i => (i + 1) % photos.length); }}
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 flex items-center justify-center transition-colors duration-150 cursor-pointer"
+        aria-label="Next"
+      ><FontAwesomeIcon icon={faCaretRight} className="text-white text-lg" /></button>
+
+      <img
+        ref={imgRef}
+        src={photos[index]}
+        alt={`Photo ${index + 1}`}
+        className="max-h-[90vh] max-w-[90vw] object-contain cursor-default"
+        onClick={e => e.stopPropagation()}
+      />
+
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-1.5">
+        {photos.map((_, i) => (
+          <button
+            key={i}
+            onClick={e => { e.stopPropagation(); setIndex(i); }}
+            className={`w-1.5 h-1.5 rounded-full transition-colors duration-150 ${i === index ? 'bg-white' : 'bg-white/35'}`}
+          />
+        ))}
+      </div>
+    </div>,
+    document.body
+  );
+}
+
 // ── Page ───────────────────────────────────────────────────────────────────────
 function Playground() {
   const [page, setPage] = useState(0);
   const [activeObsession, setActiveObsession] = useState(null);
   const [activeProject,   setActiveProject]   = useState(null);
+  const [photoIndex,      setPhotoIndex]      = useState(null);
 
   const totalPages = Math.ceil(OBSESSIONS.length / ITEMS_PER_PAGE);
   const pageItems  = OBSESSIONS.slice(page * ITEMS_PER_PAGE, (page + 1) * ITEMS_PER_PAGE);
@@ -172,15 +281,20 @@ function Playground() {
   return (
     <div className="playground-container col-span-12">
 
-      {/* Page title + description */}
-      <div className="playground-title-box bg-red text-white px-8 pt-6 pb-8 mb-12">
-        <div className="font-title text-h2 flex items-center gap-3 mb-6">
-          <h1 className="mt-2">PLAYGROUND</h1>
-          <span><FontAwesomeIcon icon={faCaretRight} /></span>
-        </div>
-        <p className="font-body text-white/90 max-w-xl" style={{ fontSize: '20px', lineHeight: 1.7 }}>
-          The wild ideas I come up with standing in line at the boba shop. Experiments, passion projects, and things that exist purely because I wanted to make them.
-        </p>
+      {/* Page title */}
+      <h1 className="font-title uppercase text-red px-4 md:px-8 mt-8 mb-4" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)' }}>Playground</h1>
+
+      {/* Descriptor chips */}
+      <div className="flex flex-wrap gap-2 px-4 md:px-8 mb-12">
+        {['small projects', 'fun ideas', "what's on my mind"].map(chip => (
+          <span key={chip} className="font-body text-[0.85rem] tracking-[0.08em] px-4 py-1.5 border-2 border-red text-red uppercase bg-white">
+            {chip}
+          </span>
+        ))}
+        <span className="basis-full" />
+        <span className="font-body text-[0.85rem] tracking-[0.08em] px-4 py-1.5 border-2 border-red text-red uppercase bg-white">
+          the thought that comes to me standing in line at the boba shop
+        </span>
       </div>
 
       {/* Cool things I'm working on */}
@@ -235,8 +349,28 @@ function Playground() {
         </div>
       </section>
 
+      {/* Photography */}
+      <section className="mb-16 px-4 md:px-8">
+        <div className="flex items-center gap-3 mb-6">
+          <h2 className="font-title text-h4 uppercase tracking-secondary">Photos</h2>
+          <FontAwesomeIcon icon={faCaretRight} className="text-red" />
+        </div>
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
+          {PHOTOS.map((src, i) => (
+            <button
+              key={i}
+              className="group block w-full overflow-hidden cursor-pointer break-inside-avoid relative hover:z-3"
+              onClick={() => setPhotoIndex(i)}
+            >
+              <img src={src} alt={`Photo ${i + 1}`} className="w-full block object-cover transition-transform duration-400 ease-out group-hover:scale-105" />
+            </button>
+          ))}
+        </div>
+      </section>
+
       {activeObsession && <DetailModal   item={activeObsession} onClose={() => setActiveObsession(null)} />}
       {activeProject   && <PassionProjectModal project={activeProject} onClose={() => setActiveProject(null)} />}
+      {photoIndex !== null && <PhotoLightbox photos={PHOTOS} startIndex={photoIndex} onClose={() => setPhotoIndex(null)} />}
 
     </div>
   );
