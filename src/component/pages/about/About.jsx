@@ -203,7 +203,7 @@ function AccordionItem({ label, content, isOpen, onToggle, sectionRef }) {
           </button>
         </div>
       </div>
-      <div ref={bodyRef} className="overflow-hidden">
+      <div ref={bodyRef} className="overflow-clip">
         <div className="pb-8 pt-6">
           {content ?? (
             <div className="grid grid-cols-12">

@@ -1,17 +1,17 @@
-import submarineImage from '../../assets/project-assets/submarine/pool-mockup-opt.jpg';
-import getAGripBanner from '../../assets/project-assets/breast-cancer/main-banner.jpg';
+import submarineImage      from '../../assets/project-assets/submarine/pool-mockup-opt.jpg';
+import getAGripBanner      from '../../assets/project-assets/breast-cancer/main-banner.jpg';
+import spoonfulCover       from '../../assets/project-assets/spoonful-of-love/main-banner-opt.jpg';
+import revolveBanner       from '../../assets/project-assets/revolve/banner.jpg';
 
 // !! update image links
 const vancouverHorrorShowImage = "https://i.postimg.cc/VNCN3yZW/vancouver-horror-show.png";
 const apexMountainBikesVid = "https://www.youtube.com/embed/dO7TxaDxEjk?si=Z77HXMo1kgau1YqQ";
-const trueHorizonsVid = "https://www.youtube.com/embed/EbJEhks53lA?si=RYiRPDSJ0d7MVQMW";
-const mythbustersVid = "https://www.youtube.com/embed/ioG4kkKj6ZM?si=ymFZFlZC33jhShYV";
+const trueHorizonsVid = "https://www.youtube.com/embed/sCuHfxMbAMQ";
+const mythbustersVid = "https://www.youtube.com/embed/YczV6IrrLBs";
 
 
 export const projectsData = [
-    // ── Featured (home page order) ────────────────────────────────────────────
-
-    // 02/25
+    // 1
     {
         id:'apex',
         title:'APEX MOUNTAIN BIKES',
@@ -30,24 +30,7 @@ export const projectsData = [
         role: ['brand development', 'scriptwriter','director', 'music production', 'sound production'],
         featured: true,
     },
-    // 07/25
-    {
-        id:'mythbusters',
-        title:'MYTHBUSTERS',
-        slug:'mythbusters-motion-graphics',
-        type:'vid',
-        media: mythbustersVid,
-        year:'07/25',
-        timeline:'Jun 11 - Jul 5, 2025 (23 hrs)',
-        description:'A Mythbusters explainer style motion graphics video focusing on debunking the biggest personal myth -- "perfectionism',
-        shortDescription: 'Motion graphics debunking the personal myth of perfectionism.',
-        chips: ['motion graphics', 'storytelling', 'sound production'],
-        category:'motion',
-        tools: ['after effects', 'photoshop', 'audition', 'illustrator'],
-        role: ['concept development', 'scriptwriter', 'motion design', 'sound production'],
-        featured: true,
-    },
-    // 03/26
+    // 2
     {
         id:'submarine',
         title:'SUBMARINE CD BOOKLET',
@@ -66,7 +49,58 @@ export const projectsData = [
         role: ['graphic design','layout design'],
         featured: true,
     },
-    // 04/26
+    // 3
+    {
+        id: 'spoonful-of-love',
+        title: 'SPOONFUL OF LOVE',
+        slug: 'spoonful-of-love-brand-redesign',
+        type: 'img',
+        media: spoonfulCover,
+        year: '04/26',
+        timeline: '8 hrs',
+        description: 'A brand redesign for a non-profit providing food, education, and resources to children living in extreme poverty in Lomas de la Primavera, Mexico — reinforcing the organization\'s initiatives through purposeful brand storytelling.',
+        shortDescription: 'Brand redesign for a non-profit serving children in Mexico.',
+        chips: ['graphic design', 'branding', 'identity', 'redesign'],
+        category: 'graphic design',
+        tools: ['illustrator', 'photoshop', 'figma'],
+        role: ['brand strategy', 'brand design', 'graphic design'],
+        featured: true,
+    },
+    // 4
+    {
+        id:'mythbusters',
+        title:'MYTHBUSTERS',
+        slug:'mythbusters-motion-graphics',
+        type:'vid',
+        media: mythbustersVid,
+        year:'07/25',
+        timeline:'Jun 11 - Jul 5, 2025 (23 hrs)',
+        description:'A Mythbusters explainer style motion graphics video focusing on debunking the biggest personal myth -- "perfectionism',
+        shortDescription: 'Motion graphics debunking the personal myth of perfectionism.',
+        chips: ['motion graphics', 'storytelling', 'sound production'],
+        category:'motion',
+        tools: ['after effects', 'photoshop', 'audition', 'illustrator'],
+        role: ['concept development', 'scriptwriter', 'motion design', 'sound production'],
+        featured: true,
+    },
+    // 5
+    {
+        id: 'revolve',
+        title: 'REVOLVE VINYL',
+        slug: 'revolve-vinyl-brand-design',
+        type: 'img',
+        media: revolveBanner,
+        year: '05/26',
+        timeline: 'May 2026',
+        description: 'Concept and brand design for a fictitious vinyl store with a modern, bold style — developed for an online vinyl store app project.',
+        shortDescription: 'Modern, bold brand design for a fictitious online vinyl store.',
+        chips: ['graphic design', 'branding', 'identity', 'concept'],
+        category: 'graphic design',
+        tools: ['illustrator', 'photoshop', 'figma'],
+        role: ['concept development', 'brand design', 'graphic design'],
+        featured: false,
+    },
+    // 6
     {
         id: 'get-a-grip',
         title: '#GETAGRIP Campaign',
@@ -83,12 +117,9 @@ export const projectsData = [
         category: 'graphic design',
         tools: ['photoshop', 'illustrator', 'after effects'],
         role: ['concept development', 'graphic design', 'campaign design'],
-        featured: true,
+        featured: false,
     },
-
-    // ── Not featured ──────────────────────────────────────────────────────────
-
-    // 04/25
+    // 7
     {
         id:'horizons',
         title:'TRUE HORIZONS',
@@ -105,7 +136,7 @@ export const projectsData = [
         role: ['concept development', 'actor', 'director', 'editor', 'sound production'],
         featured: false,
     },
-    // 12/24
+    // 8
     {
         id:'vhs',
         title:'VHS FILM FESTIVAL',

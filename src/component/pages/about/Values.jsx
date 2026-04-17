@@ -67,7 +67,7 @@ function Values() {
     const inner = cardInnerRefs.current[cardIndex];
     if (!inner) return;
     const isFlipped = !!flippedCards[cardIndex];
-    gsap.to(inner, { rotateY: isFlipped ? 0 : 180, duration: 0.55, ease: "power2.inOut" });
+    inner.classList.toggle('flipped', !isFlipped);
     setFlippedCards((prev) => ({ ...prev, [cardIndex]: !prev[cardIndex] }));
   };
 
@@ -97,15 +97,15 @@ function Values() {
             <div
               key={card.title}
               ref={(el) => (cardRefs.current[i] = el)}
-              className={`carousel-item perspective-distant cursor-pointer ${i === currentIndex ? "active" : ""}`}
+              className={`carousel-item cursor-pointer ${i === currentIndex ? "active" : ""}`}
               onClick={() => handleCardClick(i)}
             >
               <div
                 ref={(el) => (cardInnerRefs.current[i] = el)}
-                className="relative w-full transform-3d"
+                className="card-inner relative w-full"
               >
                 {/* Front */}
-                <div className="w-full bg-white p-10 flex flex-col gap-5 border-3 border-black backface-hidden">
+                <div className="card-face card-face--front w-full bg-white p-10 flex flex-col gap-5 border-3 border-black">
                   <h3 className={`${card.titleBg} font-title text-h4 tracking-secondary text-center text-white`}>{card.title}</h3>
                   {card.cardImg && (
                     <div className="h-36 flex items-center justify-center">
@@ -120,21 +120,23 @@ function Values() {
 
                 {/* Back */}
                 <div
-                  className="absolute inset-0 transform-[rotateY(180deg)] overflow-hidden border-3 border-black backface-hidden min-h-full"
+                  className="card-face card-face--back absolute inset-0 border-3 border-black min-h-full"
                   onMouseLeave={() => setShowDesc(prev => ({ ...prev, [i]: false }))}
                 >
-                  <img src={card.imgSrc} alt={card.imgAlt} className="w-full h-full object-cover object-center" />
-                  <div className={`card-desc-overlay${showDesc[i] ? ' visible' : ''}`}>
-                    <p>{card.description}</p>
+                  <div className="absolute inset-0 overflow-hidden">
+                    <img src={card.imgSrc} alt={card.imgAlt} className="w-full h-full object-cover object-center" />
+                    <div className={`card-desc-overlay${showDesc[i] ? ' visible' : ''}`}>
+                      <p>{card.description}</p>
+                    </div>
+                    <button
+                      className="card-desc-btn"
+                      onMouseEnter={() => setShowDesc(prev => ({ ...prev, [i]: true }))}
+                      onClick={(e) => { e.stopPropagation(); setShowDesc(prev => ({ ...prev, [i]: !prev[i] })); }}
+                      aria-label="View description"
+                    >
+                      <FontAwesomeIcon icon={faEye} />
+                    </button>
                   </div>
-                  <button
-                    className="card-desc-btn"
-                    onMouseEnter={() => setShowDesc(prev => ({ ...prev, [i]: true }))}
-                    onClick={(e) => { e.stopPropagation(); setShowDesc(prev => ({ ...prev, [i]: !prev[i] })); }}
-                    aria-label="View description"
-                  >
-                    <FontAwesomeIcon icon={faEye} />
-                  </button>
                 </div>
               </div>
             </div>

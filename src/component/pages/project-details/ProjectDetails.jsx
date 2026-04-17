@@ -175,12 +175,12 @@ function RevealBlock({ project, detail, gallery }) {
 
                 // Timeline scroll budget:
                 //   Hold      overviewHeight — wait until user has scrolled past the overview
-                //   Rise      SLIDE_H × 0.35 — gallery enters from bottom-right
+                //   Rise      SLIDE_H × 0.7  — gallery slowly rises from bottom (delayed feel)
                 //   Sweep     SLIDE_H × 0.65 — gallery sweeps left to full viewport
                 //   Track     d              — horizontal image scroll
                 //   Buffer    SLIDE_H × 2    — sticky holds after animation so
                 //                             scrub:1.5 has time to complete
-                const totalAnim = holdDist + SLIDE_H * 1.0 + d;
+                const totalAnim = holdDist + SLIDE_H * 1.35 + d;
                 wrap.style.height = `${totalAnim + window.innerHeight * 2}px`;
 
                 // Kill any existing triggers so we can recreate cleanly
@@ -199,7 +199,7 @@ function RevealBlock({ project, detail, gallery }) {
 
                 // Phase 1 — gallery rises up into the right 10% of the screen
                 tl.to(inner,
-                    { yPercent: 0, xPercent: 90, ease: 'none', duration: SLIDE_H * 0.35 }
+                    { yPercent: 0, xPercent: 90, ease: 'none', duration: SLIDE_H * 0.7 }
                 );
 
                 // Phase 2 — gallery sweeps left to cover the full viewport
@@ -260,6 +260,10 @@ function RevealBlock({ project, detail, gallery }) {
 
             {/* Gallery sticky shell — never transformed so position:sticky stays intact */}
             <div ref={galleryRef} className="reveal-gallery">
+                {/* Label — sits on the black bg, covered as inner slides in */}
+                <div className="reveal-gallery__label">
+                    <span className="font-title uppercase text-white">Project Media</span>
+                </div>
                 {/* Inner wrapper — this is what slides in from the right */}
                 <div ref={innerRef} className="reveal-gallery__inner">
                     <ProjectGallery gallery={gallery} />

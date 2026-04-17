@@ -98,7 +98,7 @@ function PanelMedia({ section, onPdfOpen }) {
 
     const mediaClass = 'w-full h-auto aspect-[4/3] object-contain object-center block';
     if (isMp4) return <video src={section.image} className={mediaClass} autoPlay loop muted playsInline />;
-    return <img src={section.image} alt={section.title} className={mediaClass} />;
+    return <img src={section.image} alt={section.title} className={mediaClass} loading="lazy" />;
 }
 
 // ── First section — blue bg, image LEFT, multiply ─────────────────────────────
@@ -121,13 +121,15 @@ function FirstSection({ section }) {
                     </div>
                 )}
                 <div className="p-16 flex flex-col justify-center gap-7 max-[900px]:px-8 max-[900px]:py-12">
-                    <span className="block font-title uppercase text-white leading-none tracking-[0.15em] text-[clamp(1.1rem,1.8vw,1.5rem)]">
+                    <span data-aos="fade-up" className="block font-title uppercase text-white leading-none tracking-[0.15em] text-[clamp(1.1rem,1.8vw,1.5rem)]">
                         {section.title}
                     </span>
-                    <BodyText
-                        text={section.body}
-                        className="font-body leading-[1.85] m-0 text-white text-[clamp(1.05rem,1.4vw,1.25rem)] max-w-[60ch] max-[900px]:max-w-full"
-                    />
+                    <div data-aos="fade-up" data-aos-delay="100">
+                        <BodyText
+                            text={section.body}
+                            className="font-body leading-[1.85] m-0 text-white text-[clamp(1.05rem,1.4vw,1.25rem)] max-w-[60ch] max-[900px]:max-w-full"
+                        />
+                    </div>
                 </div>
             </div>
         </section>
@@ -221,13 +223,15 @@ function LastSection({ section }) {
 
                 {/* Left — label + body + mobile keypoints */}
                 <div className="flex flex-col items-center text-center gap-7 lg:items-start lg:text-left">
-                    <span className="block font-title uppercase text-white leading-none tracking-[0.15em] text-[clamp(1.1rem,1.8vw,1.5rem)]">
+                    <span data-aos="fade-up" className="block font-title uppercase text-white leading-none tracking-[0.15em] text-[clamp(1.1rem,1.8vw,1.5rem)]">
                         {section.title}
                     </span>
-                    <BodyText
-                        text={section.body}
-                        className="font-body leading-[1.85] m-0 text-white text-[clamp(1.05rem,1.4vw,1.25rem)] max-w-[60ch] max-[900px]:max-w-full"
-                    />
+                    <div data-aos="fade-up" data-aos-delay="100">
+                        <BodyText
+                            text={section.body}
+                            className="font-body leading-[1.85] m-0 text-white text-[clamp(1.05rem,1.4vw,1.25rem)] max-w-[60ch] max-[900px]:max-w-full"
+                        />
+                    </div>
                     {hasKeypoints && (
                         <div className="flex flex-col gap-3 w-full lg:hidden">
                             {keypoints.map((kp, i) => (
@@ -313,12 +317,7 @@ function ProjectContent({ sections = [] }) {
                     pinSpacing: true,
                     start:      'top top',
                     end:        `+=${scrollDist}`,
-                    scrub:      0.8,
-                    snap: {
-                        snapTo:   1 / (panels - 1),
-                        duration: { min: 0.2, max: 0.5 },
-                        ease:     'power2.inOut',
-                    },
+                    scrub:      1.2,
                     onUpdate: self => {
                         const idx = Math.round(self.progress * (panels - 1));
                         setActiveIdx(prev => prev !== idx ? idx : prev);
@@ -407,10 +406,12 @@ function ProjectContent({ sections = [] }) {
                                     className={`shrink-0 basis-full w-full h-full grid grid-cols-[45fr_55fr] max-lg:h-auto max-[900px]:grid-cols-1 ${i !== activeIdx ? 'max-lg:hidden' : ''}`}
                                 >
                                     <div className="px-16 py-14 flex flex-col justify-center gap-5 lg:pt-8 max-[900px]:px-6 max-[900px]:py-10 max-[900px]:col-span-full">
-                                        <BodyText
-                                            text={sec.body}
-                                            className="font-body text-black leading-[1.85] m-0 text-[clamp(1.05rem,1.4vw,1.25rem)] max-w-[60ch] max-[900px]:max-w-full"
-                                        />
+                                        <div data-aos="fade-up">
+                                            <BodyText
+                                                text={sec.body}
+                                                className="font-body text-black leading-[1.85] m-0 text-[clamp(1.05rem,1.4vw,1.25rem)] max-w-[60ch] max-[900px]:max-w-full"
+                                            />
+                                        </div>
                                     </div>
                                     {sec.image && (
                                         <div className="flex items-center pt-12 pr-16 pb-12 pl-8 max-[900px]:pt-0 max-[900px]:px-6 max-[900px]:pb-8">

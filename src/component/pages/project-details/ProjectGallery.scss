@@ -5,6 +5,7 @@
     background: var(--color-black);
 }
 
+
 // ── Horizontal featured gallery (scroll-driven) ────────────────────────────────
 //
 //  .h-gallery-clip   clips the track's overflow. On desktop this fills the sticky
@@ -24,6 +25,8 @@ $side-pad:   10vw; // breathing room before first / after last item
     display: flex;
     align-items: center;
     background: var(--color-black);
+    position: relative;
+    z-index: 1;
 
     // Mobile: stack vertically, no horizontal scroll
     @media (max-width: 1023px) {
@@ -51,27 +54,36 @@ $side-pad:   10vw; // breathing room before first / after last item
 }
 
 .h-gallery__item {
-    flex: 0 0 $item-w;
-    width: $item-w;
-    aspect-ratio: 16 / 9;
+    flex: 0 0 auto;
+    height: 80vh;
+    width: auto;
     position: relative;
     overflow: hidden;
     cursor: zoom-in;
     background: #111;
+    display: flex;
+    align-items: center;
 
     // Mobile: full width, natural stacking
     @media (max-width: 1023px) {
         flex: none;
+        height: auto;
         width: 100%;
     }
 }
 
 .h-gallery__img {
-    width: 100%;
     height: 100%;
-    object-fit: cover;
+    width: auto;
+    object-fit: contain;
     display: block;
     pointer-events: none;
+
+    @media (max-width: 1023px) {
+        height: auto;
+        width: 100%;
+        object-fit: contain;
+    }
 }
 
 .h-gallery__caption {

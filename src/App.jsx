@@ -3,6 +3,8 @@ import { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import gsap from 'gsap';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 // importing global components
 import Footer from './component/global/Footer';
@@ -22,6 +24,7 @@ function Content() {
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
+    AOS.refresh();
   }, [location.pathname]);
   return (
     <Routes location={location} key={location.pathname}>
@@ -53,6 +56,15 @@ function GridBg() {
 }
 
 function App() {
+  useEffect(() => {
+    AOS.init({
+      duration: 600,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 60,
+    });
+  }, []);
+
   return (
     <ContactModalProvider>
       <Router>
