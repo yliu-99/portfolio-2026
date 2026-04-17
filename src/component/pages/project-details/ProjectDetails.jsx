@@ -180,7 +180,7 @@ function RevealBlock({ project, detail, gallery }) {
                 //   Track     d              — horizontal image scroll
                 //   Buffer    SLIDE_H × 2    — sticky holds after animation so
                 //                             scrub:1.5 has time to complete
-                const totalAnim = holdDist + SLIDE_H * 1.35 + d;
+                const totalAnim = holdDist + SLIDE_H * 0.7 + d;
                 wrap.style.height = `${totalAnim + window.innerHeight * 2}px`;
 
                 // Kill any existing triggers so we can recreate cleanly
@@ -199,7 +199,7 @@ function RevealBlock({ project, detail, gallery }) {
 
                 // Phase 1 — gallery rises up into the right 10% of the screen
                 tl.to(inner,
-                    { yPercent: 0, xPercent: 90, ease: 'none', duration: SLIDE_H * 0.7 }
+                    { yPercent: 0, xPercent: 90, ease: 'none', duration: SLIDE_H * 0.35 }
                 );
 
                 // Phase 2 — gallery sweeps left to cover the full viewport

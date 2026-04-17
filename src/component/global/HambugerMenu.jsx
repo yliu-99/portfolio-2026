@@ -62,7 +62,7 @@ function HamburgerMenu() {
       if (progressRef.current) {
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         const progress  = docHeight > 0 ? currentScrollY / docHeight : 0;
-        progressRef.current.style.width = `${progress * 100}%`;
+        gsap.to(progressRef.current, { width: `${progress * 100}%`, duration: 0.3, ease: 'power2.out', overwrite: true });
       }
 
       // Hide bar on scroll down, reveal on scroll up

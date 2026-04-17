@@ -175,7 +175,7 @@ $nav-h: 4.5rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: var(--text-h2);
+    font-size: clamp(1.8rem, 3.5vw, var(--text-h2));
     letter-spacing: 0.1em;
     pointer-events: none;
     white-space: nowrap;

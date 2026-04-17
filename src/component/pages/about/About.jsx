@@ -12,6 +12,7 @@ import AboutMe from "./AboutMe";
 import { ToolsMarquee } from "./WhatIDo";
 import GetInTouch from "./GetInTouch";
 import "./About.scss";
+import SEO from "../../SEO/SEO";
 
 import heroImg       from "../../../assets/page-assets/about/about-me.jpg";
 import catMomImg    from "../../../assets/page-assets/about/polaroid/vesper-and-me.jpeg";
@@ -256,6 +257,12 @@ function ContentSection() {
 function About() {
   return (
     <div className="about col-span-12 px-0">
+      <SEO
+        title="About | Yuhan Liu | Multidisciplinary Designer in Vancouver"
+        description="Learn about Yuhan Liu, a Vancouver-based multidisciplinary designer and BCIT New Media student with a passion for brand storytelling, motion, and visual design."
+        canonicalUrl="/about"
+        keywords="about yuhan liu, bcit new media student, vancouver designer, multidisciplinary designer"
+      />
       <IntroSection />
       <div className="mt-12 grid grid-cols-12">
         <div className="col-span-12 lg:col-start-2 lg:col-span-10">

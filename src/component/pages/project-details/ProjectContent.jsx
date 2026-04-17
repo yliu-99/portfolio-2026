@@ -307,8 +307,10 @@ function ProjectContent({ sections = [] }) {
                 if (stRef.current) { stRef.current.kill(); stRef.current = null; }
 
                 const scrollDist = section.offsetWidth * (panels - 1);
+                const holdDist   = window.innerHeight * 0.4;
                 const tl = gsap.timeline();
-                tl.to(track, { x: -scrollDist, ease: 'none' });
+                tl.to(track, { x: 0, ease: 'none', duration: holdDist });
+                tl.to(track, { x: -scrollDist, ease: 'none', duration: scrollDist });
 
                 stRef.current = ScrollTrigger.create({
                     animation:  tl,
@@ -316,7 +318,7 @@ function ProjectContent({ sections = [] }) {
                     pin:        true,
                     pinSpacing: true,
                     start:      'top top',
-                    end:        `+=${scrollDist}`,
+                    end:        `+=${scrollDist + holdDist}`,
                     scrub:      1.2,
                     onUpdate: self => {
                         const idx = Math.round(self.progress * (panels - 1));

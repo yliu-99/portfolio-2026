@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { projectsData } from '../../../data/projects-data/projectData';
 import ProjectGrid from './ProjectGrid';
+import SEO from '../../SEO/SEO';
 import './Projects.scss';
 
 const FILTERS = [
@@ -22,6 +23,12 @@ function Projects() {
 
   return (
     <div className="projects-container col-span-12">
+      <SEO
+        title="Projects | Yuhan Liu | Multidisciplinary Designer in Vancouver"
+        description="Browse Yuhan Liu's creative projects spanning graphic design, branding, motion graphics, and video production."
+        canonicalUrl="/projects"
+        keywords="graphic design projects, branding, motion graphics, video production, yuhan liu portfolio"
+      />
 
       {/* Page title */}
       <h1 className="font-title uppercase text-blue px-4 md:px-8 mt-8 mb-12" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)' }}>My Projects</h1>

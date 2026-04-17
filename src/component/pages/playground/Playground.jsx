@@ -7,6 +7,7 @@ import { OBSESSIONS } from '../../../data/component-data/obsessionsData';
 import { PASSION_PROJECTS } from '../../../data/passionProjectsData';
 import { DetailModal } from '../home/home-menu-components/Obsessions';
 import './Playground.scss';
+import SEO from '../../SEO/SEO';
 
 import enqiBrother   from '../../../assets/page-assets/about/polaroid/enqi-my-brother.jpeg';
 import cedarWaxwing  from '../../../assets/playground-assets/photos/cedar-waxwing.jpeg';
@@ -290,6 +291,12 @@ function Playground() {
 
   return (
     <div className="playground-container col-span-12">
+      <SEO
+        title="Playground | Yuhan Liu | Multidisciplinary Designer in Vancouver"
+        description="Yuhan Liu's creative playground — obsessions, passion projects, photography, and personal work outside the portfolio."
+        canonicalUrl="/playground"
+        keywords="creative playground, passion projects, photography, personal work, yuhan liu"
+      />
 
       {/* Page title */}
       <h1 className="font-title uppercase text-red mt-8 mb-2" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)' }}>Playground</h1>

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import HomeHero from './HomeHero';
+import SEO from '../../SEO/SEO';
 
 // FeaturedProjects is below the fold — code-split so it doesn't block the hero
 const FeaturedProjects = lazy(() => import('./FeaturedProjects'));
@@ -18,6 +19,10 @@ function FeaturedProjectsSkeleton() {
 function Home() {
   return (
     <div className="home col-span-12">
+      <SEO
+        title="Yuhan Liu | Multidisciplinary Designer in Vancouver"
+        canonicalUrl="/"
+      />
       <HomeHero />
       <Suspense fallback={<FeaturedProjectsSkeleton />}>
         <FeaturedProjects />

@@ -64,7 +64,7 @@ export const projectsData = [
         category: 'graphic design',
         tools: ['illustrator', 'photoshop', 'figma'],
         role: ['brand strategy', 'brand design', 'graphic design'],
-        featured: true,
+        featured: false,
     },
     // 4
     {
