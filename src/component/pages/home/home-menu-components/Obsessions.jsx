@@ -2,16 +2,21 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpRightFromSquare } from '../../../../data/icons';
+import { faUpRightFromSquare, faCaretLeft, faCaretRight } from '../../../../data/icons';
 import MenuTemplate from './MenuTemplate';
 import { OBSESSIONS } from '../../../../data/component-data/obsessionsData';
 
 
 // ── Detail modal ──────────────────────────────────────────────────────────────
 
-function DetailModal({ item, onClose }) {
+export function DetailModal({ item, onClose }) {
     const overlayRef = useRef(null);
     const cardRef    = useRef(null);
+
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = ''; };
+    }, []);
 
     useEffect(() => {
         gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'power2.out' });
@@ -114,11 +119,10 @@ function Obsessions({ isOpen, onToggle, className }) {
                         onClick={() => setActive(item)}
                         aria-label={`Learn more about ${item.title}`}
                     >
-                        {item.title}
+                        <span className="underline underline-offset-4">{item.title}</span>
                         {item.nativeTitle && (
                             <span className="font-cjk tracking-normal">{item.nativeTitle}</span>
                         )}
-                        <FontAwesomeIcon icon={faUpRightFromSquare} className="text-[0.65rem] opacity-60 shrink-0" />
                     </button>
 
                     {/* Category */}
@@ -133,16 +137,32 @@ function Obsessions({ isOpen, onToggle, className }) {
                     </div>
                 </div>
 
-                {/* Pagination dots */}
-                <div className="flex items-center gap-2 mt-1">
-                    {OBSESSIONS.map((_, i) => (
-                        <button
-                            key={i}
-                            onClick={() => { setIndex(i); setPaused(false); }}
-                            aria-label={`Go to obsession ${i + 1}`}
-                            className={`w-2 h-2 rounded-full transition-colors duration-150 ${i === index ? 'bg-black' : 'bg-black/25'}`}
-                        />
-                    ))}
+                {/* Arrows + dots */}
+                <div className="w-full flex items-center justify-between mt-1">
+                    <button
+                        onClick={() => { setIndex(i => (i - 1 + OBSESSIONS.length) % OBSESSIONS.length); setPaused(false); }}
+                        aria-label="Previous obsession"
+                        className="text-black/40 cursor-pointer"
+                    >
+                        <FontAwesomeIcon icon={faCaretLeft} className="bounce-x-reverse text-[1rem]" />
+                    </button>
+                    <div className="flex items-center gap-2">
+                        {OBSESSIONS.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => { setIndex(i); setPaused(false); }}
+                                aria-label={`Go to obsession ${i + 1}`}
+                                className={`w-2 h-2 rounded-full transition-colors duration-150 ${i === index ? 'bg-black' : 'bg-black/25'}`}
+                            />
+                        ))}
+                    </div>
+                    <button
+                        onClick={() => { setIndex(i => (i + 1) % OBSESSIONS.length); setPaused(false); }}
+                        aria-label="Next obsession"
+                        className="text-black/40 cursor-pointer"
+                    >
+                        <FontAwesomeIcon icon={faCaretRight} className="bounce-x text-[1rem]" />
+                    </button>
                 </div>
             </div>
 

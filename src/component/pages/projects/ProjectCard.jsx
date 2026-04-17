@@ -63,7 +63,7 @@ function ProjectsCard({ project }) {
       to={`/projects/${project.slug}`}
       className={`project-card block aspect-video no-underline text-black border-2 border-black overflow-hidden shadow-[3px_7px_6.5px_rgba(0,0,0,0.25)]${isVideo ? ' is-video' : ''}${hoverReady ? ' hover-video-ready' : ''}`}
     >
-      <div className="card-media relative w-full h-full overflow-hidden bg-beige">
+      <div className="card-media relative w-full h-full overflow-hidden bg-black">
 
         {/* vid-type: thumbnail sits above iframe until video starts playing */}
         {videoId && mediaSrc && (
@@ -102,8 +102,8 @@ function ProjectsCard({ project }) {
         )}
 
         {/* Overlay — chips top, title + description bottom */}
-        <div className="absolute inset-0 flex flex-col justify-between p-3 pointer-events-none">
-          <div className="flex flex-wrap gap-1">
+        <div className="absolute inset-0 flex flex-col justify-end md:justify-between p-4 pointer-events-none z-2">
+          <div className="hidden md:flex flex-wrap gap-1">
             {Array.isArray(project.chips) && project.chips.map(chip => (
               <span key={chip} className="font-body text-[0.75rem] py-[0.15rem] px-2 border border-white/60 text-white leading-[1.4]">{chip}</span>
             ))}

@@ -15,6 +15,32 @@
     }
 }
 
+// ── card flip — explicit 3D styles for Firefox compatibility ─────────────────
+
+.carousel-item {
+    perspective: 1200px;
+}
+
+.card-inner {
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.55s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+
+    &.flipped {
+        transform: rotateY(180deg);
+    }
+}
+
+.card-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.card-face--back {
+    transform: rotateY(180deg);
+}
+
 // ── card back description overlay ────────────────────────────────────────────
 
 .card-desc-overlay {

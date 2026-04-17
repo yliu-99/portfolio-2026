@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
 import MenuTemplate from './MenuTemplate';
 import { energyLines } from '../../../../data/component-data/energyData';
+import { useMenuOpen } from '../../../../context/MenuOpenContext';
 
 const curve = [
   80,  // 0
@@ -31,10 +33,30 @@ const curve = [
 
 const BAR_COUNT = 5;
 
-function Energy({ isOpen, onToggle, className }) {
+function Energy({ isOpen: controlledOpen, onToggle, className }) {
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isControlled = controlledOpen !== undefined;
+  const isOpen = isControlled ? controlledOpen : internalOpen;
+  const { register } = useMenuOpen() ?? {};
+
+  const handleToggle = () => {
+    if (isControlled) {
+      onToggle?.();
+    } else {
+      // Uncontrolled (desktop) — manage state and register with context
+      // so the greyscale/pause effects still fire
+      const next = !internalOpen;
+      setInternalOpen(next);
+      register?.(next);
+    }
+  };
+
   const [clock, setClock] = useState('');
   const [energyLevel, setEnergyLevel] = useState(0);
   const [energyLine, setEnergyLine] = useState('');
+  const barFillRefs = useRef([]);
+  const percentRef = useRef(null);
+  const counterObj = useRef({ val: 0 });
 
   // live clock
   useEffect(() => {
@@ -74,20 +96,56 @@ function Energy({ isOpen, onToggle, className }) {
 
   const filledBars = Math.round((energyLevel / 100) * BAR_COUNT);
 
+  // Fade bars up + count percentage when menu opens, reset when closed
+  useEffect(() => {
+    const bars = barFillRefs.current.filter(Boolean);
+    if (isOpen) {
+      // bars
+      gsap.set(bars, { opacity: 0, y: 6 });
+      gsap.to(bars, { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out', stagger: 0.08, delay: 0.2 });
+      // percentage counter
+      counterObj.current.val = 0;
+      gsap.to(counterObj.current, {
+        val: energyLevel,
+        duration: 0.8,
+        ease: 'power2.out',
+        delay: 0.2,
+        onUpdate: () => {
+          if (percentRef.current)
+            percentRef.current.textContent = `${Math.round(counterObj.current.val)}%`;
+        },
+      });
+    } else {
+      gsap.to(bars, { opacity: 0, y: 6, duration: 0.2, ease: 'power2.in', delay: 0.5 });
+      gsap.to(counterObj.current, {
+        val: 0,
+        duration: 0.3,
+        ease: 'power2.in',
+        delay: 0.5,
+        onUpdate: () => {
+          if (percentRef.current)
+            percentRef.current.textContent = `${Math.round(counterObj.current.val)}%`;
+        },
+      });
+    }
+  }, [isOpen, energyLevel]);
+
   return (
-    <MenuTemplate title="Energy Meter" isOpen={isOpen} onToggle={onToggle} className={className}>
+    <MenuTemplate title="Energy Meter" isOpen={isOpen} onToggle={handleToggle} className={className}>
       <div className="text-red text-lg tracking-[0.1em] text-center">{clock}</div>
-      <div className="text-h1 text-red leading-none">{energyLevel}%</div>
+      <div ref={percentRef} className="text-h1 text-red leading-none">0%</div>
       <div className="flex gap-[0.3rem]">
         {Array.from({ length: BAR_COUNT }).map((_, i) => (
           <span
             key={i}
+            ref={el => barFillRefs.current[i] = el}
             className={`block w-7 h-2.5 ${i < filledBars ? 'bg-blue' : 'bg-black/15'}`}
+            style={{ opacity: 0 }}
           />
         ))}
       </div>
       <div className="flex flex-col items-center w-full text-[0.85rem] tracking-[0.1em] leading-relaxed opacity-80 text-center shrink overflow-hidden">
-        <span>MY MOOD:</span>
+        <span>YUHAN'S MOOD RN:</span>
         <span>{energyLine}</span>
       </div>
     </MenuTemplate>

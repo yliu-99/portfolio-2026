@@ -23,12 +23,12 @@ export const vhsFilmFestivalDetail = {
 
   gallery: [
     { src: website,     caption: "Website Redesign",   featured: true },
-    { src: poster,      caption: "Event Poster",       featured: true },
-    { src: ticket,      caption: "Event Ticket",       featured: true },
-    { src: longSleeve,  caption: "Merch — Long Sleeve" },
-    { src: shortSleeve, caption: "Merch — Short Sleeve" },
+    { src: poster,      caption: "Event Poster",        },
+    { src: ticket,      caption: "Event Ticket",        },
+    { src: longSleeve,  caption: "Merch — Long Sleeve ", featured: true },
+    { src: shortSleeve, caption: "Merch — Short Sleeve", featured: true },
     { src: tote,        caption: "Merch — Tote Bag" },
-    { src: logo,        caption: "New Logo" },
+    { src: logo,        caption: "New Logo", featured: true },
     { src: colors,      caption: "Color Palette" },
     { src: typography,  caption: "Typography" },
     { src: webPromo,    caption: "Web Promo" },

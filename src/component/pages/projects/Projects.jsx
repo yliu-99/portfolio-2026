@@ -1,9 +1,8 @@
 import { useState } from 'react';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretRight } from '../../../data/icons';
 import { projectsData } from '../../../data/projects-data/projectData';
 import ProjectGrid from './ProjectGrid';
+import SEO from '../../SEO/SEO';
 import './Projects.scss';
 
 const FILTERS = [
@@ -24,12 +23,15 @@ function Projects() {
 
   return (
     <div className="projects-container col-span-12">
+      <SEO
+        title="Projects | Yuhan Liu | Multidisciplinary Designer in Vancouver"
+        description="Browse Yuhan Liu's creative projects spanning graphic design, branding, motion graphics, and video production."
+        canonicalUrl="/projects"
+        keywords="graphic design projects, branding, motion graphics, video production, yuhan liu portfolio"
+      />
 
-      {/* Page title — styled like the About Me section heading */}
-      <div className="projects-title-box font-title text-h2 flex items-center gap-3 bg-blue text-white mix-blend-multiply pl-6 pr-6 mb-12">
-        <h1 className="mt-2">MY PROJECTS</h1>
-        <span><FontAwesomeIcon icon={faCaretRight} /></span>
-      </div>
+      {/* Page title */}
+      <h1 className="font-title uppercase text-blue px-4 md:px-8 mt-8 mb-12" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)' }}>My Projects</h1>
 
       {/* Filter bar */}
       <div className="filter-bar">

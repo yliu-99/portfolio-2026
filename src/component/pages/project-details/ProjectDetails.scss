@@ -165,6 +165,25 @@ $nav-h: 4.5rem;
     }
 }
 
+// ── Gallery label — sits on the black bg, sibling of inner (covered as it slides in)
+
+.reveal-gallery__label {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: clamp(1.8rem, 3.5vw, var(--text-h2));
+    letter-spacing: 0.1em;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 0;
+
+    @media (max-width: 1023px) { display: none; }
+}
+
 // ── Gallery inner — GSAP slides this element in from the right
 
 .reveal-gallery__inner {

@@ -3,49 +3,34 @@
     padding: 4rem 0;
 }
 
-// ── Filter bar — slash-separated like MyTools category nav ─────────────────
+// ── Filter bar ─────────────────────────────────────────────────────────────
 .filter-bar {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-start;
+    gap: 0.5rem;
     margin-bottom: 3rem;
+    padding: 0 2rem;
 }
 
 .filter-btn {
     font-family: var(--body);
-    
     font-weight: 600;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--black);
-    opacity: 0.45;
+    letter-spacing: 0.08em;
+    color: var(--blue);
     background: none;
-    border: none;
+    border: 2px solid var(--blue);
     cursor: pointer;
-    padding: 0;
-    transition: color 0.25s ease, opacity 0.25s ease;
+    padding: 0.3rem 1rem;
+    transition: background 0.2s ease, color 0.2s ease;
 
-    @media (min-width:1024px) {
-        font-size: var(--font-size-h6);
-    }
-
-    &:not(:first-child)::before {
-        content: '/';
-        margin: 0 1.25rem;
-        font-weight: 300;
-        opacity: 0.35;
-        color: var(--black);
-        pointer-events: none;
-    }
-
-    &.active {
-        color: var(--red);
-        opacity: 1;
-    }
-
+    &.active,
     &:hover {
-        opacity: 1;
+        background: var(--blue);
+        color: white;
     }
 }
 

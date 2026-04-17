@@ -1,6 +1,6 @@
 import poolMockup from "../../../assets/project-assets/submarine/pool-mockup-opt.jpg";
 import cdFrontBack from "../../../assets/project-assets/submarine/CD-front-and-back.jpg";
-import bookletMockup from "../../../assets/project-assets/submarine/booklet-mockup-opt.jpg";
+import bookletMockup from "../../../assets/project-assets/submarine/booklet-mockup-tall.jpg";
 import styleguide from "../../../assets/project-assets/submarine/styleguide.jpg";
 import moodboard from "../../../assets/project-assets/submarine/Moodboard.jpg";
 import research from "../../../assets/project-assets/submarine/research.jpg";

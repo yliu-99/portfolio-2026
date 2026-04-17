@@ -3,6 +3,8 @@ import { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import gsap from 'gsap';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 // importing global components
 import Footer from './component/global/Footer';
@@ -22,6 +24,7 @@ function Content() {
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
+    AOS.refresh();
   }, [location.pathname]);
   return (
     <Routes location={location} key={location.pathname}>
@@ -34,8 +37,10 @@ function Content() {
   );
 }
 
-function App() {
+function GridBg() {
   const gridRef = useRef(null);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const tween = gsap.to(gridRef.current, {
@@ -47,13 +52,26 @@ function App() {
     return () => tween.kill();
   }, []);
 
+  return <div ref={gridRef} className={`grid-bg transition-opacity duration-500 ${isHome ? 'opacity-100' : 'opacity-30'}`} />;
+}
+
+function App() {
+  useEffect(() => {
+    AOS.init({
+      duration: 600,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 60,
+    });
+  }, []);
+
   return (
     <ContactModalProvider>
       <Router>
         <div className="app flex flex-col min-h-screen">
           <div className="nav-wrapper fixed top-0 inset-x-0 z-40"><HamburgerMenu /></div>
           <main className='main-content grid grid-cols-12 gap-4 px-4 md:px-5 lg:px-16 pt-23'>
-            <div ref={gridRef} className="grid-bg" />
+            <GridBg />
             <Content/>
           </main>
           <Footer />

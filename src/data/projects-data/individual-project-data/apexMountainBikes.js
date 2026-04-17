@@ -52,7 +52,6 @@ export const apexMountainBikesDetail = {
             keypoints: [
                 'Mic placement matters! Always plan ahead.',
                 'Sell the feeling, not the product',
-                'A person’s experience with the product can be more convincing than what the product does',
             ],
         },
     ],

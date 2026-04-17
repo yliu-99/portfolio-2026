@@ -29,6 +29,19 @@
     height: 5.5rem;
 }
 
+// Blur page content behind the menu on desktop
+@media (min-width: 1024px) {
+    main,
+    footer {
+        transition: filter 0.35s ease;
+    }
+
+    body.menu-is-open main,
+    body.menu-is-open footer {
+        filter: blur(6px);
+    }
+}
+
 // Hamburger open button — red square matching scroll-widget button size
 .hamburger-btn {
     display: flex;
@@ -37,9 +50,9 @@
     width: 3rem;
     height: 3rem;
     flex-shrink: 0;
-    background: var(--red);
+    background: var(--white);
     border: 2px solid var(--black);
-    color: var(--white);
+    color: var(--red);
     font-size: 1rem;
     cursor: pointer;
 

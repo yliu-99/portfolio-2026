@@ -26,6 +26,11 @@ function Lightbox({ gallery, activeIdx, onClose, onNavigate }) {
     const mediaRef   = useRef(null);
 
     useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = ''; };
+    }, []);
+
+    useEffect(() => {
         gsap.fromTo(overlayRef.current,
             { opacity: 0 },
             { opacity: 1, duration: 0.2, ease: 'power2.out' }
@@ -128,7 +133,7 @@ function HorizontalGallery({ items, onOpen }) {
                             className="h-gallery__item"
                             onClick={() => onOpen(i)}
                         >
-                            <img src={src} alt={item.caption ?? ''} className="h-gallery__img" />
+                            <img src={src} alt={item.caption ?? ''} className="h-gallery__img" loading="lazy" />
                             {videoId && (
                                 <div className="h-gallery__play">
                                     <Icon icon="fa-solid:play" />

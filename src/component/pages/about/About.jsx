@@ -1,41 +1,82 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
-import { Icon } from "@iconify/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot, faSquarePlus, faSquareMinus } from "../../../data/icons";
+import { faLocationDot, faSquarePlus, faSquareMinus, faCaretDown } from "../../../data/icons";
 
-import { toolIcons } from "../../../data/icons";
 import cvPdf from "../../../assets/page-assets/about/yuhan-liu-master-cv.pdf";
-import dragonflyRed  from "../../../assets/global-assets/dragonfly-red.png";
 import Values from "./Values";
 import AIAndDesign from "./AIAndDesign";
 import AboutMe from "./AboutMe";
+import { ToolsMarquee } from "./WhatIDo";
 import GetInTouch from "./GetInTouch";
 import "./About.scss";
+import SEO from "../../SEO/SEO";
 
-import heroImg from "../../../assets/page-assets/about/about-me.jpg";
+import heroImg       from "../../../assets/page-assets/about/about-me.jpg";
+import catMomImg    from "../../../assets/page-assets/about/polaroid/vesper-and-me.jpeg";
+import vesperImg    from "../../../assets/page-assets/about/polaroid/vesper.jpeg";
+import vesperAndMe2 from "../../../assets/page-assets/about/polaroid/vesper-and-me-2.jpeg";
 
-// ── All tools flattened for the marquee ────────────────────────────────────
-const allTools = toolIcons.flatMap(g => g.tools);
+// ── Vesper popup easter egg ────────────────────────────────────────────────
+const VESPER_IMGS = [vesperImg, vesperAndMe2];
+
+function VesperPopups() {
+  const refs = [useRef(null), useRef(null)];
+  const positions = useRef([
+    { top: `${10 + Math.random() * 25}%`, left: `${58 + Math.random() * 20}%`, rotation: -6 + Math.random() * 4 },
+    { top: `${55 + Math.random() * 20}%`, left: `${5  + Math.random() * 18}%`, rotation:  4 + Math.random() * 4 },
+  ]);
+
+  useEffect(() => {
+    const els = refs.map(r => r.current).filter(Boolean);
+    gsap.fromTo(els,
+      { scale: 0, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.4, stagger: 0.15, ease: 'back.out(1.7)' }
+    );
+    const timer = setTimeout(() => {
+      gsap.to(els, { scale: 0, opacity: 0, duration: 0.3, stagger: 0.1, ease: 'back.in(1.4)' });
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return createPortal(
+    <>
+      {VESPER_IMGS.map((src, i) => (
+        <div
+          key={i}
+          ref={refs[i]}
+          className="fixed z-500 pointer-events-none w-36 md:w-44 shadow-[4px_8px_20px_rgba(0,0,0,0.35)]"
+          style={{
+            top: positions.current[i].top,
+            left: positions.current[i].left,
+            transform: `rotate(${positions.current[i].rotation}deg)`,
+          }}
+        >
+          <img src={src} alt={`Vesper ${i + 1}`} className="w-full block border-4 border-white" />
+        </div>
+      ))}
+    </>,
+    document.body
+  );
+}
 
 // ── Section 1 + 2: Intro ──────────────────────────────────────────────────
 const TITLES = [
   "Multidisciplinary Designer",
-  "Tech Enthusiast",
+  "Storyteller",
   "Singer / Musician",
   "Cat Mom",
   "Movie Lover",
-  "Gamer",
+  "Late-Night Gamer",
+  "Instant Ramen Chef",
   "Cinnamoroll Collector",
   "Matcha Addict",
-  "Gen-Z",
+  "Horror Enthusiast",
   "Campfire Guitarist",
 ];
 
-const FEEL_WORDS = [
-  "feel", "dream", "inspired", "connect", "motivated", "hope", "move", "remember", "wonder", "empathize", "create", "belong","crave", "laugh", "think", "grow", "explore", "believe", "care", "share", "play",
-];
 
 function IntroSection() {
   const hiRef = useRef(null);
@@ -53,20 +94,8 @@ function IntroSection() {
   }, []);
 
   const [titleIdx, setTitleIdx] = useState(0);
+  const isCatMom = TITLES[titleIdx] === 'Cat Mom';
   const timerRef = useRef(null);
-
-  const [feelIdx, setFeelIdx] = useState(0);
-  const feelIntervalRef = useRef(null);
-  const isPausedRef = useRef(false);
-
-  useEffect(() => {
-    feelIntervalRef.current = setInterval(() => {
-      if (!isPausedRef.current) {
-        setFeelIdx(prev => (prev + 1) % FEEL_WORDS.length);
-      }
-    }, 400);
-    return () => clearInterval(feelIntervalRef.current);
-  }, []);
 
   const handleTitleClick = () => {
     setTitleIdx(prev => (prev + 1) % TITLES.length);
@@ -78,21 +107,16 @@ function IntroSection() {
 
   return (
     <section className="relative grid grid-cols-12 gap-4 items-center pb-16 overflow-visible">
-      {/* Red dragonfly — background, right edge */}
-      <img
-        src={dragonflyRed}
-        alt=""
-        aria-hidden="true"
-        className="absolute top-1/2 -right-4 md:-right-5 lg:-right-16 w-156 md:w-3xl translate-x-1/2 -translate-y-1/2 pointer-events-none select-none mix-blend-multiply z-0"
-      />
-
-      {/* Photo — cols 1–5 */}
-      <div className="col-span-12 md:col-span-5 flex justify-start overflow-hidden md:pr-8 relative z-1">
-        <img src={heroImg} alt="Yuhan Liu" className="w-full h-[70vh] object-cover border-2 border-black" />
+      {/* Photo — cols 2–5 */}
+      <div className="col-span-12 md:col-start-2 md:col-span-4 flex justify-start overflow-hidden md:pr-8 relative z-1">
+        <div className="relative w-full h-[70vh] border-2 border-black overflow-hidden">
+          <img src={heroImg}   alt="Yuhan Liu" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isCatMom ? 'opacity-0' : 'opacity-100'}`} />
+          <img src={catMomImg} alt="Vesper and me" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isCatMom ? 'opacity-100' : 'opacity-0'}`} />
+        </div>
       </div>
 
-      {/* Text + buttons — cols 6–12 */}
-      <div className="col-span-12 md:col-start-6 md:col-span-7 flex flex-col gap-8 relative z-1 text-center md:text-left">
+      {/* Text + buttons — cols 6–11 */}
+      <div className="col-span-12 md:col-start-6 md:col-span-6 md:pl-8 flex flex-col gap-8 relative z-1 text-center md:text-left">
         <h1 className="font-title tracking-primary text-black" style={{ fontSize: "clamp(2rem, 5vw, 4.209rem)" }}>
           <span ref={hiRef} className="inline-block" style={{ transformOrigin: "bottom left" }}>Hi,</span>
           {" "}I'm Yuhan!
@@ -108,16 +132,8 @@ function IntroSection() {
           </span>
           <br />based in <FontAwesomeIcon icon={faLocationDot} /> Vancouver.
         </p>
-        <p className="font-body text-black/70 font-semibold" style={{ fontSize: "clamp(1rem, 1.5vw, 1.333rem)" }}>
-          I make designs that tell <span className="text-blue">stories</span>.<br />
-          Stories that make people{" "}
-          <span
-            className="text-red inline-block"
-            onMouseEnter={() => { isPausedRef.current = true; }}
-            onMouseLeave={() => { isPausedRef.current = false; }}
-          >
-            {FEEL_WORDS[feelIdx]}
-          </span>.
+        <p className="font-body text-black/70 font-semibold" style={{ fontSize: "clamp(1.1rem, 2vw, 1.777rem)" }}>
+          I create graphic, motion, and sound work that facilitate a connection between people and what they care about.
         </p>
         <div className="flex gap-3 mt-2 justify-center md:justify-start">
           <Link
@@ -138,58 +154,30 @@ function IntroSection() {
           </a>
         </div>
         <p className="font-body text-black/70 italic font-semibold mt-8" style={{ fontSize: "clamp(0.8rem, 1vw, 1.1rem)" }}>I hope getting to know me is a fun experience.</p>
+        <div className="flex justify-center md:justify-start mt-4">
+          <FontAwesomeIcon icon={faCaretDown} className="text-black/30 caret-bounce text-2xl" />
+        </div>
       </div>
+
+      {isCatMom && <VesperPopups />}
     </section>
   );
 }
 
-// ── Section 3: Tools marquee ───────────────────────────────────────────────
-const imgSrcs = allTools.filter(t => t.imgSrc).map(t => t.imgSrc);
-
-function ToolsMarquee() {
-  const [ready, setReady] = useState(imgSrcs.length === 0);
-
-  useEffect(() => {
-    if (imgSrcs.length === 0) return;
-    let loaded = 0;
-    imgSrcs.forEach(src => {
-      const img = new Image();
-      img.onload = img.onerror = () => {
-        if (++loaded === imgSrcs.length) setReady(true);
-      };
-      img.src = src;
-    });
-  }, []);
-
-  // Triple items so the seam never shows during the loop
-  const items = [...allTools, ...allTools, ...allTools];
-
-  return (
-    <div className="tools-marquee py-8 overflow-hidden">
-      <div className={`tools-marquee__track flex gap-8${ready ? '' : ' paused'}`}>
-        {items.map((tool, i) => (
-          <div key={i} className="tools-marquee__item shrink-0 flex items-center justify-center w-8 h-8 text-black/70">
-            {tool.imgSrc
-              ? <img src={tool.imgSrc} alt={tool.name} className="w-8 h-8 object-contain" />
-              : <Icon icon={tool.icon} width={32} height={32} />
-            }
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ── Section 4: Accordion sections ─────────────────────────────────────────
+// ── Section 3: Accordion sections ─────────────────────────────────────────
 const SECTIONS = [
-  { id: "read-the-lore",  label: "Read the Lore",     content: <AboutMe /> },
   { id: "deck-of-values", label: "My Deck of Values", content: <Values /> },
+  { id: "read-the-lore",  label: "Read the Lore",     content: <AboutMe /> },
   { id: "ai-and-design",  label: "AI + Design",       content: <AIAndDesign /> },
   { id: "get-in-touch",   label: "Get in Touch",       content: <GetInTouch /> },
 ];
 
-function AccordionItem({ label, content, isOpen, onToggle }) {
+function AccordionItem({ label, content, isOpen, onToggle, sectionRef }) {
   const bodyRef = useRef(null);
+
+  useEffect(() => {
+    gsap.set(bodyRef.current, { height: isOpen ? "auto" : 0 });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!bodyRef.current) return;
@@ -200,25 +188,29 @@ function AccordionItem({ label, content, isOpen, onToggle }) {
     });
   }, [isOpen]);
 
-  useEffect(() => {
-    gsap.set(bodyRef.current, { height: isOpen ? "auto" : 0 });
-  }, []);
-
   return (
-    <div className="border-t-2 border-black">
-      <button
-        onClick={onToggle}
-        className="w-full flex items-center justify-between px-0 py-5 font-title uppercase tracking-primary text-h5 text-left transition-colors duration-200 hover:text-red"
-      >
-        {label}
-        <FontAwesomeIcon
-          icon={isOpen ? faSquareMinus : faSquarePlus}
-          className="text-blue"
-        />
-      </button>
-      <div ref={bodyRef} className="overflow-hidden">
-        <div className="pb-8">
-          {content ?? <p className="font-body text-black/40 text-sm">Coming soon.</p>}
+    <div ref={sectionRef} className="mb-3">
+      <div className="grid grid-cols-12">
+        <div className="col-span-12 lg:col-start-2 lg:col-span-10">
+          <button
+            onClick={onToggle}
+            className="w-full flex items-center justify-between px-3 py-2 border-2 border-black bg-white font-title uppercase tracking-secondary text-h5 text-left select-none shadow-[3px_7px_6.5px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:text-red"
+          >
+            {label}
+            <FontAwesomeIcon
+              icon={isOpen ? faSquareMinus : faSquarePlus}
+              className="text-blue shrink-0"
+            />
+          </button>
+        </div>
+      </div>
+      <div ref={bodyRef} className="overflow-clip">
+        <div className="pb-8 pt-6">
+          {content ?? (
+            <div className="grid grid-cols-12">
+              <p className="col-span-12 lg:col-start-3 lg:col-span-8 font-body text-black/40 text-sm">Coming soon.</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -227,6 +219,24 @@ function AccordionItem({ label, content, isOpen, onToggle }) {
 
 function ContentSection() {
   const [openId, setOpenId] = useState(SECTIONS[0].id);
+  const sectionRefs = useRef({});
+
+  const handleToggle = (id) => {
+    const opening = openId !== id;
+    setOpenId(prev => prev === id ? null : id);
+
+    if (opening) {
+      // Wait for the previous section's close animation (0.4s) to finish
+      // before scrolling so the layout is stable
+      setTimeout(() => {
+        const el = sectionRefs.current[id];
+        if (!el) return;
+        const navHeight = document.querySelector('.nav-wrapper')?.offsetHeight ?? 92;
+        const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 8;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }, 420);
+    }
+  };
 
   return (
     <section className="mt-16 mb-16">
@@ -234,11 +244,11 @@ function ContentSection() {
         <AccordionItem
           key={section.id}
           {...section}
+          sectionRef={el => sectionRefs.current[section.id] = el}
           isOpen={openId === section.id}
-          onToggle={() => setOpenId(prev => prev === section.id ? null : section.id)}
+          onToggle={() => handleToggle(section.id)}
         />
       ))}
-      <div className="border-t-2 border-black" />
     </section>
   );
 }
@@ -247,8 +257,18 @@ function ContentSection() {
 function About() {
   return (
     <div className="about col-span-12 px-0">
+      <SEO
+        title="About | Yuhan Liu | Multidisciplinary Designer in Vancouver"
+        description="Learn about Yuhan Liu, a Vancouver-based multidisciplinary designer and BCIT New Media student with a passion for brand storytelling, motion, and visual design."
+        canonicalUrl="/about"
+        keywords="about yuhan liu, bcit new media student, vancouver designer, multidisciplinary designer"
+      />
       <IntroSection />
-      <ToolsMarquee />
+      <div className="mt-12 grid grid-cols-12">
+        <div className="col-span-12 lg:col-start-2 lg:col-span-10">
+          <ToolsMarquee />
+        </div>
+      </div>
       <ContentSection />
     </div>
   );

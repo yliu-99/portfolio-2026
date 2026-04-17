@@ -1,22 +1,44 @@
-import submarineImage from '../../assets/project-assets/submarine/pool-mockup-opt.jpg';
+import submarineImage      from '../../assets/project-assets/submarine/pool-mockup-opt.jpg';
+import getAGripBanner      from '../../assets/project-assets/breast-cancer/main-banner.jpg';
+import spoonfulCover       from '../../assets/project-assets/spoonful-of-love/main-banner-opt.jpg';
+import revolveBanner       from '../../assets/project-assets/revolve/banner.jpg';
 
 // !! update image links
 const vancouverHorrorShowImage = "https://i.postimg.cc/VNCN3yZW/vancouver-horror-show.png";
 const apexMountainBikesVid = "https://www.youtube.com/embed/dO7TxaDxEjk?si=Z77HXMo1kgau1YqQ";
-const trueHorizonsVid = "https://www.youtube.com/embed/EbJEhks53lA?si=RYiRPDSJ0d7MVQMW";
-const mythbustersVid = "https://www.youtube.com/embed/ioG4kkKj6ZM?si=ymFZFlZC33jhShYV";
+const trueHorizonsVid = "https://www.youtube.com/embed/sCuHfxMbAMQ";
+const mythbustersVid = "https://www.youtube.com/embed/YczV6IrrLBs";
 
 
 export const projectsData = [
-    // 03/26
+    // 1
+    {
+        id:'apex',
+        title:'APEX MOUNTAIN BIKES',
+        slug:'apex-mountain-bikes-brand-commercial',
+        type:'vid',
+        media: apexMountainBikesVid,
+        heroVideoId:  'Sr4oXdiLrzE',
+        hoverVideoId: 'Sr4oXdiLrzE',
+        year:'02/25',
+        timeline:'Jan 30 - Feb 27, 2025 (19 hrs)',
+        description:'A 2-minute talking head commercial for a fictitious mountain bike company with energetic storytelling, featuring original music made in GarageBand.',
+        shortDescription: 'Talking head commercial with original music for a fictional mountain bike brand.',
+        chips:['video production','storytelling','sound editing','music production'],
+        category:'video',
+        tools: ['premier','audition','garageband'],
+        role: ['brand development', 'scriptwriter','director', 'music production', 'sound production'],
+        featured: true,
+    },
+    // 2
     {
         id:'submarine',
         title:'SUBMARINE CD BOOKLET',
         slug:'submarine-cd-booklet-print-design',
         type:'img',
         media:submarineImage,
-        heroVideoId: 'KsUM108TayE',   // looping bg video for the project detail hero
-        hoverVideoId: 'KsUM108TayE',  // preloaded hover video for the project grid card
+        heroVideoId: 'KsUM108TayE',
+        hoverVideoId: 'KsUM108TayE',
         year:'03/26',
         timeline:'Feb 23 - Mar 16, 2026 (8 hrs)',
         description:'CD booklet design for the "Submarine" album by the Marias, focusing on reinforcing the existing storytelling and aesthetic of the music through design and layout.',
@@ -25,9 +47,26 @@ export const projectsData = [
         category:'graphic design',
         tools: ['figma', 'photoshop', 'indesign', 'illustrator'],
         role: ['graphic design','layout design'],
-        featured: true
+        featured: true,
     },
-    // 07/25
+    // 3
+    {
+        id: 'spoonful-of-love',
+        title: 'SPOONFUL OF LOVE',
+        slug: 'spoonful-of-love-brand-redesign',
+        type: 'img',
+        media: spoonfulCover,
+        year: '04/26',
+        timeline: '8 hrs',
+        description: 'A brand redesign for a non-profit providing food, education, and resources to children living in extreme poverty in Lomas de la Primavera, Mexico — reinforcing the organization\'s initiatives through purposeful brand storytelling.',
+        shortDescription: 'Brand redesign for a non-profit serving children in Mexico.',
+        chips: ['graphic design', 'branding', 'identity', 'redesign'],
+        category: 'graphic design',
+        tools: ['illustrator', 'photoshop', 'figma'],
+        role: ['brand strategy', 'brand design', 'graphic design'],
+        featured: false,
+    },
+    // 4
     {
         id:'mythbusters',
         title:'MYTHBUSTERS',
@@ -42,9 +81,45 @@ export const projectsData = [
         category:'motion',
         tools: ['after effects', 'photoshop', 'audition', 'illustrator'],
         role: ['concept development', 'scriptwriter', 'motion design', 'sound production'],
-        featured: true
+        featured: true,
     },
-    // 04/25
+    // 5
+    {
+        id: 'revolve',
+        title: 'REVOLVE VINYL',
+        slug: 'revolve-vinyl-brand-design',
+        type: 'img',
+        media: revolveBanner,
+        year: '05/26',
+        timeline: 'May 2026',
+        description: 'Concept and brand design for a fictitious vinyl store with a modern, bold style — developed for an online vinyl store app project.',
+        shortDescription: 'Modern, bold brand design for a fictitious online vinyl store.',
+        chips: ['graphic design', 'branding', 'identity', 'concept'],
+        category: 'graphic design',
+        tools: ['illustrator', 'photoshop', 'figma'],
+        role: ['concept development', 'brand design', 'graphic design'],
+        featured: false,
+    },
+    // 6
+    {
+        id: 'get-a-grip',
+        title: '#GETAGRIP Campaign',
+        slug: 'get-a-grip-breast-cancer-awareness',
+        type: 'img',
+        media: getAGripBanner,
+        heroVideoId:  'G90zbODJwoc',
+        hoverVideoId: 'wsZOPDZvrek',
+        year: '04/26',
+        timeline: 'Apr 2026',
+        description: 'A breast cancer awareness campaign tackling the "awareness gap" in women\'s health in Canada by encouraging self-examinations as a preventive measure, driving traffic to the BC Women\'s Health Foundation.',
+        shortDescription: 'Breast cancer awareness campaign encouraging self-examinations.',
+        chips: ['graphic design', 'campaign', 'print', 'social media'],
+        category: 'graphic design',
+        tools: ['photoshop', 'illustrator', 'after effects'],
+        role: ['concept development', 'graphic design', 'campaign design'],
+        featured: false,
+    },
+    // 7
     {
         id:'horizons',
         title:'TRUE HORIZONS',
@@ -59,29 +134,9 @@ export const projectsData = [
         category:'video',
         tools: ['premier','audition','after effects'],
         role: ['concept development', 'actor', 'director', 'editor', 'sound production'],
-        featured: true
+        featured: false,
     },
-    // 02/25
-    {
-        id:'apex',
-        title:'APEX MOUNTAIN BIKES',
-        slug:'apex-mountain-bikes-brand-commercial',
-        type:'vid',
-        media: apexMountainBikesVid,
-        heroVideoId:  'Sr4oXdiLrzE',  // preview shown on hero bg + cards/featured
-        hoverVideoId: 'Sr4oXdiLrzE',
-        year:'02/25',
-        timeline:'Jan 30 - Feb 27, 2025 (19 hrs)',
-        description:'A 2-minute talking head commercial for a fictitious mountain bike company with energetic storytelling, featuring original music made in GarageBand.',
-        shortDescription: 'Talking head commercial with original music for a fictional mountain bike brand.',
-        chips:['video production','storytelling','sound editing','music production'],
-        category:'video',
-        tools: ['premier','audition','garageband'],
-        role: ['brand development', 'scriptwriter','director', 'music production', 'sound production'],
-        featured: true
-    },
-    // 12/24
-    // { id:'fable', hidden: true },
+    // 8
     {
         id:'vhs',
         title:'VHS FILM FESTIVAL',
@@ -96,11 +151,10 @@ export const projectsData = [
         category:'graphic design',
         tools: ['photoshop', 'illustrator','indesign'],
         role: ['graphic design', 'web design', 'brand development'],
-        featured: false
+        featured: false,
     },
 
     // ── Section style-guide (local dev only — sectionMapDemo.js is gitignored) ──
-    // Uncomment to enable /projects/section-map locally:
     // {
     //     id: 'section-map',
     //     slug: 'section-map',
