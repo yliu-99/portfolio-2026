@@ -132,7 +132,7 @@ function IntroSection() {
           <br />based in <FontAwesomeIcon icon={faLocationDot} /> Vancouver.
         </p>
         <p className="font-body text-black/70 font-semibold" style={{ fontSize: "clamp(1.1rem, 2vw, 1.777rem)" }}>
-          I design to facilitate a connection between people and what they care about. I strive to create work that people can feel, remember, and respond to.
+          I create graphic, motion, and sound work that facilitate a connection between people and what they care about.
         </p>
         <div className="flex gap-3 mt-2 justify-center md:justify-start">
           <Link
@@ -259,7 +259,6 @@ function About() {
       <IntroSection />
       <div className="mt-12 grid grid-cols-12">
         <div className="col-span-12 lg:col-start-2 lg:col-span-10">
-          <p className="font-title uppercase tracking-primary text-[0.7rem] text-black/30 text-center mb-2">Tools &amp; Software</p>
           <ToolsMarquee />
         </div>
       </div>

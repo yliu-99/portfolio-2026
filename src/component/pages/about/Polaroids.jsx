@@ -55,6 +55,11 @@ function PolaroidModal({ photo, onClose }) {
   const cardRef    = useRef(null);
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, []);
+
+  useEffect(() => {
     gsap.fromTo(overlayRef.current, { opacity: 0 },              { opacity: 1, duration: 0.25, ease: 'power2.out' });
     gsap.fromTo(cardRef.current,    { scale: 0.85, opacity: 0 }, { scale: 1,   opacity: 1, duration: 0.3, ease: 'back.out(1.5)' });
   }, []);

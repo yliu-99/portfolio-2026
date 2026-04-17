@@ -102,7 +102,7 @@ function ProjectsCard({ project }) {
         )}
 
         {/* Overlay — chips top, title + description bottom */}
-        <div className="absolute inset-0 flex flex-col justify-end md:justify-between p-3 md:p-9 pointer-events-none z-2">
+        <div className="absolute inset-0 flex flex-col justify-end md:justify-between p-4 pointer-events-none z-2">
           <div className="hidden md:flex flex-wrap gap-1">
             {Array.isArray(project.chips) && project.chips.map(chip => (
               <span key={chip} className="font-body text-[0.75rem] py-[0.15rem] px-2 border border-white/60 text-white leading-[1.4]">{chip}</span>

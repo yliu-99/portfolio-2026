@@ -46,10 +46,10 @@ export function ToolsMarquee() {
     const items = [...allTools, ...allTools, ...allTools];
 
     return (
-        <div className="tools-marquee py-8 overflow-hidden">
+        <div className="group tools-marquee py-8 overflow-hidden">
             <div className={`tools-marquee__track flex gap-8${ready ? '' : ' paused'}`}>
                 {items.map((tool, i) => (
-                    <div key={i} className="tools-marquee__item shrink-0 flex items-center justify-center w-8 h-8 text-black/70">
+                    <div key={i} className="tools-marquee__item shrink-0 flex items-center justify-center w-8 h-8 text-black/70 grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
                         {tool.imgSrc
                             ? <img src={tool.imgSrc} alt={tool.name} className="w-8 h-8 object-contain" />
                             : <Icon icon={tool.icon} width={32} height={32} />

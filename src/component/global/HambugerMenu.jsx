@@ -7,7 +7,7 @@ import { faBars, faXmark, faEnvelope, faLinkedin, faInstagram, faYoutube, faGith
 import { useLogoRotation } from "../../hooks/useLogoRotation";
 import { useContactModal } from "../../context/ContactModalContext";
 
-import LogoFull from "../../assets/global-assets/logo-main-texture.svg";
+import LogoFull from "../../assets/global-assets/logo-main.png";
 import "./HamburgerMenu.scss";
 
 function HamburgerMenu() {

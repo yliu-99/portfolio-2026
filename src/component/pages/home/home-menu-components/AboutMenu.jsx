@@ -45,8 +45,7 @@ function AboutMenu({ isOpen, onToggle, className }) {
                   aria-label="Go to About page"
                   className="font-title text-h4 text-black flex items-center justify-center gap-1.5 group transform-gpu hover:opacity-70 transition-opacity duration-150"
                 >
-                  Yuhan Liu
-                  <FontAwesomeIcon icon={faUpRightFromSquare} className="text-[0.6rem] opacity-60 shrink-0" />
+                  <span className="underline underline-offset-4">Yuhan Liu</span>
                 </Link>
                 <img
                   src={profilePic}
@@ -94,16 +93,16 @@ function AboutMenu({ isOpen, onToggle, className }) {
                 </p>
               ) : page === 2 ? (
                 <p className="font-body normal-case text-h6 leading-relaxed tracking-[0.03em] opacity-80">
+                  I work across disciplines in order to build{" "}
+                  <span className="font-bold text-blue">layered experiences</span>{" "}
+                  for brands. Shifting perspectives allows me to always make space for <span className="font-bold text-blue">depth and dimension</span> in a concept.
+                </p>
+              ) : (
+                <p className="font-body normal-case text-h6 leading-relaxed tracking-[0.03em] opacity-80">
                   My biggest inspirations for design, storytelling and brand-building come from{" "}
                   <span className="font-bold text-red">film</span>,{" "}
                   <span className="font-bold text-red">music</span>, and{" "}
                   <span className="font-bold text-red">video games</span>.
-                </p>
-              ) : (
-                <p className="font-body normal-case text-h6 leading-relaxed tracking-[0.03em] opacity-80">
-                  These spaces keep me <span className="font-bold">connected</span> to the{" "}
-                  <span className="font-bold">culture and issues around us</span>, and continuously shape how I bring ideas to life and{" "}
-                  <span className="font-bold">problem solve</span> through my own work.
                 </p>
               )}
             </div>
@@ -120,13 +119,18 @@ function AboutMenu({ isOpen, onToggle, className }) {
             >
               <FontAwesomeIcon icon={faCaretLeft} className="bounce-x-reverse text-[1rem]" />
             </button>
-            <button
-              onClick={next}
-              aria-label="Next page"
-              className="text-black/40 cursor-pointer"
-            >
-              <FontAwesomeIcon icon={faCaretRight} className="bounce-x text-[1rem]" />
-            </button>
+            {page === PAGES.length - 1 ? (
+              <Link
+                to="/projects"
+                className="font-title uppercase tracking-primary text-[0.7rem] px-3 py-1.5 border-2 border-black bg-white text-black hover:border-blue hover:text-blue transition-colors duration-200"
+              >
+                See Projects
+              </Link>
+            ) : (
+              <button onClick={next} aria-label="Next page" className="text-black/40 cursor-pointer">
+                <FontAwesomeIcon icon={faCaretRight} className="bounce-x text-[1rem]" />
+              </button>
+            )}
           </div>
         )}
 

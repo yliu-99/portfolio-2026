@@ -24,6 +24,11 @@ function BodyText({ text, className }) {
 // ── PDF modal ─────────────────────────────────────────────────────────────────
 
 function PdfModal({ src, onClose }) {
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = ''; };
+    }, []);
+
     return createPortal(
         <div
             className="fixed inset-0 bg-black/70 backdrop-blur-[6px] z-9999 flex items-center justify-center"

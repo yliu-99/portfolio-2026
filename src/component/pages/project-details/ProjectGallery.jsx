@@ -26,6 +26,11 @@ function Lightbox({ gallery, activeIdx, onClose, onNavigate }) {
     const mediaRef   = useRef(null);
 
     useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = ''; };
+    }, []);
+
+    useEffect(() => {
         gsap.fromTo(overlayRef.current,
             { opacity: 0 },
             { opacity: 1, duration: 0.2, ease: 'power2.out' }

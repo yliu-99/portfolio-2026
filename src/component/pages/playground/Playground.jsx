@@ -59,6 +59,11 @@ function PassionProjectModal({ project, onClose }) {
   const [imgIndex, setImgIndex] = useState(0);
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, []);
+
+  useEffect(() => {
     gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'power2.out' });
     gsap.fromTo(cardRef.current, { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: 'back.out(1.4)' });
   }, []);
@@ -203,6 +208,11 @@ function PhotoLightbox({ photos, startIndex, onClose }) {
   const [index, setIndex] = useState(startIndex);
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, []);
+
+  useEffect(() => {
     gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'power2.out' });
     gsap.fromTo(imgRef.current, { scale: 0.94, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: 'back.out(1.4)' });
   }, []);
@@ -282,23 +292,24 @@ function Playground() {
     <div className="playground-container col-span-12">
 
       {/* Page title */}
-      <h1 className="font-title uppercase text-red px-4 md:px-8 mt-8 mb-4" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)' }}>Playground</h1>
+      <h1 className="font-title uppercase text-red mt-8 mb-2" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)' }}>Playground</h1>
+
+      {/* Boba shop chip — sits directly under title */}
+      <span className="font-body text-[0.85rem] tracking-[0.08em] px-4 py-1.5 border-2 border-black text-black uppercase bg-white inline-block mb-4">
+        the thought that comes to me standing in line at the boba shop
+      </span>
 
       {/* Descriptor chips */}
-      <div className="flex flex-wrap gap-2 px-4 md:px-8 mb-12">
+      <div className="flex flex-wrap gap-2 mb-12">
         {['small projects', 'fun ideas', "what's on my mind"].map(chip => (
-          <span key={chip} className="font-body text-[0.85rem] tracking-[0.08em] px-4 py-1.5 border-2 border-red text-red uppercase bg-white">
+          <span key={chip} className="font-body text-[0.85rem] tracking-[0.08em] px-4 py-1.5 border-2 border-black text-black uppercase bg-white">
             {chip}
           </span>
         ))}
-        <span className="basis-full" />
-        <span className="font-body text-[0.85rem] tracking-[0.08em] px-4 py-1.5 border-2 border-red text-red uppercase bg-white">
-          the thought that comes to me standing in line at the boba shop
-        </span>
       </div>
 
       {/* Cool things I'm working on */}
-      <section className="mb-16 px-4 md:px-8">
+      <section className="mb-16">
         <div className="flex items-center gap-3 mb-6">
           <h2 className="font-title text-h3 uppercase tracking-secondary">Other Projects</h2>
           <FontAwesomeIcon icon={faCaretRight} className="text-red" />
@@ -317,7 +328,7 @@ function Playground() {
       </section>
 
       {/* All obsessions */}
-      <section className="mb-16 px-4 md:px-8">
+      <section className="mb-16">
         <div className="flex items-center justify-between mb-6">
           <h2 className="font-title text-h4 uppercase tracking-secondary">All Obsessions</h2>
           {totalPages > 1 && (
@@ -350,7 +361,7 @@ function Playground() {
       </section>
 
       {/* Photography */}
-      <section className="mb-16 px-4 md:px-8">
+      <section className="mb-16">
         <div className="flex items-center gap-3 mb-6">
           <h2 className="font-title text-h4 uppercase tracking-secondary">Photos</h2>
           <FontAwesomeIcon icon={faCaretRight} className="text-red" />
