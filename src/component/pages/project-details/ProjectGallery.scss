@@ -103,7 +103,9 @@ $side-pad:   10vw; // breathing room before first / after last item
     }
 }
 
-.h-gallery__item:hover .h-gallery__caption { opacity: 1; }
+@media (hover: hover) {
+    .h-gallery__item:hover .h-gallery__caption { opacity: 1; }
+}
 
 .h-gallery__play {
     position: absolute;
@@ -184,7 +186,9 @@ $side-pad:   10vw; // breathing room before first / after last item
     transition: background 0.15s ease, border-color 0.15s ease;
     z-index: 10000;
 
-    &:hover { background: rgba(0,0,0,0.7); border-color: rgba(255,255,255,0.6); }
+    @media (hover: hover) {
+        &:hover { background: rgba(0,0,0,0.7); border-color: rgba(255,255,255,0.6); }
+    }
     &--prev { left: 1.5rem; }
     &--next { right: 1.5rem; }
 }
