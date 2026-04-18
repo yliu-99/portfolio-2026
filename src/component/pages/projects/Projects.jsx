@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { projectsData } from '../../../data/projects-data/projectData';
 import ProjectGrid from './ProjectGrid';
 import SEO from '../../SEO/SEO';
+import { projectsPageSchema } from '../../SEO/schemas';
 import './Projects.scss';
 
 const FILTERS = [
@@ -28,6 +29,7 @@ function Projects() {
         description="Browse Yuhan Liu's creative projects spanning graphic design, branding, motion graphics, and video production."
         canonicalUrl="/projects"
         keywords="graphic design projects, branding, motion graphics, video production, yuhan liu portfolio"
+        jsonLd={projectsPageSchema}
       />
 
       {/* Page title */}

@@ -21,6 +21,7 @@ import ProjectGallery  from './ProjectGallery';
 import ProjectContent  from './ProjectContent';
 import SuggestedProjects from './SuggestedProjects';
 import SEO from '../../SEO/SEO';
+import { createProjectSchema } from '../../SEO/schemas';
 
 // import styles
 import './ProjectDetails.scss';
@@ -323,24 +324,7 @@ function ProjectDetails() {
                 canonicalUrl={`/projects/${slug}`}
                 ogImage={getOgImage(project)}
                 ogType="article"
-                jsonLd={{
-                    '@context': 'https://schema.org',
-                    '@type': 'CreativeWork',
-                    name: project.title,
-                    description: project.description,
-                    url: `https://yuhanliu.ca/projects/${slug}`,
-                    keywords: project.chips?.join(', '),
-                    dateCreated: project.year,
-                    author: {
-                        '@type': 'Person',
-                        name: 'Yuhan Liu',
-                        url: 'https://yuhanliu.ca',
-                        affiliation: {
-                            '@type': 'EducationalOrganization',
-                            name: 'British Columbia Institute of Technology (BCIT)',
-                        },
-                    },
-                }}
+                jsonLd={createProjectSchema(project)}
             />
 
             {/* 1 — Full-viewport hero */}

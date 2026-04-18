@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import HomeHero from './HomeHero';
 import SEO from '../../SEO/SEO';
+import { homeSchema } from '../../SEO/schemas';
 
 // FeaturedProjects is below the fold — code-split so it doesn't block the hero
 const FeaturedProjects = lazy(() => import('./FeaturedProjects'));
@@ -22,7 +23,9 @@ function Home() {
       <SEO
         title="Yuhan Liu | Multidisciplinary Designer in Vancouver"
         canonicalUrl="/"
+        jsonLd={homeSchema}
       />
+      <h1 className="sr-only">Yuhan Liu — Multidisciplinary Designer in Vancouver</h1>
       <HomeHero />
       <Suspense fallback={<FeaturedProjectsSkeleton />}>
         <FeaturedProjects />

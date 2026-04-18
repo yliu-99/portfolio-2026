@@ -1,117 +1,134 @@
 import { defaultSEO } from './SEO';
 
-// Person Schema for About page and general site
+const BASE_URL = defaultSEO.siteUrl;
+
+// ── Person ────────────────────────────────────────────────────────────────────
+
 export const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Yuhan Liu",
-  "jobTitle": "Multidisciplinary Designer",
-  "url": defaultSEO.siteUrl,
-  "sameAs": [
-    "https://www.linkedin.com/in/yuhan-liu-1a571524b/",
-    "https://www.instagram.com/_yuhan.liu_/",
-    "https://www.youtube.com/@Yuhan_Liu"
-  ],
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Vancouver",
-    "addressRegion": "BC",
-    "addressCountry": "CA"
-  },
-  "alumniOf": {
-    "@type": "CollegeOrUniversity",
-    "name": "British Columbia Institute of Technology",
-    "department": "New Media Design & Web Development"
-  },
-  "knowsAbout": [
-    "Graphic Design",
-    "Web Design", 
-    "Branding",
-    "Visual Identity",
-    "Digital Media",
-    "Motion Graphics",
-    "Video Production",
-    "User Interface Design"
-  ],
-  "email": "yuhancreates@gmail.com",
-  "image": defaultSEO.defaultImage
+    '@context': 'https://schema.org',
+    '@type':    'Person',
+    name:       'Yuhan Liu',
+    jobTitle:   'Multidisciplinary Designer',
+    url:        BASE_URL,
+    image:      defaultSEO.defaultImage,
+    email:      'yuhancreates@gmail.com',
+    address: {
+        '@type':         'PostalAddress',
+        addressLocality: 'Vancouver',
+        addressRegion:   'BC',
+        addressCountry:  'CA',
+    },
+    alumniOf: {
+        '@type':      'CollegeOrUniversity',
+        name:         'British Columbia Institute of Technology',
+        department:   'New Media Design & Web Development',
+    },
+    knowsAbout: [
+        'Graphic Design', 'Branding', 'Visual Identity',
+        'Motion Graphics', 'Video Production', 'User Interface Design',
+        'Digital Media', 'Web Design',
+    ],
+    sameAs: [
+        'https://www.linkedin.com/in/yuhan-liu-1a571524b/',
+        'https://www.instagram.com/_yuhan.liu_/',
+        'https://www.youtube.com/@Yuhan_Liu',
+    ],
 };
 
-// Portfolio Website Schema
+// ── WebSite ───────────────────────────────────────────────────────────────────
+
 export const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Yuhan Liu Design Portfolio",
-  "description": "Professional graphic design and multimedia services in Vancouver. Specializing in graphic, motion, and sound design.",
-  "url": defaultSEO.siteUrl,
-  "provider": personSchema,
-  "areaServed": {
-    "@type": "City",
-    "name": "Vancouver",
-    "addressRegion": "BC",
-    "addressCountry": "CA"
-  },
-  "serviceType": [
-    "Graphic Design",
-    "Brand Identity Design", 
-    "Web Design",
-    "Logo Design",
-    "Sound Design",
-    "Digital Media Production",
-    "Visual Storytelling"
-  ]
+    '@context': 'https://schema.org',
+    '@type':    'WebSite',
+    name:       'Yuhan Liu',
+    url:        BASE_URL,
+    description: defaultSEO.defaultDescription,
+    author:     { '@type': 'Person', name: 'Yuhan Liu' },
+    inLanguage: 'en-CA',
 };
 
-// Creative Work Schema for Projects
+// ── Home page — WebSite + Person graph ───────────────────────────────────────
+
+export const homeSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+        websiteSchema,
+        personSchema,
+    ],
+};
+
+// ── About page ────────────────────────────────────────────────────────────────
+
+export const aboutSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+        personSchema,
+        {
+            '@type':            'ProfilePage',
+            '@id':              `${BASE_URL}/about`,
+            url:                `${BASE_URL}/about`,
+            name:               'About | Yuhan Liu',
+            description:        'Learn about Yuhan Liu, a Vancouver-based multidisciplinary designer and BCIT New Media student.',
+            mainEntity:         personSchema,
+            inLanguage:         'en-CA',
+        },
+    ],
+};
+
+// ── Projects page ─────────────────────────────────────────────────────────────
+
+export const projectsPageSchema = {
+    '@context': 'https://schema.org',
+    '@type':    'CollectionPage',
+    '@id':      `${BASE_URL}/projects`,
+    url:        `${BASE_URL}/projects`,
+    name:       'Projects | Yuhan Liu',
+    description: 'Browse Yuhan Liu\'s creative projects spanning graphic design, branding, motion graphics, and video production.',
+    author:     personSchema,
+    inLanguage: 'en-CA',
+};
+
+// ── Playground page ───────────────────────────────────────────────────────────
+
+export const playgroundSchema = {
+    '@context': 'https://schema.org',
+    '@type':    'WebPage',
+    '@id':      `${BASE_URL}/playground`,
+    url:        `${BASE_URL}/playground`,
+    name:       'Playground | Yuhan Liu',
+    description: 'Yuhan Liu\'s creative playground — obsessions, passion projects, photography, and personal work.',
+    author:     personSchema,
+    inLanguage: 'en-CA',
+};
+
+// ── Per-project CreativeWork ──────────────────────────────────────────────────
+
 export const createProjectSchema = (project) => ({
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": project.title,
-  "description": project.description || `${project.title} - A creative design project by Yuhan Liu showcasing expertise in ${project.chips?.join(', ') || 'graphic design'}.`,
-  "creator": personSchema,
-  "dateCreated": project.year || "2026",
-  "genre": project.category || "Graphic Design",
-  "keywords": project.chips?.join(', ') || "graphic design, creative, portfolio",
-  "url": `${defaultSEO.siteUrl}/projects/${project.slug}`,
-  "image": project.image ? `${defaultSEO.siteUrl}${project.image}` : undefined,
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": `${defaultSEO.siteUrl}/projects/${project.slug}`
-  }
+    '@context': 'https://schema.org',
+    '@type':    'CreativeWork',
+    name:       project.title,
+    description: project.description || `${project.title} — a creative project by Yuhan Liu.`,
+    url:        `${BASE_URL}/projects/${project.slug}`,
+    creator:    personSchema,
+    dateCreated: project.year || '2026',
+    genre:      project.category || 'Graphic Design',
+    keywords:   project.chips?.join(', ') ?? '',
+    inLanguage: 'en-CA',
+    mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id':   `${BASE_URL}/projects/${project.slug}`,
+    },
 });
 
-// Organization Schema for professional credibility
-export const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Yuhan Liu Design",
-  "url": defaultSEO.siteUrl,
-  "logo": defaultSEO.defaultImage,
-  "founder": personSchema,
-  "location": {
-    "@type": "Place",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Vancouver",
-      "addressRegion": "BC", 
-      "addressCountry": "CA"
-    }
-  },
-  "sameAs": [
-    "https://www.linkedin.com/in/yuhan-liu-1a571524b/",
-    "https://www.instagram.com/_yuhan.liu_/",
-    "https://www.youtube.com/@Yuhan_Liu"
-  ]
-};
+// ── Breadcrumb helper ─────────────────────────────────────────────────────────
 
-// Breadcrumb Schema Generator
 export const createBreadcrumbSchema = (breadcrumbs) => ({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": breadcrumbs.map((crumb, index) => ({
-    "@type": "ListItem",
-    "position": index + 1,
-    "name": crumb.name,
-    "item": `${defaultSEO.siteUrl}${crumb.url}`
-  }))
+    '@context': 'https://schema.org',
+    '@type':    'BreadcrumbList',
+    itemListElement: breadcrumbs.map((crumb, i) => ({
+        '@type':    'ListItem',
+        position:   i + 1,
+        name:       crumb.name,
+        item:       `${BASE_URL}${crumb.url}`,
+    })),
 });
