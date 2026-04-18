@@ -17,6 +17,7 @@ memory/
 
 # Local dev-only files (not deployed)
 src/data/projects-data/individual-project-data/sectionMapDemo.js
+PORTFOLIOSETUP.md
 
 # Editor directories and files
 .vscode/*
