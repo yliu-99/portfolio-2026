@@ -8,6 +8,7 @@ import { PASSION_PROJECTS } from '../../../data/passionProjectsData';
 import { DetailModal } from '../home/home-menu-components/Obsessions';
 import './Playground.scss';
 import SEO from '../../SEO/SEO';
+import { playgroundSchema } from '../../SEO/schemas';
 
 import enqiBrother   from '../../../assets/page-assets/about/polaroid/enqi-my-brother.jpeg';
 import cedarWaxwing  from '../../../assets/playground-assets/photos/cedar-waxwing.jpeg';
@@ -296,6 +297,7 @@ function Playground() {
         description="Yuhan Liu's creative playground — obsessions, passion projects, photography, and personal work outside the portfolio."
         canonicalUrl="/playground"
         keywords="creative playground, passion projects, photography, personal work, yuhan liu"
+        jsonLd={playgroundSchema}
       />
 
       {/* Page title */}

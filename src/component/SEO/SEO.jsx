@@ -8,7 +8,7 @@ export const defaultSEO = {
   defaultImage:       "https://yuhanliu.ca/logo-main.png",
   twitterHandle:      "@yuhan_liu_",
   defaultTitle:       "Yuhan Liu | Multidisciplinary Designer in Vancouver",
-  defaultDescription: "Vancouver-based multidisciplinary designer Yuhan Liu showcases creative projects in branding, web design, and visual storytelling. BCIT New Media graduate specializing in innovative design solutions.",
+  defaultDescription: "Vancouver-based multidisciplinary designer crafting work in branding, motion, and visual storytelling. BCIT New Media student based in Vancouver, BC.",
   defaultKeywords:    "graphic design vancouver, yuhan liu, bcit new media, portfolio, video artist, vancouver designer, branding design, web design, visual storytelling, creative portfolio, new media design, digital design vancouver",
 };
 
