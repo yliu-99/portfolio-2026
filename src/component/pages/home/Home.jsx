@@ -23,6 +23,7 @@ function Home() {
         title="Yuhan Liu | Multidisciplinary Designer in Vancouver"
         canonicalUrl="/"
       />
+      <h1 className="sr-only">Yuhan Liu — Multidisciplinary Designer in Vancouver</h1>
       <HomeHero />
       <Suspense fallback={<FeaturedProjectsSkeleton />}>
         <FeaturedProjects />
