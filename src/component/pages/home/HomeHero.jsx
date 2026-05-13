@@ -113,7 +113,19 @@ function HeroContent() {
       }
     }, heroRef);
 
-    return () => ctx.revert();
+    let scrollTimer;
+    const onScroll = () => {
+      circleTimelineRef.current?.pause();
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => circleTimelineRef.current?.resume(), 200);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      ctx.revert();
+      window.removeEventListener('scroll', onScroll);
+      clearTimeout(scrollTimer);
+    };
   }, []);
 
   // ── Greyscale + pause circle when any menu is open (desktop only) ────────

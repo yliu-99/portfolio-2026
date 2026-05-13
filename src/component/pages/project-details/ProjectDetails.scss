@@ -134,21 +134,16 @@ $nav-h: 4.5rem;
 }
 
 // ── Overview — sticky below specs, beige fill, covered by gallery ─────────────
-//  Hidden on mobile: the overview only makes sense on desktop where the gallery
-//  slides over it. On mobile the gallery stacks normally so the overview would
-//  just be a large gap.
+//  Mobile: flows normally in the document. Desktop: sticky, covers the viewport
+//  height so the gallery slides over it.
 
 .reveal-overview {
     background: var(--color-beige);
 
-    @media (max-width: 1023px) {
-        display: none;
-    }
-
     @media (min-width: 1024px) {
         position: sticky;
         top: var(--specs-h, 5rem);
-        height: calc(100dvh - var(--specs-h, 5rem));
+        height: calc(100svh - var(--specs-h, 5rem));
         z-index: 10;
         display: flex;
         align-items: center;

@@ -54,13 +54,14 @@ html {
     background: var(--beige); 
 }
 
-// Noise overlay lives inside main's stacking context (z-index: 2) so that
-// individual elements can pop above it by using z-index: 3+.
+// Noise overlay sits above all project-detail reveal layers (max z-index: 30)
+// inside main's isolated stacking context. Nav, modals, and scroll widget are
+// outside <main> so they are unaffected.
 main::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: 2;
+  z-index: 31;
   pointer-events: none;
   // background-image: url(./assets/global-assets/noise-3.png);
   filter: url(./assets/global-assets/noise.svg#noise-filter) opacity(0.35) grayscale(50%);

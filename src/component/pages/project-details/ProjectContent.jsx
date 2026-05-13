@@ -35,16 +35,14 @@ function PdfModal({ src, onClose }) {
             onClick={onClose}
         >
             <div
-                className="relative w-[90vw] h-[90vh] bg-white"
+                className="relative w-[90vw] h-[78vh] md:h-[90vh] bg-white"
                 onClick={e => e.stopPropagation()}
             >
                 <button
-                    className="absolute -top-10 right-0 bg-transparent border border-white/80 text-white w-8 h-8 flex items-center justify-center cursor-pointer text-base hover:bg-white/12"
+                    className="absolute -top-14 right-0 w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer text-[0.9rem] hover:bg-[#eee] transition-colors duration-150 z-10"
                     onClick={onClose}
                     aria-label="Close"
-                >
-                    <Icon icon="fa-solid:xmark" />
-                </button>
+                >✕</button>
                 <iframe src={src} className="w-full h-full border-0 block" title="PDF viewer" />
             </div>
         </div>,
@@ -129,7 +127,7 @@ function renderFirstMedia(section, className) {
 function FirstSection({ section }) {
     return (
         <section className="blue-multiply-overlay relative isolate w-full border-b-2 border-black max-[900px]:border-b-0">
-            <div className="relative z-1 grid grid-cols-[55fr_45fr] min-h-dvh max-[900px]:grid-cols-1 max-[900px]:min-h-0">
+            <div className="relative z-1 grid grid-cols-[55fr_45fr] min-h-svh max-[900px]:grid-cols-1 max-[900px]:min-h-0">
                 {section.image && (
                     <div className="relative flex items-center pt-12 pr-8 pb-12 pl-16 max-[900px]:py-10 max-[900px]:px-6">
                         {renderFirstMedia(section, 'w-full h-auto aspect-[4/3] object-contain object-center block')}
@@ -233,7 +231,7 @@ function LastSection({ section }) {
     const cardTextClass = 'font-body text-black leading-[1.7] m-0 text-[clamp(0.88rem,1.05vw,1rem)]';
 
     return (
-        <section ref={wrapRef} className="blue-multiply-overlay relative isolate w-full min-h-dvh flex items-center justify-center">
+        <section ref={wrapRef} className="blue-multiply-overlay relative isolate w-full min-h-svh flex items-center justify-center">
             <div className={innerClass}>
 
                 {/* Left — label + body + mobile keypoints */}
@@ -398,7 +396,7 @@ function ProjectContent({ sections = [] }) {
 
             {/* ── Tabbed middle sections ────────────────────────────────── */}
             {middle.length > 0 && (
-                <section ref={sectionRef} className="bg-beige w-full border-b-2 border-black lg:flex lg:flex-col lg:min-h-dvh">
+                <section ref={sectionRef} className="bg-beige w-full border-b-2 border-black lg:flex lg:flex-col lg:min-h-svh">
 
                     <div className="flex flex-wrap gap-3 pt-8 px-16 pb-5 lg:pt-20 lg:justify-center max-[900px]:pt-6 max-[900px]:px-6 max-[900px]:pb-4 max-[900px]:gap-2">
                         {middle.map((sec, i) => (

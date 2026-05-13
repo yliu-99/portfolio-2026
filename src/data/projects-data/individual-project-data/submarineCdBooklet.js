@@ -77,5 +77,5 @@ export const submarineCdBookletDetail = {
   ],
 
   // ── Suggested ─────────────────────────────────────────────────────────────
-  suggested: ["vhs-film-festival-branding"],
+  suggested: ["vhs-film-festival-branding", "spoonful-of-love-brand-redesign"],
 };
