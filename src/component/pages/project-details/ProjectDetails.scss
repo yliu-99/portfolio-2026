@@ -110,16 +110,20 @@ $nav-h: 4.5rem;
 
 .reveal-wrap {
     position: relative;
-    // overflow-x: clip lets sticky work while hiding off-screen gallery
-    overflow-x: clip;
-    // Solid white fill so no grid-bg or body bg bleeds through during scroll
-    background: var(--color-white);
+    // overflow-x: clip is only needed on desktop where the gallery slides in from
+    // off-screen. On mobile there is no slide animation so no clipping is needed —
+    // and clip causes Safari iOS scroll-jump bugs on sticky containers.
+    @media (min-width: 1024px) {
+        overflow-x: clip;
+    }
+    // Beige fill so no grid-bg or body bg bleeds through during scroll
+    background: var(--color-beige);
 }
 
 // ── Specs — sticky just below the fixed nav, always above gallery ─────────────
 
 .reveal-specs {
-    background: var(--color-white);
+    background: var(--color-beige);
     position: relative;
     z-index: 30;
 
@@ -129,13 +133,13 @@ $nav-h: 4.5rem;
     }
 }
 
-// ── Overview — sticky below specs, white fill, covered by gallery ─────────────
+// ── Overview — sticky below specs, beige fill, covered by gallery ─────────────
 //  Hidden on mobile: the overview only makes sense on desktop where the gallery
 //  slides over it. On mobile the gallery stacks normally so the overview would
-//  just be a large white gap.
+//  just be a large gap.
 
 .reveal-overview {
-    background: var(--color-white);
+    background: var(--color-beige);
 
     @media (max-width: 1023px) {
         display: none;

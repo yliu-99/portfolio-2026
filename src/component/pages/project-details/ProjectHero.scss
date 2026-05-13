@@ -41,6 +41,15 @@
     pointer-events: none;
 }
 
+// Pin right edge of video to container right — speaker stays in frame on portrait
+.hero-video-bg--pin-right {
+    @media (orientation: portrait) {
+        left: auto;
+        right: 0;
+        transform: translateY(-50%);
+    }
+}
+
 // ── Chips ─────────────────────────────────────────────────────────────────────
 
 .hero-chip {

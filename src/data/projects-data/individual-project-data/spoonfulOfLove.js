@@ -42,7 +42,7 @@ export const spoonfulOfLoveDetail = {
         },
         {
             title: 'Research',
-            body: 'Three children-focused non-profits were analyzed to identify what makes their branding work. Common strengths emerged: bold, intentional colour, rounded and approachable typography, full-width media, strong calls to action, and clear information hierarchy. These became the benchmarks for the redesign.',
+            body: 'Three children-focused organizations were analyzed to identify what makes their branding work. Common strengths emerged: bold, intentional colour, rounded and approachable typography, full-width media, strong calls to action, and clear information hierarchy. These became the benchmarks for the redesign.',
             image: research,
         },
         {

@@ -81,8 +81,9 @@ function Obsessions({ isOpen, onToggle, className }) {
     const [index,     setIndex]     = useState(0);
     const [active,    setActive]    = useState(null);
     const [paused,    setPaused]    = useState(false);
-    const contentRef  = useRef(null);
+    const contentRef   = useRef(null);
     const prevIndexRef = useRef(0);
+    const touchStartX  = useRef(null);
 
     const item = OBSESSIONS[index];
 
@@ -111,6 +112,18 @@ function Obsessions({ isOpen, onToggle, className }) {
                 className="flex flex-col items-center gap-3 w-full overflow-hidden"
                 onMouseEnter={() => setPaused(true)}
                 onMouseLeave={() => setPaused(false)}
+                onTouchStart={e => { touchStartX.current = e.touches[0].clientX; setPaused(true); }}
+                onTouchEnd={e => {
+                    if (touchStartX.current === null) return;
+                    const dx = e.changedTouches[0].clientX - touchStartX.current;
+                    touchStartX.current = null;
+                    if (Math.abs(dx) < 30) return;
+                    setIndex(i => dx < 0
+                        ? (i + 1) % OBSESSIONS.length
+                        : (i - 1 + OBSESSIONS.length) % OBSESSIONS.length
+                    );
+                    setPaused(false);
+                }}
             >
                 <div ref={contentRef} className="flex flex-col items-center gap-3 w-full">
                     {/* Clickable title */}
