@@ -205,8 +205,9 @@ function PassionProjectCard({ project, onOpen }) {
 
 // ── Photo lightbox ────────────────────────────────────────────────────────────
 function PhotoLightbox({ photos, startIndex, onClose }) {
-  const overlayRef = useRef(null);
-  const imgRef     = useRef(null);
+  const overlayRef  = useRef(null);
+  const imgRef      = useRef(null);
+  const touchStartX = useRef(null);
   const [index, setIndex] = useState(startIndex);
 
   useEffect(() => {
@@ -239,6 +240,16 @@ function PhotoLightbox({ photos, startIndex, onClose }) {
       ref={overlayRef}
       className="fixed inset-0 bg-black/85 backdrop-blur-[6px] z-1000 flex items-center justify-center cursor-pointer"
       onClick={handleClose}
+      onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
+      onTouchEnd={e => {
+        if (touchStartX.current === null) return;
+        const dx = e.changedTouches[0].clientX - touchStartX.current;
+        touchStartX.current = null;
+        if (Math.abs(dx) < 30) return;
+        e.stopPropagation();
+        setIndex(i => dx < 0 ? (i + 1) % photos.length : (i - 1 + photos.length) % photos.length);
+      }}
+      style={{ touchAction: 'pan-y' }}
     >
       <button
         className="absolute top-6 right-6 w-10 h-10 bg-white rounded-full text-[0.9rem] flex items-center justify-center z-1001 hover:bg-[#eee] transition-colors duration-150 cursor-pointer"
@@ -248,13 +259,13 @@ function PhotoLightbox({ photos, startIndex, onClose }) {
 
       <button
         onClick={e => { e.stopPropagation(); setIndex(i => (i - 1 + photos.length) % photos.length); }}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 flex items-center justify-center transition-colors duration-150 cursor-pointer"
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 hidden md:flex items-center justify-center transition-colors duration-150 cursor-pointer"
         aria-label="Previous"
       ><FontAwesomeIcon icon={faCaretLeft} className="text-white text-lg" /></button>
 
       <button
         onClick={e => { e.stopPropagation(); setIndex(i => (i + 1) % photos.length); }}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 flex items-center justify-center transition-colors duration-150 cursor-pointer"
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 hidden md:flex items-center justify-center transition-colors duration-150 cursor-pointer"
         aria-label="Next"
       ><FontAwesomeIcon icon={faCaretRight} className="text-white text-lg" /></button>
 

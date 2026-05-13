@@ -3,7 +3,7 @@
 // ── Hover: lift above grain overlay + zoom media ───────────────────────────
 .project-card:hover {
     position: relative;
-    z-index: 3;
+    z-index: 32;
 
     // Scale the primary media (image or always-on video iframe)
     .card-media .card-img:not(.card-img--placeholder),

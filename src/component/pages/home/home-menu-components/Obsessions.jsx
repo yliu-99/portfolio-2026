@@ -110,6 +110,7 @@ function Obsessions({ isOpen, onToggle, className }) {
         <MenuTemplate title="Latest Obsession" isOpen={isOpen} onToggle={onToggle} className={className}>
             <div
                 className="flex flex-col items-center gap-3 w-full overflow-hidden"
+                style={{ touchAction: 'pan-y' }}
                 onMouseEnter={() => setPaused(true)}
                 onMouseLeave={() => setPaused(false)}
                 onTouchStart={e => { touchStartX.current = e.touches[0].clientX; setPaused(true); }}

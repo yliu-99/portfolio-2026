@@ -35,7 +35,7 @@ function ProjectHero({ project }) {
         : null;
 
     return (
-        <section className="hero-section relative w-full h-dvh flex flex-col justify-end">
+        <section className="hero-section relative w-full h-svh flex flex-col justify-end">
 
             {/* Background media — image always rendered as placeholder;
                 iframe loads on top and naturally covers it once buffered */}

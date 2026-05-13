@@ -55,7 +55,20 @@ function GridBg() {
       ease: "none",
       repeat: -1,
     });
-    return () => tween.kill();
+
+    let scrollTimer;
+    const onScroll = () => {
+      tween.pause();
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => tween.resume(), 200);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      tween.kill();
+      window.removeEventListener('scroll', onScroll);
+      clearTimeout(scrollTimer);
+    };
   }, []);
 
   return <div ref={gridRef} className={`grid-bg transition-opacity duration-500 ${isHome ? 'opacity-100' : 'opacity-30'}`} />;
