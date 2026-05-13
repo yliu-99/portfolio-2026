@@ -43,7 +43,7 @@ function MetaStrip({ project, detail }) {
     const teamLabel = detail?.overview?.teamType === 'team' ? 'Team Project' : 'Solo Project';
 
     return (
-        <div className="meta-strip border-b-2 border-black">
+        <div className="meta-strip border-y-2 border-black">
             <div className="meta-cell">
                 <Icon icon="fa-solid:eye" className="meta-cell__icon" aria-hidden="true" />
                 <span className="meta-cell__label font-title uppercase">Date</span>
@@ -82,7 +82,7 @@ function SpecsStrip({ project }) {
 
     return (
         <div
-            className="specs-strip overflow-hidden bg-white"
+            className="specs-strip overflow-hidden bg-beige"
             onMouseEnter={() => tweenRef.current?.pause()}
             onMouseLeave={() => tweenRef.current?.resume()}
         >

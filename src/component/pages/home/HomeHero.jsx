@@ -134,7 +134,7 @@ function HeroContent() {
   return (
     <section ref={heroRef} className="col-span-12 mt-0! relative">
       <FloatingMenu />
-<div ref={elementsRef} className="hero-elements grid grid-cols-12 items-start min-h-dvh md:min-h-[70vh]">
+<div ref={elementsRef} className="hero-elements grid grid-cols-12 items-start min-h-svh md:min-h-[70vh]">
 
         {/* Col 1 — left numbers */}
         <div ref={leftNumRef}

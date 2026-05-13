@@ -229,7 +229,7 @@ function LastSection({ section }) {
             : 'flex flex-col items-center text-center gap-7 max-w-[900px] mx-auto',
     ].join(' ');
 
-    const cardClass = 'bg-white border-2 border-black px-7 py-6';
+    const cardClass = 'bg-beige border-2 border-black px-7 py-6';
     const cardTextClass = 'font-body text-black leading-[1.7] m-0 text-[clamp(0.88rem,1.05vw,1rem)]';
 
     return (
@@ -398,14 +398,14 @@ function ProjectContent({ sections = [] }) {
 
             {/* ── Tabbed middle sections ────────────────────────────────── */}
             {middle.length > 0 && (
-                <section ref={sectionRef} className="bg-white w-full border-b-2 border-black lg:flex lg:flex-col lg:min-h-dvh">
+                <section ref={sectionRef} className="bg-beige w-full border-b-2 border-black lg:flex lg:flex-col lg:min-h-dvh">
 
                     <div className="flex flex-wrap gap-3 pt-8 px-16 pb-5 lg:pt-20 lg:justify-center max-[900px]:pt-6 max-[900px]:px-6 max-[900px]:pb-4 max-[900px]:gap-2">
                         {middle.map((sec, i) => (
                             <button
                                 key={i}
                                 onClick={() => handleTabClick(i)}
-                                className={`${tabBase} ${i === activeIdx ? 'bg-blue text-white' : 'bg-white text-blue hover:bg-blue/6'}`}
+                                className={`${tabBase} ${i === activeIdx ? 'bg-blue text-white' : 'bg-beige text-blue hover:bg-blue/6'}`}
                             >
                                 {sec.title}
                             </button>

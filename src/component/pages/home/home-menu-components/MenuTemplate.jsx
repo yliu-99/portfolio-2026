@@ -5,6 +5,8 @@ import { faSquarePlus, faSquareMinus } from '../../../../data/icons';
 import { useMenuOpen } from '../../../../context/MenuOpenContext';
 
 const BODY_HEIGHT = 330;
+const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
+const openHeight = () => isMobile() ? 'auto' : BODY_HEIGHT;
 
 // Supports both uncontrolled (defaultOpen) and controlled (isOpen + onToggle) modes.
 // In controlled mode the parent owns the open state; register() is skipped so the
@@ -20,7 +22,7 @@ function MenuTemplate({ title, children, defaultOpen = false, headerAction, isOp
 
     // set initial height before first paint — no animation
     useLayoutEffect(() => {
-        gsap.set(bodyRef.current, { height: isOpen ? BODY_HEIGHT : 0 });
+        gsap.set(bodyRef.current, { height: isOpen ? openHeight() : 0 });
         if (isOpen && register && !isControlled) register(true);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -28,7 +30,7 @@ function MenuTemplate({ title, children, defaultOpen = false, headerAction, isOp
     useEffect(() => {
         if (isFirst.current) { isFirst.current = false; return; }
         gsap.to(bodyRef.current, {
-            height: isOpen ? BODY_HEIGHT : 0,
+            height: isOpen ? openHeight() : 0,
             duration: 0.4,
             ease: isOpen ? 'power2.out' : 'power2.in',
         });
@@ -53,7 +55,7 @@ function MenuTemplate({ title, children, defaultOpen = false, headerAction, isOp
                 </div>
             </div>
             <div ref={bodyRef} className="overflow-hidden">
-                <div className="h-82.5 px-3 py-5 flex flex-col items-center justify-center gap-6 overflow-hidden">
+                <div className="md:h-82.5 px-3 py-5 flex flex-col items-center justify-center gap-6">
                     {children}
                 </div>
             </div>

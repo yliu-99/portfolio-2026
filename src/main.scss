@@ -30,7 +30,13 @@ h1, h2, h3, h4, h5, h6,
 main {
     flex-grow: 1;
     position: relative;
-    overflow: clip; // clip (not hidden) so position:sticky works in descendants
+    // overflow-x:clip prevents horizontal bleed on mobile without triggering
+    // Safari's scroll-jump bug (caused by overflow:clip on both axes).
+    // Desktop gets the full overflow:clip so position:sticky works in descendants.
+    overflow-x: clip;
+    @media (min-width: 1024px) {
+        overflow: clip;
+    }
     isolation: isolate;
 }
 

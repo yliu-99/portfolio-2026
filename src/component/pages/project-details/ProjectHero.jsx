@@ -51,7 +51,7 @@ function ProjectHero({ project }) {
                     <iframe
                         src={autoplaySrc}
                         title={project.title}
-                        className="hero-video-bg"
+                        className={`hero-video-bg${project.heroVideoAlign === 'right' ? ' hero-video-bg--pin-right' : ''}`}
                         allow="autoplay; encrypted-media"
                         allowFullScreen={false}
                     />
