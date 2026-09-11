@@ -26,7 +26,7 @@ const TIMELINE = [
   {
     year: "2023-TODAY",
     img: BcitImg,
-    imgAlt: "Yuhan's friends from BCIT",
+    imgAlt: "Yuhan's classmates from BCIT",
     text: "Moved to Vancouver, and decided to explore the world of design as a new creative outlet. I discover the New Media program, and not only did I learn a new set of skills, but I also found valuable friends and a supportive community who encourage and inspire me. I am really excited to continue growing as a designer and storyteller, and to see where this journey takes me.",
   },
 ];
