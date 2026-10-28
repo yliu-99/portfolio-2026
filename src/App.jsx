@@ -19,6 +19,11 @@ import About from './component/pages/about/About';
 import Projects from './component/pages/projects/Projects';
 import ProjectDetails from './component/pages/project-details/ProjectDetails';
 import Playground from './component/pages/playground/Playground';
+import UnderConstruction from './component/pages/under-construction/UnderConstruction';
+
+// Site-wide toggle: while true, every route renders the under-construction
+// page instead of real content. Flip back to false to restore the site.
+const UNDER_CONSTRUCTION = true;
 
 // Prevent the browser from restoring the previous scroll position on navigation —
 // our own scrollTo(0,0) handles it and must not be overridden by the browser.
@@ -83,6 +88,10 @@ function App() {
       offset: 60,
     });
   }, []);
+
+  if (UNDER_CONSTRUCTION) {
+    return <UnderConstruction />;
+  }
 
   return (
     <ContactModalProvider>
